@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.tinydolphin.cn/archives/index.html</loc>
+    
+    <lastmod>2018-09-10T10:17:16.464Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tinydolphin.cn/categories/index.html</loc>
+    
+    <lastmod>2018-09-10T10:17:08.422Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tinydolphin.cn/tags/index.html</loc>
+    
+    <lastmod>2018-09-10T10:17:01.940Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tinydolphin.cn/about/index.html</loc>
+    
+    <lastmod>2018-09-10T10:14:25.763Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tinydolphin.cn/home/index.html</loc>
+    
+    <lastmod>2018-09-10T10:13:30.384Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.tinydolphin.cn/2018/09/10/hello-world/</loc>
     
     <lastmod>2018-09-10T01:11:49.641Z</lastmod>
