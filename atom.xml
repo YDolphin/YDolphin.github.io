@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.tinydolphin.cn/"/>
-  <updated>2018-09-10T14:56:38.831Z</updated>
+  <updated>2018-09-10T16:25:14.540Z</updated>
   <id>https://www.tinydolphin.cn/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
+    <title>Mac终端添加ll、la、l命令</title>
+    <link href="https://www.tinydolphin.cn/2018/09/10/Mac%E7%BB%88%E7%AB%AF%E6%B7%BB%E5%8A%A0ll%E3%80%81la%E3%80%81l%E5%91%BD%E4%BB%A4/"/>
+    <id>https://www.tinydolphin.cn/2018/09/10/Mac终端添加ll、la、l命令/</id>
+    <published>2018-09-10T15:40:23.000Z</published>
+    <updated>2018-09-10T16:25:14.540Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac终端添加ll、la、l命令"><a href="#Mac终端添加ll、la、l命令" class="headerlink" title="Mac终端添加ll、la、l命令"></a>Mac终端添加ll、la、l命令</h1><h3 id="NO-1-编辑-bash-profile文件"><a href="#NO-1-编辑-bash-profile文件" class="headerlink" title="NO.1 编辑.bash_profile文件"></a>NO.1 编辑.bash_profile文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br></pre></td></tr></table></figure><h3 id="NO-2-添加别名映射关系"><a href="#NO-2-添加别名映射关系" class="headerlink" title="NO.2 添加别名映射关系"></a>NO.2 添加别名映射关系</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias ll='ls -alF'</span><br><span class="line">alias la='ls -A'</span><br><span class="line">alias l='ls -CF'</span><br></pre></td></tr></table></figure><h3 id="NO-3-source-文件"><a href="#NO-3-source-文件" class="headerlink" title="NO.3 source 文件"></a>NO.3 source 文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac如何重置root用户密码</title>
     <link href="https://www.tinydolphin.cn/2018/09/10/Mac%E5%A6%82%E4%BD%95%E9%87%8D%E7%BD%AEroot%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/"/>
     <id>https://www.tinydolphin.cn/2018/09/10/Mac如何重置root用户密码/</id>
-    <published>2018-09-10T14:56:35.946Z</published>
-    <updated>2018-09-10T14:56:38.831Z</updated>
+    <published>2018-09-10T15:30:23.000Z</published>
+    <updated>2018-09-10T16:25:06.827Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac如何重置root用户密码？"><a href="#Mac如何重置root用户密码？" class="headerlink" title="Mac如何重置root用户密码？"></a>Mac如何重置root用户密码？</h1><p>1、打开终端，输入：sudo bash，提示输入当前用户密码</p><p>2、成功进入bash命令模式之后，输入 sudo passwd root</p><p>3、输入新的 root 密码即可</p>]]></content>
     
@@ -34,27 +59,10 @@
     
     </summary>
     
+      <category term="工具" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
     
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://www.tinydolphin.cn/2018/09/10/hello-world/"/>
-    <id>https://www.tinydolphin.cn/2018/09/10/hello-world/</id>
-    <published>2018-09-10T01:11:49.641Z</published>
-    <updated>2018-09-10T01:11:49.641Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
+      <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
