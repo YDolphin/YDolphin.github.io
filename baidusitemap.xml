@@ -3,12 +3,29 @@
 
 
     
-    
-    
+  <url>
+    <loc>https://www.tinydolphin.cn/2018/09/11/%E5%B7%A5%E5%85%B7/JetBrains%E7%B3%BB%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%BF%80%E6%B4%BB/</loc>
+    <lastmod>2018-09-11T01:13:09.233Z</lastmod>
+    <data>
+        <display>
+        <title>JetBrains系开发工具激活</title>
+        <pubTime>2018-09-11T01:06:23.000Z</pubTime>
+        
+        <tag>工具</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
     
   <url>
-    <loc>https://www.tinydolphin.cn/2018/09/10/Mac%E7%BB%88%E7%AB%AF%E6%B7%BB%E5%8A%A0ll%E3%80%81la%E3%80%81l%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2018-09-10T16:25:14.540Z</lastmod>
+    <loc>https://www.tinydolphin.cn/2018/09/10/%E5%B7%A5%E5%85%B7/Mac%E7%BB%88%E7%AB%AF%E6%B7%BB%E5%8A%A0ll%E3%80%81la%E3%80%81l%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2018-09-11T01:00:01.025Z</lastmod>
     <data>
         <display>
         <title>Mac终端添加ll、la、l命令</title>
@@ -27,8 +44,8 @@
 
     
   <url>
-    <loc>https://www.tinydolphin.cn/2018/09/10/Mac%E5%A6%82%E4%BD%95%E9%87%8D%E7%BD%AEroot%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/</loc>
-    <lastmod>2018-09-10T16:25:06.827Z</lastmod>
+    <loc>https://www.tinydolphin.cn/2018/09/10/%E5%B7%A5%E5%85%B7/Mac%E5%A6%82%E4%BD%95%E9%87%8D%E7%BD%AEroot%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/</loc>
+    <lastmod>2018-09-11T00:59:49.130Z</lastmod>
     <data>
         <display>
         <title>Mac如何重置root用户密码</title>
@@ -45,4 +62,7 @@
     </data>
     </url>
 
+    
+    
+    
 </urlset>
