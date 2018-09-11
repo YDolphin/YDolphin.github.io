@@ -1,25 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title><![CDATA[Mac终端添加ll、la、l命令]]></title>
-    <url>%2F2018%2F09%2F10%2FMac%E7%BB%88%E7%AB%AF%E6%B7%BB%E5%8A%A0ll%E3%80%81la%E3%80%81l%E5%91%BD%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[Mac终端添加ll、la、l命令NO.1 编辑.bash_profile文件1vim ~/.bash_profile NO.2 添加别名映射关系123alias ll='ls -alF'alias la='ls -A'alias l='ls -CF' NO.3 source 文件1source ~/.bash_profile]]></content>
+<search> 
+  
+    
+    <entry>
+      <title>Mac终端添加ll、la、l命令</title>
+      <link href="/2018/09/10/Mac%E7%BB%88%E7%AB%AF%E6%B7%BB%E5%8A%A0ll%E3%80%81la%E3%80%81l%E5%91%BD%E4%BB%A4/"/>
+      <url>/2018/09/10/Mac%E7%BB%88%E7%AB%AF%E6%B7%BB%E5%8A%A0ll%E3%80%81la%E3%80%81l%E5%91%BD%E4%BB%A4/</url>
+      <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac终端添加ll、la、l命令"><a href="#Mac终端添加ll、la、l命令" class="headerlink" title="Mac终端添加ll、la、l命令"></a>Mac终端添加ll、la、l命令</h1><h3 id="NO-1-编辑-bash-profile文件"><a href="#NO-1-编辑-bash-profile文件" class="headerlink" title="NO.1 编辑.bash_profile文件"></a>NO.1 编辑.bash_profile文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br></pre></td></tr></table></figure><h3 id="NO-2-添加别名映射关系"><a href="#NO-2-添加别名映射关系" class="headerlink" title="NO.2 添加别名映射关系"></a>NO.2 添加别名映射关系</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias ll='ls -alF'</span><br><span class="line">alias la='ls -A'</span><br><span class="line">alias l='ls -CF'</span><br></pre></td></tr></table></figure><h3 id="NO-3-source-文件"><a href="#NO-3-source-文件" class="headerlink" title="NO.3 source 文件"></a>NO.3 source 文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>]]></content>
+      
       <categories>
-        <category>工具</category>
+          
+          <category> 工具 </category>
+          
       </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Mac如何重置root用户密码]]></title>
-    <url>%2F2018%2F09%2F10%2FMac%E5%A6%82%E4%BD%95%E9%87%8D%E7%BD%AEroot%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%2F</url>
-    <content type="text"><![CDATA[Mac如何重置root用户密码？1、打开终端，输入：sudo bash，提示输入当前用户密码 2、成功进入bash命令模式之后，输入 sudo passwd root 3、输入新的 root 密码即可]]></content>
+      
+      
+        <tags>
+            
+            <tag> 工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Mac如何重置root用户密码</title>
+      <link href="/2018/09/10/Mac%E5%A6%82%E4%BD%95%E9%87%8D%E7%BD%AEroot%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/"/>
+      <url>/2018/09/10/Mac%E5%A6%82%E4%BD%95%E9%87%8D%E7%BD%AEroot%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/</url>
+      <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac如何重置root用户密码？"><a href="#Mac如何重置root用户密码？" class="headerlink" title="Mac如何重置root用户密码？"></a>Mac如何重置root用户密码？</h1><p>1、打开终端，输入：sudo bash，提示输入当前用户密码</p><p>2、成功进入bash命令模式之后，输入 sudo passwd root</p><p>3、输入新的 root 密码即可</p>]]></content>
+      
       <categories>
-        <category>工具</category>
+          
+          <category> 工具 </category>
+          
       </categories>
-      <tags>
-        <tag>工具</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> 工具 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+  
+  
 </search>
