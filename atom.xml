@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.tinydolphin.cn/"/>
-  <updated>2018-09-11T01:13:09.233Z</updated>
+  <updated>2018-09-15T14:47:55.791Z</updated>
   <id>https://www.tinydolphin.cn/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>POJ 1852 Ants</title>
+    <link href="https://www.tinydolphin.cn/2018/09/15/ACM/POJ/1852/"/>
+    <id>https://www.tinydolphin.cn/2018/09/15/ACM/POJ/1852/</id>
+    <published>2018-09-15T14:45:33.000Z</published>
+    <updated>2018-09-15T14:47:55.791Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="POJ-1852-Ants"><a href="#POJ-1852-Ants" class="headerlink" title="POJ 1852 Ants"></a>POJ 1852 Ants</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    POJ:1852</span></span><br><span class="line"><span class="comment">    题意：简单的理解就是， N 只蚂蚁以 1cm/s 的速度在，一条长 L 厘米的竿子上爬行（不知道初始的爬行方向），当蚂蚁爬到竿子的端点时会掉落。</span></span><br><span class="line"><span class="comment">        但竿子太细了，如果有两只蚂蚁相遇时，它们只能各自反向爬回去。</span></span><br><span class="line"><span class="comment">        对于蚂蚁，我们只知道它们距离竿子左端的距离 xi，但不知道当前蚂蚁的朝向</span></span><br><span class="line"><span class="comment">        请计算所有蚂蚁落下竿子所需要的最短时间和最长时间</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    迷惑条件：如果有两只蚂蚁相遇时，它们只能各自反向爬回去。</span></span><br><span class="line"><span class="comment">    转换思路：其实不管相遇后各自反向爬 OR 相遇后保持原方向爬行，结果都是一样的。</span></span><br><span class="line"><span class="comment">    这样的话，最短时间 = MAX（所有蚂蚁距离竿子端点的最近距离）</span></span><br><span class="line"><span class="comment">            最长时间 = MAX（所有蚂蚁距离竿子端点的最远距离）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"iostream"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_N 1000010 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> t,n,l,x[MAX_N];</span><br><span class="line"><span class="keyword">int</span> maxT, minT;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">    minT = <span class="number">0</span>;</span><br><span class="line">    maxT = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i++)&#123;</span><br><span class="line">        minT = max(minT, min(x[i], l - x[i]));</span><br><span class="line">        maxT = max(maxT, max(x[i], l - x[i]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;l , &amp;n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        solve();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, minT, maxT);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="ACM" scheme="https://www.tinydolphin.cn/categories/ACM/"/>
+    
+    
+      <category term="ACM" scheme="https://www.tinydolphin.cn/tags/ACM/"/>
+    
+      <category term="POJ" scheme="https://www.tinydolphin.cn/tags/POJ/"/>
+    
+      <category term="C++" scheme="https://www.tinydolphin.cn/tags/C/"/>
+    
+  </entry>
   
   <entry>
     <title>JetBrains系开发工具激活</title>
