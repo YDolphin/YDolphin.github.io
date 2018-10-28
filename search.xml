@@ -1,153 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-    
-    <entry>
-      <title>Mac 安装 Rabbitmq</title>
-      <link href="/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Rabbitmq/"/>
-      <url>/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Rabbitmq/</url>
-      <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac-安装-Rabbitmq"><a href="#Mac-安装-Rabbitmq" class="headerlink" title="Mac 安装 Rabbitmq"></a>Mac 安装 Rabbitmq</h1><h3 id="NO-1-Mac-下安装-Rabbitmq"><a href="#NO-1-Mac-下安装-Rabbitmq" class="headerlink" title="NO.1 Mac 下安装 Rabbitmq"></a>NO.1 Mac 下安装 Rabbitmq</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # 安装 brew（Homebrew：Mac OS平台下的软件包管理工具）</span><br><span class="line">brew install rabbitmq</span><br><span class="line">sudo vim ~/.bash_profile</span><br><span class="line">PATH=$PATH:/usr/local/sbin # 最后一行加上</span><br></pre></td></tr></table></figure><h3 id="NO-2-启动-amp-停止-Rabbitmq"><a href="#NO-2-启动-amp-停止-Rabbitmq" class="headerlink" title="NO.2 启动 &amp; 停止 Rabbitmq"></a>NO.2 启动 &amp; 停止 Rabbitmq</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动服务</span><br><span class="line">brew services start rabbitmq</span><br><span class="line"><span class="meta">#</span> 停止服务</span><br><span class="line">brew services stop rabbitmq</span><br><span class="line"><span class="meta">#</span> 启用插件</span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line"><span class="meta">#</span> 禁用插件</span><br><span class="line">rabbitmq-plugins disable rabbitmq_management</span><br></pre></td></tr></table></figure><h3 id="NO-3-进入控制台"><a href="#NO-3-进入控制台" class="headerlink" title="NO.3 进入控制台"></a>NO.3 进入控制台</h3><p><a href="http://localhost:15672/" target="_blank" rel="noopener">http://localhost:15672/</a></p><p>默认用户名和密码：guest , guest</p>]]></content>
-      
+<search>
+  <entry>
+    <title><![CDATA[复杂度分析（下）：浅析最好、最坏、平均、均摊时间复杂度]]></title>
+    <url>%2F2018%2F10%2F28%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%2F%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E6%B5%85%E6%9E%90%E6%9C%80%E5%A5%BD%E3%80%81%E6%9C%80%E5%9D%8F%E3%80%81%E5%B9%B3%E5%9D%87%E3%80%81%E5%9D%87%E6%91%8A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%2F</url>
+    <content type="text"><![CDATA[复杂度分析（下）：浅析最好、最坏、平均、均摊时间复杂度主要四个复杂度分析方面的知识点：最好情况时间复杂度、最坏情况时间复杂度、平均情况时间复杂度、均摊时间复杂度 最好、最坏情况时间复杂度123456789101112// n 表示数组 array 的长度int find(int[] array, int n, int x) &#123; int i = 0; int pos = -1; for (; i &lt; n; ++i) &#123; if (array[i] == x) &#123; pos = i; break; &#125; &#125; return pos;&#125; 很显然，我们上一节简单的分析方法，解决不了这个问题。 第一种情况：如果数组中第一个元素正好是要查找的变量 x ，那么就不需要继续遍历剩下的 n - 1 个数据了，那么时间复杂度：O(1) 第二种情况：如果数组中不存在要查找的变量 x ，那就需要把整个数组都遍历一遍，时间复杂度就成了：O(n) 所以：不同的情况下，这段代码的复杂度不一样。 ①、最好情况时间复杂度就是，在最理想的情况下，执行这段代码的时间复杂度。 ②、最坏情况时间复杂度就是，在最糟糕的情况下，执行这段代码的时间复杂度。 平均情况时间复杂度不考虑变量 x 在数组中出现的概率问题（结论正确，但是分析过程有点问题）拿上面的代码来分析，要查找变量 x 在数组中的位置，有 n + 1 种情况：在数组 0 ~ n -1 位置中和不在数组中。这样的话，我们把每种情况下，查找需要遍历的元素个数累加起来，然后再除以 n + 1 ，就可以得到需要遍历的元素个数的平均值了，即：(1 + 2 + 3 …… + n + n ) / (n+1) = n(n+3) / 2(n+1) 。 但是在时间复杂度大 O 标记法中，可以省略掉系数、低阶、常量，所以简化之后，得到的平均时间复杂度就是 O(n)。 考虑变量 x 在数组中出现的概率问题为了方便理解，我们假设在数组中和不在数组中的概率都为 1/2 。要查找的数据出现在 0 ~ n-1 这 n 个位置的概率也是一样的，为 1/n 。所以，根据概率乘法法则，要查找的元素出现在 0 ~ n-1 中任意位置的概率为 1/(2n)。 那么考虑概率的话，计算过程：1 1/(2n) + 2 1/(2n) + 3 1/(2n) + …… + n 1/(2n) + n * 1/2 = (1+3n)/4 ，用大 O 表示法来表示，这段代码的加权平均时间复杂度仍然是 O(n) 。 这个值就是概率论中的加权平均值，也叫做期望值，所以平均时间复杂度的全称应该叫加权平均时间复杂度或者期望时间复杂度。 均摊时间复杂度123456789101112131415161718// 实现的功能：往数组中插入数据。当数组满了之后，我们用 for 循环遍历数组求和，并清空数组，将求和之后的 sum 值放到数组的第一个位置，再将新的数据插入。// array 表示一个长度为 n 的数组// 代码中的 array.length 就等于 nint[] array = new int[n];int count = 0;void insert(int val) &#123; if (count == array.length) &#123; int sum = 0; for (int i = 0; i &lt; array.length; ++i) &#123; sum = sum + array[i]; &#125; array[0] = sum; count = 1; &#125; array[count] = val; ++count;&#125; 利用之前的方式去分析时间复杂度最理想的情况下，数组中有空闲空间，我们只需要将数据插入到数组下标为 count 的位置即可，所以最好情况时间复杂度为 O(1)。 最坏的情况下，数组中没有空闲空间，我们需要做一次数组遍历求和，然后再将数据插入，所以最坏的情况为 O(n) 平均时间复杂度下，根据数据插入的位置不同，我们可以分为 n 种情况，每种情况的时间复杂度为 O(1) 。除此之外，还有一种”额外”的情况，就是在数组没有空闲空间的插入一个数据时，时间复杂度为 O(n)，而且这 n + 1 种情况发生的概率一样，都是 1/(n+1) 。所以，根据加权平均的计算方法，我们可以得到平均时间复杂度：1 1/(n+1) + 1 1/(n+1) + 1 1/(n+1) …… 1 1/(n+1) + n * 1/(n+1) = 2n/(n+1) —&gt; O(1) 利用摊还分析法去分析时间复杂度①、首先来看看 insert() 与 find() 的区别： find() 函数在极端的情况下，复杂度才为 O(1) ，但 insert() 在大多数情况下，时间复杂度都为 O(1)，只有个别情况下，复杂度才为 O (n) ； 对于 insert() 函数来说，O(1) 时间复杂度的插入和O(n) 时间复杂度的插入，出现的频率非常的有规律，而且有一定的前后时序关系，一般都是一个 O(n) 插入之后，紧跟 n-1 个O(1) 的插入操作，循环往复。 基于以上两种不同，我们可以引入一种更加简单的分析方法：摊还分析法。通过这种方法得到的时间复杂度，就叫做：均摊时间复杂度。 ②、如何使用摊还分析法来分析算法的均摊时间复杂度 大致思路：每一次 O(n) 的插入操作，都会跟着 n-1 次 O(1) 的插入操作，所以把耗时多的那次操作均摊到接下来的 n-1 次耗时小的操作上，均摊下来，这一组的连续的操作的均摊时间复杂度就是 O(1) 。 均摊时间复杂度和摊还分析应用场景比较特殊，所以我们并不会经常用到。其实均摊时间复杂度就是一种特殊的平均时间复杂度 应用场景对一个数据结构进行一组连续的操作中，大部分情况下时间复杂度都很低，只有个别情况下时间复杂度比较高，而且这些操作存在前后连贯的时序关系，这个时候，我们就可以将这一组操作放在一块分析，看是否能够将较高时间复杂度那次操作的耗时，平摊到其他那些时间复杂度比较低的操作上。而且这种情况下，一般均摊时间复杂度就等于最好情况时间复杂度。]]></content>
       <categories>
-          
-          <category> 工具 </category>
-          
-          <category> Rabbitmq </category>
-          
-          <category> Celery </category>
-          
+        <category>数据结构与算法</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 工具 </tag>
-            
-            <tag> Mac </tag>
-            
-            <tag> Celery </tag>
-            
-            <tag> Rabbitmq </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Mac 安装 brew 以及部分使用指令</title>
-      <link href="/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20%20brew%20%E4%BB%A5%E5%8F%8A%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8%E6%8C%87%E4%BB%A4/"/>
-      <url>/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20%20brew%20%E4%BB%A5%E5%8F%8A%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8%E6%8C%87%E4%BB%A4/</url>
-      <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac-安装-brew-以及部分使用指令"><a href="#Mac-安装-brew-以及部分使用指令" class="headerlink" title="Mac 安装 brew 以及部分使用指令"></a>Mac 安装 brew 以及部分使用指令</h1><h3 id="NO-1-官网获取下载指令"><a href="#NO-1-官网获取下载指令" class="headerlink" title="NO.1 官网获取下载指令"></a>NO.1 官网获取下载指令</h3><p><a href="http://brew.sh/" target="_blank" rel="noopener">http://brew.sh/</a></p><p>Homebrew安装成功后，会自动创建目录 /usr/local/Cellar 来存放Homebrew安装的程序</p><h3 id="NO-2-使用-brew"><a href="#NO-2-使用-brew" class="headerlink" title="NO.2 使用 brew"></a>NO.2 使用 brew</h3><ul><li>安装软件：brew install 软件名，例：brew install wget</li><li>搜索软件：brew search 软件名，例：brew search wget</li><li>卸载软件：brew uninstall 软件名，例：brew uninstall wget</li><li>更新所有软件：brew update</li><li>更新具体软件：brew upgrade 软件名 ，例：brew upgrade git</li><li>显示已安装软件：brew list</li><li>查看软件信息：brew info／home 软件名 ，例：brew info git ／ brew home git<br>PS：brew home指令是用浏览器打开官方网页查看软件信息</li><li>查看哪些已安装的程序需要更新： brew outdated</li><li>显示包依赖：brew reps</li><li>显示帮助：brew help</li></ul>]]></content>
-      
+      <tags>
+        <tag>数据结构</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？]]></title>
+    <url>%2F2018%2F10%2F28%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%2F%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E6%9E%90%E3%80%81%E7%BB%9F%E8%AE%A1%E7%AE%97%E6%B3%95%E7%9A%84%E6%89%A7%E8%A1%8C%E6%95%88%E7%8E%87%E5%92%8C%E8%B5%84%E6%BA%90%E6%B6%88%E8%80%97%EF%BC%9F%2F</url>
+    <content type="text"><![CDATA[复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？复杂度分析是整个算法学习的精髓，只要掌握了它，数据结构和算法的内容基本上就掌握了一半 Q：为什么需要复杂度分析？ A：首页对于这个问题有所疑惑：明明可以把代码跑一遍，通过统计、监控，就能得到算法执行的时间和占用的内存大小（某些书中的”事后统计法”）。为什么还需要复杂度分析呢？ 因为这种方法存在很大的局限性： ①、测试结果非常的依赖测试环境 不同的测试环境，得到的结果可能完全不同。 ②、测试结果受数据规模的影响很大 比如：排序算法中，对于不一样的待排序数据有序度，排序的执行时间就有很大的差别。（对于小规模的数据排序，插入排序可能反倒会比快速排序要快！） 所以，我们需要一个不用具体的测试数据来测试，就可以粗略地估算出算法的执行效率的方法——时间、空间复杂度分析。 大 O 复杂度表示法我们假设每一段代码的执行时间为 t 12345678int cal(int n) &#123; int sum = 0; // 一个 t 的执行时间 int i = 1; // t for (; i &lt;= n; ++i) &#123; // n * t sum = sum + i; // n * t &#125; return sum;&#125; 所以这段代码的总的执行时间 T(n) = (2n+2)*t 。可以看出：总的代码执行时间 T(n) 与每行代码的执行次数成正比。 所以，这段代码的大 O 时间复杂度表示法： T(n) = O(f(n)) 其中：T(n)：代码总的执行时间、n：数据规模的大小、f(n) 每行代码执行的次数总和、O ：代码的执行时间 T(n) 与 f(n) 表达式成正比 大 O 时间复杂度表示法：并不具体表示代码的真正执行时间，而是表示代码执行时间随着数据规模增长的变化趋势。也叫 渐进时间复杂度，简称时间复杂度 时间复杂度分析1、只关注循环执行次数最大的一段代码既然说大 O 复杂度是一种变化趋势，那么我们通常会忽略掉公式中的常量、低阶、系数，只需要记录一个最大阶的量级就可以了。 12345678int cal(int n) &#123; int sum = 0; // 常量级别的执行时间，与 n 无关，可以忽略 int i = 1; // 同上 for (; i &lt;= n; ++i) &#123; // n sum = sum + i; // n &#125; return sum;&#125; 所以以上代码，总的时间复杂度：O(n) 2、加法规则：总复杂度等于量级最大的那段代码的复杂度1234567891011121314151617181920212223242526int cal(int n) &#123;true// 常量级别 int sum_1 = 0; int p = 1; for (; p &lt; 100; ++p) &#123; sum_1 = sum_1 + p; &#125;true// O(n) 级别 int sum_2 = 0; int q = 1; for (; q &lt; n; ++q) &#123; sum_2 = sum_2 + q; &#125; // O(n²) 级别 int sum_3 = 0; int i = 1; int j = 1; for (; i &lt;= n; ++i) &#123; j = 1; for (; j &lt;= n; ++j) &#123; sum_3 = sum_3 + i * j; &#125; &#125; return sum_1 + sum_2 + sum_3; &#125; 所以以上代码，总的时间复杂度：T(n) = T1(n) + T2(n) + T3(n) = O(1) + O(n) + O(n²) = O(n²) 如果 T1(n) = O(f(n))、T2(n) = O(g(n))；那么T(n) = T1(n) + T2(n) = Max(O(f(n), g(n))) 3、乘法规则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积123456789101112131415161718int cal(int n) &#123;true// O(n) 级别 int ret = 0; int i = 1; for (; i &lt; n; ++i) &#123; ret = ret + f(i); &#125; &#125; // O(n) 级别 int f(int n) &#123; int sum = 0; int i = 1; for (; i &lt; n; ++i) &#123; sum = sum + i; &#125; return sum; &#125; 所以以上代码，总的时间复杂度：T = T1(n) T2(n) = O(n n) = O(n²) 如果 T1(n) = O(f(n))、T2(n) = O(g(n))；那么T(n) = T1(n) T2(n) = O(f(n) g(n)) 几种常见的时间复杂度实例分析1、多项式时间复杂度常量阶 O(1)、对数阶 O(logn)、线性阶 O(n)、线性对数阶 O(nlogn)、平方阶 O(n²)、立方阶 O(n³) …… K方阶 O(n^k) ①、O(1)一般情况下，只要算法中不存在循环语句，递归语句，就算有成千上万行代码，其时间复杂度依然是 O(1) ②、O(logn、nlogn)1234i=1;while (i &lt;= n) &#123; i = i * 2;&#125; 假设第三行代码的执行次数为 x ，则可以得到 2^x = n，进而得到 x = log2(n) 。所以这段代码的时间复杂度为 O(log2(n))。 由于前面我们说过，在使用大O标记复杂度的时候，可以忽略系数。所以，在对数阶时间复杂度的时候，我们忽略对数的底，统一表示为 O(logn) ③、O(n+m)、O(n*m)123456789101112131415int cal(int m, int n) &#123; int sum_1 = 0; int i = 1; for (; i &lt; m; ++i) &#123; sum_1 = sum_1 + i; &#125; int sum_2 = 0; int j = 1; for (; j &lt; n; ++j) &#123; sum_2 = sum_2 + j; &#125; return sum_1 + sum_2;&#125; 以上代码，出现两个无法预知 n、m 的数据规模量级大小，所以不能简单的利用加法法则，省略掉其中一个。所以以上代码的时间复杂度：T1(n) + T1(m) = O(f(n) + g(m)) = O(n+m)。 虽然此时加法法则无效，但是乘法法则依然有效：T1(n) T2(m) = O(f(n) g(m)) = O(n * m) 1、非多项式时间复杂度（非常低效的方法，直接略）指数阶 O(2^n)、阶乘阶 O(n!) 。 对于这个时间复杂度，会随着数据规模的增长，算法的执行时间会急剧增加。所以非常的低效。 空间复杂度分析前面讲过，时间复杂度的全称是渐进时间复杂度，表示算法的执行时间与数据规模之间的增长关系。那么类比一下，空间复杂度就是渐进空间复杂度，表示算法的存储空间与数据规模之间的增长关系。12345678910void print(int n) &#123; int i = 0; // 常量阶，申请了一个空间存储变量 i int[] a = new int[n]; // 一个大小为 n 的 int 型数组 for (i; i &lt;n; ++i) &#123; a[i] = i * i; &#125; for (i = n-1; i &gt;= 0; --i) &#123; print out a[i] &#125;&#125; 所以，以上的空间复杂度：O(n) 常见的空间复杂度：O(1)、O(n)、O(n²)，像 O(logn)、O(nlogn)这样的对数阶复杂度平时都用不到。 思考有人说，我们项目之前都会进行性能测试，再做代码的时间复杂度、空间复杂度分析，是不是多此一举呢？而且，每段代码都要分析一下时间复杂度、空间复杂度是不是很浪费时间呢？你怎么看待这个问题呢？]]></content>
       <categories>
-          
-          <category> 工具 </category>
-          
+        <category>数据结构与算法</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 工具 </tag>
-            
-            <tag> Mac </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>POJ 1852 Ants</title>
-      <link href="/2018/09/15/ACM/POJ/1852/"/>
-      <url>/2018/09/15/ACM/POJ/1852/</url>
-      <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="POJ-1852-Ants"><a href="#POJ-1852-Ants" class="headerlink" title="POJ 1852 Ants"></a>POJ 1852 Ants</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    POJ:1852</span></span><br><span class="line"><span class="comment">    题意：简单的理解就是， N 只蚂蚁以 1cm/s 的速度在，一条长 L 厘米的竿子上爬行（不知道初始的爬行方向），当蚂蚁爬到竿子的端点时会掉落。</span></span><br><span class="line"><span class="comment">        但竿子太细了，如果有两只蚂蚁相遇时，它们只能各自反向爬回去。</span></span><br><span class="line"><span class="comment">        对于蚂蚁，我们只知道它们距离竿子左端的距离 xi，但不知道当前蚂蚁的朝向</span></span><br><span class="line"><span class="comment">        请计算所有蚂蚁落下竿子所需要的最短时间和最长时间</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    迷惑条件：如果有两只蚂蚁相遇时，它们只能各自反向爬回去。</span></span><br><span class="line"><span class="comment">    转换思路：其实不管相遇后各自反向爬 OR 相遇后保持原方向爬行，结果都是一样的。</span></span><br><span class="line"><span class="comment">    这样的话，最短时间 = MAX（所有蚂蚁距离竿子端点的最近距离）</span></span><br><span class="line"><span class="comment">            最长时间 = MAX（所有蚂蚁距离竿子端点的最远距离）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"iostream"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_N 1000010 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> t,n,l,x[MAX_N];</span><br><span class="line"><span class="keyword">int</span> maxT, minT;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">    minT = <span class="number">0</span>;</span><br><span class="line">    maxT = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i++)&#123;</span><br><span class="line">        minT = max(minT, min(x[i], l - x[i]));</span><br><span class="line">        maxT = max(maxT, max(x[i], l - x[i]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;l , &amp;n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        solve();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, minT, maxT);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
+      <tags>
+        <tag>数据结构</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac 安装 brew 以及部分使用指令]]></title>
+    <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20%20brew%20%E4%BB%A5%E5%8F%8A%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8%E6%8C%87%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[Mac 安装 brew 以及部分使用指令NO.1 官网获取下载指令http://brew.sh/ Homebrew安装成功后，会自动创建目录 /usr/local/Cellar 来存放Homebrew安装的程序 NO.2 使用 brew 安装软件：brew install 软件名，例：brew install wget 搜索软件：brew search 软件名，例：brew search wget 卸载软件：brew uninstall 软件名，例：brew uninstall wget 更新所有软件：brew update 更新具体软件：brew upgrade 软件名 ，例：brew upgrade git 显示已安装软件：brew list 查看软件信息：brew info／home 软件名 ，例：brew info git ／ brew home gitPS：brew home指令是用浏览器打开官方网页查看软件信息 查看哪些已安装的程序需要更新： brew outdated 显示包依赖：brew reps 显示帮助：brew help]]></content>
       <categories>
-          
-          <category> ACM </category>
-          
+        <category>工具</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> ACM </tag>
-            
-            <tag> POJ </tag>
-            
-            <tag> C++ </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>JetBrains系开发工具激活</title>
-      <link href="/2018/09/11/%E5%B7%A5%E5%85%B7/JetBrains%E7%B3%BB%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%BF%80%E6%B4%BB/"/>
-      <url>/2018/09/11/%E5%B7%A5%E5%85%B7/JetBrains%E7%B3%BB%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%BF%80%E6%B4%BB/</url>
-      <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>NO.1</strong></p><p>将“0.0.0.0 account.jetbrains.com”添加到 <strong>hosts 文件末尾处</strong></p><p>hosts 文件所在目录：</p><ul><li><p>Windows：C:\Windows\System32\drivers\etc\hosts</p></li><li><p>Mac：/etc/hosts</p></li></ul><p><strong>NO.2</strong></p><p>进入 <a href="http://idea.lanyus.com/" target="_blank" rel="noopener">http://idea.lanyus.com/</a> ，获得注册码即可。</p>]]></content>
-      
+      <tags>
+        <tag>工具</tag>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac 安装 Rabbitmq]]></title>
+    <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20Rabbitmq%2F</url>
+    <content type="text"><![CDATA[Mac 安装 RabbitmqNO.1 Mac 下安装 Rabbitmq1234/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # 安装 brew（Homebrew：Mac OS平台下的软件包管理工具）brew install rabbitmqsudo vim ~/.bash_profilePATH=$PATH:/usr/local/sbin # 最后一行加上 NO.2 启动 &amp; 停止 Rabbitmq12345678# 启动服务brew services start rabbitmq# 停止服务brew services stop rabbitmq# 启用插件rabbitmq-plugins enable rabbitmq_management# 禁用插件rabbitmq-plugins disable rabbitmq_management NO.3 进入控制台http://localhost:15672/ 默认用户名和密码：guest , guest]]></content>
       <categories>
-          
-          <category> 工具 </category>
-          
+        <category>工具</category>
+        <category>Rabbitmq</category>
+        <category>Celery</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 工具 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Mac终端添加ll、la、l命令</title>
-      <link href="/2018/09/10/%E5%B7%A5%E5%85%B7/Mac%E7%BB%88%E7%AB%AF%E6%B7%BB%E5%8A%A0ll%E3%80%81la%E3%80%81l%E5%91%BD%E4%BB%A4/"/>
-      <url>/2018/09/10/%E5%B7%A5%E5%85%B7/Mac%E7%BB%88%E7%AB%AF%E6%B7%BB%E5%8A%A0ll%E3%80%81la%E3%80%81l%E5%91%BD%E4%BB%A4/</url>
-      <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac终端添加ll、la、l命令u"><a href="#Mac终端添加ll、la、l命令u" class="headerlink" title="Mac终端添加ll、la、l命令u"></a>Mac终端添加ll、la、l命令u</h1><h3 id="NO-1-编辑-bash-profile文件"><a href="#NO-1-编辑-bash-profile文件" class="headerlink" title="NO.1 编辑.bash_profile文件"></a>NO.1 编辑.bash_profile文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br></pre></td></tr></table></figure><h3 id="NO-2-添加别名映射关系"><a href="#NO-2-添加别名映射关系" class="headerlink" title="NO.2 添加别名映射关系"></a>NO.2 添加别名映射关系</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias ll='ls -alF'</span><br><span class="line">alias la='ls -A'</span><br><span class="line">alias l='ls -CF'</span><br></pre></td></tr></table></figure><h3 id="NO-3-source-文件"><a href="#NO-3-source-文件" class="headerlink" title="NO.3 source 文件"></a>NO.3 source 文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>]]></content>
-      
+      <tags>
+        <tag>工具</tag>
+        <tag>Mac</tag>
+        <tag>Celery</tag>
+        <tag>Rabbitmq</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[POJ 1852 Ants]]></title>
+    <url>%2F2018%2F09%2F15%2FACM%2FPOJ%2F1852%2F</url>
+    <content type="text"><![CDATA[POJ 1852 Ants123456789101112131415161718192021222324252627282930313233343536373839404142/* POJ:1852 题意：简单的理解就是， N 只蚂蚁以 1cm/s 的速度在，一条长 L 厘米的竿子上爬行（不知道初始的爬行方向），当蚂蚁爬到竿子的端点时会掉落。 但竿子太细了，如果有两只蚂蚁相遇时，它们只能各自反向爬回去。 对于蚂蚁，我们只知道它们距离竿子左端的距离 xi，但不知道当前蚂蚁的朝向 请计算所有蚂蚁落下竿子所需要的最短时间和最长时间 迷惑条件：如果有两只蚂蚁相遇时，它们只能各自反向爬回去。 转换思路：其实不管相遇后各自反向爬 OR 相遇后保持原方向爬行，结果都是一样的。 这样的话，最短时间 = MAX（所有蚂蚁距离竿子端点的最近距离） 最长时间 = MAX（所有蚂蚁距离竿子端点的最远距离）*/#include "iostream"using namespace std;#define MAX_N 1000010 int t,n,l,x[MAX_N];int maxT, minT;void solve()&#123; minT = 0; maxT = 0; for(int i = 0; i &lt; n ; i++)&#123; minT = max(minT, min(x[i], l - x[i])); maxT = max(maxT, max(x[i], l - x[i])); &#125;&#125;int main()&#123; scanf("%d", &amp;t); while(t--)&#123; scanf("%d %d", &amp;l , &amp;n); for(int i = 0; i &lt; n; i++)&#123; scanf("%d", &amp;x[i]); &#125; solve(); printf("%d %d\n", minT, maxT); &#125; return 0;&#125;]]></content>
       <categories>
-          
-          <category> 工具 </category>
-          
+        <category>ACM</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 工具 </tag>
-            
-            <tag> Mac </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Mac如何重置root用户密码</title>
-      <link href="/2018/09/10/%E5%B7%A5%E5%85%B7/Mac%E5%A6%82%E4%BD%95%E9%87%8D%E7%BD%AEroot%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/"/>
-      <url>/2018/09/10/%E5%B7%A5%E5%85%B7/Mac%E5%A6%82%E4%BD%95%E9%87%8D%E7%BD%AEroot%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/</url>
-      <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac如何重置root用户密码？"><a href="#Mac如何重置root用户密码？" class="headerlink" title="Mac如何重置root用户密码？"></a>Mac如何重置root用户密码？</h1><p>1、打开终端，输入：sudo bash，提示输入当前用户密码</p><p>2、成功进入bash命令模式之后，输入 sudo passwd root</p><p>3、输入新的 root 密码即可</p>]]></content>
-      
+      <tags>
+        <tag>ACM</tag>
+        <tag>POJ</tag>
+        <tag>C++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JetBrains系开发工具激活]]></title>
+    <url>%2F2018%2F09%2F11%2F%E5%B7%A5%E5%85%B7%2FJetBrains%E7%B3%BB%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%BF%80%E6%B4%BB%2F</url>
+    <content type="text"><![CDATA[NO.1 将“0.0.0.0 account.jetbrains.com”添加到 hosts 文件末尾处 hosts 文件所在目录： Windows：C:\Windows\System32\drivers\etc\hosts Mac：/etc/hosts NO.2 进入 http://idea.lanyus.com/ ，获得注册码即可。]]></content>
       <categories>
-          
-          <category> 工具 </category>
-          
+        <category>工具</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 工具 </tag>
-            
-            <tag> Mac </tag>
-            
-        </tags>
-      
-    </entry>
-    
-  
-  
+      <tags>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac终端添加ll、la、l命令]]></title>
+    <url>%2F2018%2F09%2F10%2F%E5%B7%A5%E5%85%B7%2FMac%E7%BB%88%E7%AB%AF%E6%B7%BB%E5%8A%A0ll%E3%80%81la%E3%80%81l%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[Mac终端添加ll、la、l命令uNO.1 编辑.bash_profile文件1vim ~/.bash_profile NO.2 添加别名映射关系123alias ll='ls -alF'alias la='ls -A'alias l='ls -CF' NO.3 source 文件1source ~/.bash_profile]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac如何重置root用户密码]]></title>
+    <url>%2F2018%2F09%2F10%2F%E5%B7%A5%E5%85%B7%2FMac%E5%A6%82%E4%BD%95%E9%87%8D%E7%BD%AEroot%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%2F</url>
+    <content type="text"><![CDATA[Mac如何重置root用户密码？1、打开终端，输入：sudo bash，提示输入当前用户密码 2、成功进入bash命令模式之后，输入 sudo passwd root 3、输入新的 root 密码即可]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
 </search>

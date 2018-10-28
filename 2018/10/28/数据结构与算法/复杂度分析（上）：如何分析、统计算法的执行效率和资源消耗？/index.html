@@ -122,18 +122,18 @@
 
 
 
-  <meta name="description" content="POJ 1852 Ants123456789101112131415161718192021222324252627282930313233343536373839404142/*    POJ:1852    题意：简单的理解就是， N 只蚂蚁以 1cm/s 的速度在，一条长 L 厘米的竿子上爬行（不知道初始的爬行方向），当蚂蚁爬到竿子的端点时会掉落。        但竿子太细了，如果有两只蚂蚁">
-<meta name="keywords" content="ACM,POJ,C++">
+  <meta name="description" content="复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？复杂度分析是整个算法学习的精髓，只要掌握了它，数据结构和算法的内容基本上就掌握了一半  Q：为什么需要复杂度分析？ A：首页对于这个问题有所疑惑：明明可以把代码跑一遍，通过统计、监控，就能得到算法执行的时间和占用的内存大小（某些书中的”事后统计法”）。为什么还需要复杂度分析呢？ 因为这种方法存在很大的局限性： ①、测试结果非常的依赖测试环境">
+<meta name="keywords" content="数据结构,算法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="POJ 1852 Ants">
-<meta property="og:url" content="https://www.tinydolphin.cn/2018/09/15/ACM/POJ/1852/index.html">
+<meta property="og:title" content="复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？">
+<meta property="og:url" content="https://www.tinydolphin.cn/2018/10/28/数据结构与算法/复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？/index.html">
 <meta property="og:site_name" content="TinyDolphin&#39;s Blog">
-<meta property="og:description" content="POJ 1852 Ants123456789101112131415161718192021222324252627282930313233343536373839404142/*    POJ:1852    题意：简单的理解就是， N 只蚂蚁以 1cm/s 的速度在，一条长 L 厘米的竿子上爬行（不知道初始的爬行方向），当蚂蚁爬到竿子的端点时会掉落。        但竿子太细了，如果有两只蚂蚁">
+<meta property="og:description" content="复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？复杂度分析是整个算法学习的精髓，只要掌握了它，数据结构和算法的内容基本上就掌握了一半  Q：为什么需要复杂度分析？ A：首页对于这个问题有所疑惑：明明可以把代码跑一遍，通过统计、监控，就能得到算法执行的时间和占用的内存大小（某些书中的”事后统计法”）。为什么还需要复杂度分析呢？ 因为这种方法存在很大的局限性： ①、测试结果非常的依赖测试环境">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-28T13:50:19.535Z">
+<meta property="og:updated_time" content="2018-10-28T13:51:40.103Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="POJ 1852 Ants">
-<meta name="twitter:description" content="POJ 1852 Ants123456789101112131415161718192021222324252627282930313233343536373839404142/*    POJ:1852    题意：简单的理解就是， N 只蚂蚁以 1cm/s 的速度在，一条长 L 厘米的竿子上爬行（不知道初始的爬行方向），当蚂蚁爬到竿子的端点时会掉落。        但竿子太细了，如果有两只蚂蚁">
+<meta name="twitter:title" content="复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？">
+<meta name="twitter:description" content="复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？复杂度分析是整个算法学习的精髓，只要掌握了它，数据结构和算法的内容基本上就掌握了一半  Q：为什么需要复杂度分析？ A：首页对于这个问题有所疑惑：明明可以把代码跑一遍，通过统计、监控，就能得到算法执行的时间和占用的内存大小（某些书中的”事后统计法”）。为什么还需要复杂度分析呢？ 因为这种方法存在很大的局限性： ①、测试结果非常的依赖测试环境">
 
 
 
@@ -142,7 +142,7 @@
 
 
 
-  <link rel="canonical" href="https://www.tinydolphin.cn/2018/09/15/ACM/POJ/1852/"/>
+  <link rel="canonical" href="https://www.tinydolphin.cn/2018/10/28/数据结构与算法/复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？/"/>
 
 
 
@@ -152,7 +152,7 @@
   };
 </script>
 
-  <title>POJ 1852 Ants | TinyDolphin's Blog</title>
+  <title>复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？ | TinyDolphin's Blog</title>
   
 
 
@@ -368,7 +368,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.tinydolphin.cn/2018/09/15/ACM/POJ/1852/">
+    <link itemprop="mainEntityOfPage" href="https://www.tinydolphin.cn/2018/10/28/数据结构与算法/复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TinyDolphin">
@@ -385,7 +385,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">POJ 1852 Ants
+          <h2 class="post-title" itemprop="name headline">复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？
               
             
           </h2>
@@ -410,24 +410,12 @@
                 
               
 
-              <time title="创建时间：2018-09-15 22:45:33" itemprop="dateCreated datePublished" datetime="2018-09-15T22:45:33+08:00">2018-09-15</time>
+              <time title="创建时间：2018-10-28 20:25:35 / 修改时间：21:51:40" itemprop="dateCreated datePublished" datetime="2018-10-28T20:25:35+08:00">2018-10-28</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-10-28 21:50:19" itemprop="dateModified" datetime="2018-10-28T21:50:19+08:00">2018-10-28</time>
               
             
           </span>
@@ -444,7 +432,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/ACM/" itemprop="url" rel="index"><span itemprop="name">ACM</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构与算法/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a></span>
 
                 
                 
@@ -472,7 +460,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1k</span>
+                <span title="本文字数">3.7k</span>
               
 
               
@@ -486,7 +474,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -506,7 +494,45 @@
       
 
       
-        <h1 id="POJ-1852-Ants"><a href="#POJ-1852-Ants" class="headerlink" title="POJ 1852 Ants"></a>POJ 1852 Ants</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    POJ:1852</span></span><br><span class="line"><span class="comment">    题意：简单的理解就是， N 只蚂蚁以 1cm/s 的速度在，一条长 L 厘米的竿子上爬行（不知道初始的爬行方向），当蚂蚁爬到竿子的端点时会掉落。</span></span><br><span class="line"><span class="comment">        但竿子太细了，如果有两只蚂蚁相遇时，它们只能各自反向爬回去。</span></span><br><span class="line"><span class="comment">        对于蚂蚁，我们只知道它们距离竿子左端的距离 xi，但不知道当前蚂蚁的朝向</span></span><br><span class="line"><span class="comment">        请计算所有蚂蚁落下竿子所需要的最短时间和最长时间</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    迷惑条件：如果有两只蚂蚁相遇时，它们只能各自反向爬回去。</span></span><br><span class="line"><span class="comment">    转换思路：其实不管相遇后各自反向爬 OR 相遇后保持原方向爬行，结果都是一样的。</span></span><br><span class="line"><span class="comment">    这样的话，最短时间 = MAX（所有蚂蚁距离竿子端点的最近距离）</span></span><br><span class="line"><span class="comment">            最长时间 = MAX（所有蚂蚁距离竿子端点的最远距离）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"iostream"</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_N 1000010 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> t,n,l,x[MAX_N];</span><br><span class="line"><span class="keyword">int</span> maxT, minT;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;</span><br><span class="line">    minT = <span class="number">0</span>;</span><br><span class="line">    maxT = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n ; i++)&#123;</span><br><span class="line">        minT = max(minT, min(x[i], l - x[i]));</span><br><span class="line">        maxT = max(maxT, max(x[i], l - x[i]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">    <span class="keyword">while</span>(t--)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d %d"</span>, &amp;l , &amp;n);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        solve();</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, minT, maxT);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？"><a href="#复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？" class="headerlink" title="复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？"></a>复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？</h1><p><strong>复杂度分析是整个算法学习的精髓，只要掌握了它，数据结构和算法的内容基本上就掌握了一半</strong></p>
+<blockquote>
+<p><strong>Q：为什么需要复杂度分析？</strong></p>
+<p>A：首页对于这个问题有所疑惑：明明可以把代码跑一遍，通过统计、监控，就能得到算法执行的时间和占用的内存大小（某些书中的”事后统计法”）。为什么还需要复杂度分析呢？</p>
+<p>因为这种方法存在很大的<strong>局限性</strong>：</p>
+<p>①、<strong>测试结果非常的依赖测试环境</strong><br><br>    不同的测试环境，得到的结果可能完全不同。</p>
+<p>②、<strong>测试结果受数据规模的影响很大</strong><br><br>    比如：排序算法中，对于不一样的待排序数据有序度，排序的执行时间就有很大的差别。（对于小规模的数据排序，插入排序可能反倒会比快速排序要快！）</p>
+<p>所以，我们需要一个<strong>不用具体的测试数据来测试</strong>，就可以<strong>粗略地估算出算法的执行效率</strong>的方法——<strong>时间、空间复杂度分析</strong>。</p>
+</blockquote>
+<h2 id="大-O-复杂度表示法"><a href="#大-O-复杂度表示法" class="headerlink" title="大 O 复杂度表示法"></a>大 O 复杂度表示法</h2><p>我们假设每一段代码的执行时间为 t</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> sum = <span class="number">0</span>;             <span class="comment">// 一个 t 的执行时间 </span></span><br><span class="line">  <span class="keyword">int</span> i = <span class="number">1</span>;               <span class="comment">// t</span></span><br><span class="line">  <span class="keyword">for</span> (; i &lt;= n; ++i) &#123;    <span class="comment">// n * t</span></span><br><span class="line">    sum = sum + i;         <span class="comment">// n * t</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 所以这段代码的总的执行时间 T(n) = (2n+2)*t 。可以看出：<strong>总的代码执行时间 T(n) 与每行代码的执行次数成正比</strong>。</p>
+<p>所以，这段代码的大 O 时间复杂度表示法： <strong>T(n) = O(f(n))</strong></p>
+<p>其中：T(n)：代码总的执行时间、n：数据规模的大小、f(n) 每行代码执行的次数总和、O ：代码的执行时间 T(n) 与 f(n) 表达式成正比</p>
+<p>大 O 时间复杂度表示法：并不具体表示代码的真正执行时间，而是表示<strong>代码执行时间随着数据规模增长的变化趋势</strong>。也叫 <strong>渐进时间复杂度</strong>，简称<strong>时间复杂度</strong></p>
+<h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><h3 id="1、只关注循环执行次数最大的一段代码"><a href="#1、只关注循环执行次数最大的一段代码" class="headerlink" title="1、只关注循环执行次数最大的一段代码"></a>1、只关注循环执行次数最大的一段代码</h3><p>既然说大 O 复杂度是一种变化趋势，那么我们通常会忽略掉公式中的常量、低阶、系数，只需要记录一个最大阶的量级就可以了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> sum = <span class="number">0</span>;				<span class="comment">// 常量级别的执行时间，与 n 无关，可以忽略</span></span><br><span class="line">  <span class="keyword">int</span> i = <span class="number">1</span>;					<span class="comment">// 同上</span></span><br><span class="line">  <span class="keyword">for</span> (; i &lt;= n; ++i) &#123;		<span class="comment">// n</span></span><br><span class="line">    sum = sum + i;			<span class="comment">// n</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以以上代码，总的时间复杂度：O(n)</p>
+<h3 id="2、加法规则：总复杂度等于量级最大的那段代码的复杂度"><a href="#2、加法规则：总复杂度等于量级最大的那段代码的复杂度" class="headerlink" title="2、加法规则：总复杂度等于量级最大的那段代码的复杂度"></a>2、加法规则：总复杂度等于量级最大的那段代码的复杂度</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">true<span class="comment">// 常量级别</span></span><br><span class="line">   <span class="keyword">int</span> sum_1 = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">int</span> p = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">for</span> (; p &lt; <span class="number">100</span>; ++p) &#123;</span><br><span class="line">     sum_1 = sum_1 + p;</span><br><span class="line">   &#125;</span><br><span class="line">true<span class="comment">// O(n) 级别</span></span><br><span class="line">   <span class="keyword">int</span> sum_2 = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">int</span> q = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">for</span> (; q &lt; n; ++q) &#123;</span><br><span class="line">     sum_2 = sum_2 + q;</span><br><span class="line">   &#125;</span><br><span class="line"> 	<span class="comment">// O(n²) 级别</span></span><br><span class="line">   <span class="keyword">int</span> sum_3 = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">int</span> j = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">for</span> (; i &lt;= n; ++i) &#123;</span><br><span class="line">     j = <span class="number">1</span>; </span><br><span class="line">     <span class="keyword">for</span> (; j &lt;= n; ++j) &#123;</span><br><span class="line">       sum_3 = sum_3 +  i * j;</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> sum_1 + sum_2 + sum_3;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>所以以上代码，总的时间复杂度：T(n) = T1(n) + T2(n) + T3(n) = O(1) + O(n) + O(n²) = O(n²) </p>
+<p>如果 T1(n) = O(f(n))、T2(n) = O(g(n))；那么T(n) = T1(n) + T2(n) = Max(O(f(n),  g(n)))</p>
+<h3 id="3、乘法规则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积"><a href="#3、乘法规则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积" class="headerlink" title="3、乘法规则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积"></a>3、乘法规则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">true<span class="comment">// O(n) 级别</span></span><br><span class="line">   <span class="keyword">int</span> ret = <span class="number">0</span>; </span><br><span class="line">   <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">for</span> (; i &lt; n; ++i) &#123;</span><br><span class="line">     ret = ret + f(i);</span><br><span class="line">   &#125; </span><br><span class="line"> &#125; </span><br><span class="line"> </span><br><span class="line"><span class="comment">// O(n) 级别</span></span><br><span class="line"> <span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (; i &lt; n; ++i) &#123;</span><br><span class="line">    sum = sum + i;</span><br><span class="line">  &#125; </span><br><span class="line">  <span class="keyword">return</span> sum;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>所以以上代码，总的时间复杂度：T = T1(n) <em> T2(n) = O(n </em> n) = O(n²) </p>
+<p>如果 T1(n) = O(f(n))、T2(n) = O(g(n))；那么T(n) = T1(n) <em> T2(n) = O(f(n) </em> g(n))</p>
+<h2 id="几种常见的时间复杂度实例分析"><a href="#几种常见的时间复杂度实例分析" class="headerlink" title="几种常见的时间复杂度实例分析"></a>几种常见的时间复杂度实例分析</h2><h3 id="1、多项式时间复杂度"><a href="#1、多项式时间复杂度" class="headerlink" title="1、多项式时间复杂度"></a>1、多项式时间复杂度</h3><p>常量阶 O(1)、对数阶 O(logn)、线性阶 O(n)、线性对数阶 O(nlogn)、平方阶 O(n²)、立方阶 O(n³) …… K方阶 O(n^k)</p>
+<h4 id="①、O-1"><a href="#①、O-1" class="headerlink" title="①、O(1)"></a>①、O(1)</h4><p>一般情况下，只要算法中不存在循环语句，递归语句，就算有成千上万行代码，其时间复杂度依然是 O(1)</p>
+<h4 id="②、O-logn、nlogn"><a href="#②、O-logn、nlogn" class="headerlink" title="②、O(logn、nlogn)"></a>②、O(logn、nlogn)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">i=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> (i &lt;= n)  &#123;</span><br><span class="line">  i = i * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假设第三行代码的执行次数为 x ，则可以得到 2^x = n，进而得到 x = log2(n) 。所以这段代码的时间复杂度为 O(log2(n))。</p>
+<p>由于前面我们说过，<strong>在使用大O标记复杂度的时候，可以忽略系数</strong>。所以，在对数阶时间复杂度的时候，我们忽略对数的底，统一表示为 O(logn)</p>
+<h4 id="③、O-n-m-、O-n-m"><a href="#③、O-n-m-、O-n-m" class="headerlink" title="③、O(n+m)、O(n*m)"></a>③、O(n+m)、O(n*m)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">cal</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> sum_1 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (; i &lt; m; ++i) &#123;</span><br><span class="line">    sum_1 = sum_1 + i;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">int</span> sum_2 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> j = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (; j &lt; n; ++j) &#123;</span><br><span class="line">    sum_2 = sum_2 + j;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> sum_1 + sum_2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上代码，出现两个无法预知 n、m 的数据规模量级大小，所以不能简单的利用加法法则，省略掉其中一个。所以以上代码的时间复杂度：T1(n) + T1(m) = O(f(n) + g(m)) = O(n+m)。</p>
+<p>虽然此时加法法则无效，但是乘法法则依然有效：T1(n) <em> T2(m) = O(f(n) </em> g(m))  = O(n * m)</p>
+<h3 id="1、非多项式时间复杂度（非常低效的方法，直接略）"><a href="#1、非多项式时间复杂度（非常低效的方法，直接略）" class="headerlink" title="1、非多项式时间复杂度（非常低效的方法，直接略）"></a>1、非多项式时间复杂度（非常低效的方法，直接略）</h3><p>指数阶 O(2^n)、阶乘阶 O(n!) 。</p>
+<p>对于这个时间复杂度，会随着数据规模的增长，算法的执行时间会急剧增加。所以非常的低效。</p>
+<h2 id="空间复杂度分析"><a href="#空间复杂度分析" class="headerlink" title="空间复杂度分析"></a>空间复杂度分析</h2><p>前面讲过，时间复杂度的全称是<strong>渐进时间复杂度</strong>，表示<strong>算法的执行时间与数据规模之间的增长关系</strong>。那么类比一下，<strong>空间复杂度</strong>就是<strong>渐进空间复杂度</strong>，表示<strong>算法的存储空间与数据规模之间的增长关系</strong>。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;				<span class="comment">// 常量阶，申请了一个空间存储变量 i</span></span><br><span class="line">  <span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[n];	<span class="comment">// 一个大小为 n 的 int 型数组</span></span><br><span class="line">  <span class="keyword">for</span> (i; i &lt;n; ++i) &#123;</span><br><span class="line">    a[i] = i * i;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (i = n<span class="number">-1</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">    print out a[i]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以，以上的空间复杂度：O(n) </p>
+<p>常见的空间复杂度：O(1)、O(n)、O(n²)，像 O(logn)、O(nlogn)这样的对数阶复杂度平时都用不到。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>有人说，我们项目之前都会进行性能测试，再做代码的时间复杂度、空间复杂度分析，是不是多此一举呢？而且，每段代码都要分析一下时间复杂度、空间复杂度是不是很浪费时间呢？你怎么看待这个问题呢？</p>
+
       
     </div>
 
@@ -527,7 +553,7 @@
     <strong>本文作者： </strong>TinyDolphin</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.tinydolphin.cn/2018/09/15/ACM/POJ/1852/" title="POJ 1852 Ants">https://www.tinydolphin.cn/2018/09/15/ACM/POJ/1852/</a>
+    <a href="https://www.tinydolphin.cn/2018/10/28/数据结构与算法/复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？/" title="复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？">https://www.tinydolphin.cn/2018/10/28/数据结构与算法/复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -540,11 +566,9 @@
         
       <div class="post-tags">
         
-          <a href="/tags/ACM/" rel="tag"><i class="fa fa-tag"></i> ACM</a>
+          <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
         
-          <a href="/tags/POJ/" rel="tag"><i class="fa fa-tag"></i> POJ</a>
-        
-          <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+          <a href="/tags/算法/" rel="tag"><i class="fa fa-tag"></i> 算法</a>
         
       </div>
     
@@ -557,8 +581,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/11/工具/JetBrains系开发工具激活/" rel="next" title="JetBrains系开发工具激活">
-                <i class="fa fa-chevron-left"></i> JetBrains系开发工具激活
+              <a href="/2018/09/17/工具/Mac 安装  brew 以及部分使用指令/" rel="next" title="Mac 安装 brew 以及部分使用指令">
+                <i class="fa fa-chevron-left"></i> Mac 安装 brew 以及部分使用指令
               </a>
             
           </div>
@@ -567,8 +591,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/17/工具/Mac 安装 Rabbitmq/" rel="prev" title="Mac 安装 Rabbitmq">
-                Mac 安装 Rabbitmq <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/28/数据结构与算法/复杂度分析（下）：浅析最好、最坏、平均、均摊时间复杂度/" rel="prev" title="复杂度分析（下）：浅析最好、最坏、平均、均摊时间复杂度">
+                复杂度分析（下）：浅析最好、最坏、平均、均摊时间复杂度 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -756,7 +780,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#POJ-1852-Ants"><span class="nav-number">1.</span> <span class="nav-text">POJ 1852 Ants</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？"><span class="nav-number">1.</span> <span class="nav-text">复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#大-O-复杂度表示法"><span class="nav-number">1.1.</span> <span class="nav-text">大 O 复杂度表示法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、只关注循环执行次数最大的一段代码"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、只关注循环执行次数最大的一段代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、加法规则：总复杂度等于量级最大的那段代码的复杂度"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、加法规则：总复杂度等于量级最大的那段代码的复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、乘法规则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、乘法规则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几种常见的时间复杂度实例分析"><span class="nav-number">1.3.</span> <span class="nav-text">几种常见的时间复杂度实例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、多项式时间复杂度"><span class="nav-number">1.3.1.</span> <span class="nav-text">1、多项式时间复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#①、O-1"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">①、O(1)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②、O-logn、nlogn"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">②、O(logn、nlogn)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#③、O-n-m-、O-n-m"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">③、O(n+m)、O(n*m)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1、非多项式时间复杂度（非常低效的方法，直接略）"><span class="nav-number">1.3.2.</span> <span class="nav-text">1、非多项式时间复杂度（非常低效的方法，直接略）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空间复杂度分析"><span class="nav-number">1.4.</span> <span class="nav-text">空间复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思考"><span class="nav-number">1.5.</span> <span class="nav-text">思考</span></a></li></ol></li></ol></div>
             
 
           </div>
