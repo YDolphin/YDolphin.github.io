@@ -48,9 +48,9 @@
     <link href="https://www.tinydolphin.cn/2018/10/28/Celery/Celery%20%E6%A1%86%E6%9E%B6%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/"/>
     <id>https://www.tinydolphin.cn/2018/10/28/Celery/Celery 框架及其使用场景/</id>
     <published>2018-10-28T12:25:35.000Z</published>
-    <updated>2018-11-04T06:48:49.379Z</updated>
+    <updated>2018-11-04T07:11:46.632Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Celery-框架及其使用场景"><a href="#Celery-框架及其使用场景" class="headerlink" title="Celery 框架及其使用场景"></a>Celery 框架及其使用场景</h1><p>celery 是一款基于 python 开发的、专注于<strong>实时处理</strong>和<strong>任务调度</strong>的<strong>分布式任务队列</strong>。</p><h2 id="Celery-架构以及组成部分"><a href="#Celery-架构以及组成部分" class="headerlink" title="Celery 架构以及组成部分"></a>Celery 架构以及组成部分</h2><p>可以看到，Celery 主要包含以下几个模块：</p><h3 id="任务模板-Task"><a href="#任务模板-Task" class="headerlink" title="任务模板 Task"></a>任务模板 Task</h3><p><strong>异步任务：</strong>通常在业务逻辑中<strong>被触发</strong>并发往任务队列。<br><br><strong>定时任务：</strong>由 <strong>Celery Beat</strong> 进程<strong>周期性</strong>地将任务发往任务队列。</p><h3 id="消息中间件-Broker"><a href="#消息中间件-Broker" class="headerlink" title="消息中间件 Broker"></a>消息中间件 Broker</h3><p>即为<strong>任务调度队列</strong>，<strong>接收任务生产者发来的消息（即任务），将任务存入队列，再按序分发给任务消费者</strong>。Celery 本身不提供队列服务，官方推荐使用 RabbitMQ 和 Redis 等。</p><h3 id="任务执行单元-Worker"><a href="#任务执行单元-Worker" class="headerlink" title="任务执行单元 Worker"></a>任务执行单元 Worker</h3><p>Worker 是执行任务的处理单元，它<strong>实时监控消息队列，获取队列中调度的任务，并执行它</strong>。</p><h3 id="任务结果存储-Backend"><a href="#任务结果存储-Backend" class="headerlink" title="任务结果存储 Backend"></a>任务结果存储 Backend</h3><p>Backend 用于<strong>存储任务的执行结果，以供查询</strong>。同消息中间件一样，存储也可使用 RabbitMQ, Redis 和 MongoDB 等。</p><h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p><strong>例子一：在程序的运行过程中，经常会碰到一些耗时耗资源的操作，为了避免它们阻塞主程序的运行，我们经常会采用多线程或异步任务。</strong></p><p>比如：在 web 开发中，对新用户的注册，我们通常会给他发一封激活邮件，而发邮件就是 IO阻塞式任务，如果它们直接放到应用当中，就需要等到邮件发出去之后，才能进行下一步操作，此时用户只有一直等待。</p><p>celery 解决方案：在业务逻辑中<strong>触发一个发邮件的异步任务</strong>，而主程序可以继续往下运行。</p><p><strong>例子二：在程序运行的过程中，有一个要运行很久的任务，但是我们又不想阻塞主程序</strong>。</p><ol><li>解决方案：使用多线程。但是当<strong>并发量过大</strong>时，多线程也会扛不住</li><li>继续解决：使用线程池来限制并发数。<ul><li>多线程对于<strong>共享资源</strong>的使用也是比较麻烦的一件事。</li><li>对于<strong>协程</strong>，它还是在同一个线程中执行的，如果一个任务本身的执行时间很长，而不是因为等待 IO 被挂起的，那么也同样会阻塞其他的协程。</li></ul></li><li>最终方案：基于以上的问题，我们可以使用一个强大的分布式任务队列 Celery 来<strong>让任务的执行和主程序完全的脱离</strong>，甚至不在同一个主机内。通过<strong>队列</strong>来调度任务，所以不用担心并发量高时导致系统负载过大。</li></ol><p><strong>例子三：执行和主程序脱离</strong></p><p>你想对100台机器执行一条批量命令，可能会花很长时间 ，但你不想让你的程序等着结果返回，而是给你返回一个任务ID,你过一段时间只需要拿着这个任务id就可以拿到任务执行结果，这样的话，在任务执行进行时，你可以继续做其它的事情。</p><p><strong>例子四：做一个定时任务</strong></p><p>比如每天定时检测一下你们所有客户的资料，如果发现今天是客户的生日，就给他发个短信祝福</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Celery-框架及其使用场景"><a href="#Celery-框架及其使用场景" class="headerlink" title="Celery 框架及其使用场景"></a>Celery 框架及其使用场景</h1><p>celery 是一款基于 python 开发的、专注于<strong>实时处理</strong>和<strong>任务调度</strong>的<strong>分布式任务队列</strong>。</p><h2 id="Celery-架构以及组成部分"><a href="#Celery-架构以及组成部分" class="headerlink" title="Celery 架构以及组成部分"></a>Celery 架构以及组成部分</h2><p><img src="/images/celery.jpg" alt="Celery 框架图"></p><p>可以看到，Celery 主要包含以下几个模块：</p><h3 id="任务模板-Task"><a href="#任务模板-Task" class="headerlink" title="任务模板 Task"></a>任务模板 Task</h3><p><strong>异步任务：</strong>通常在业务逻辑中<strong>被触发</strong>并发往任务队列。<br><br><strong>定时任务：</strong>由 <strong>Celery Beat</strong> 进程<strong>周期性</strong>地将任务发往任务队列。</p><h3 id="消息中间件-Broker"><a href="#消息中间件-Broker" class="headerlink" title="消息中间件 Broker"></a>消息中间件 Broker</h3><p>即为<strong>任务调度队列</strong>，<strong>接收任务生产者发来的消息（即任务），将任务存入队列，再按序分发给任务消费者</strong>。Celery 本身不提供队列服务，官方推荐使用 RabbitMQ 和 Redis 等。</p><h3 id="任务执行单元-Worker"><a href="#任务执行单元-Worker" class="headerlink" title="任务执行单元 Worker"></a>任务执行单元 Worker</h3><p>Worker 是执行任务的处理单元，它<strong>实时监控消息队列，获取队列中调度的任务，并执行它</strong>。</p><h3 id="任务结果存储-Backend"><a href="#任务结果存储-Backend" class="headerlink" title="任务结果存储 Backend"></a>任务结果存储 Backend</h3><p>Backend 用于<strong>存储任务的执行结果，以供查询</strong>。同消息中间件一样，存储也可使用 RabbitMQ, Redis 和 MongoDB 等。</p><h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p><strong>例子一：在程序的运行过程中，经常会碰到一些耗时耗资源的操作，为了避免它们阻塞主程序的运行，我们经常会采用多线程或异步任务。</strong></p><p>比如：在 web 开发中，对新用户的注册，我们通常会给他发一封激活邮件，而发邮件就是 IO阻塞式任务，如果它们直接放到应用当中，就需要等到邮件发出去之后，才能进行下一步操作，此时用户只有一直等待。</p><p>celery 解决方案：在业务逻辑中<strong>触发一个发邮件的异步任务</strong>，而主程序可以继续往下运行。</p><p><strong>例子二：在程序运行的过程中，有一个要运行很久的任务，但是我们又不想阻塞主程序</strong>。</p><ol><li>解决方案：使用多线程。但是当<strong>并发量过大</strong>时，多线程也会扛不住</li><li>继续解决：使用线程池来限制并发数。<ul><li>多线程对于<strong>共享资源</strong>的使用也是比较麻烦的一件事。</li><li>对于<strong>协程</strong>，它还是在同一个线程中执行的，如果一个任务本身的执行时间很长，而不是因为等待 IO 被挂起的，那么也同样会阻塞其他的协程。</li></ul></li><li>最终方案：基于以上的问题，我们可以使用一个强大的分布式任务队列 Celery 来<strong>让任务的执行和主程序完全的脱离</strong>，甚至不在同一个主机内。通过<strong>队列</strong>来调度任务，所以不用担心并发量高时导致系统负载过大。</li></ol><p><strong>例子三：执行和主程序脱离</strong></p><p>你想对100台机器执行一条批量命令，可能会花很长时间 ，但你不想让你的程序等着结果返回，而是给你返回一个任务ID,你过一段时间只需要拿着这个任务id就可以拿到任务执行结果，这样的话，在任务执行进行时，你可以继续做其它的事情。</p><p><strong>例子四：做一个定时任务</strong></p><p>比如每天定时检测一下你们所有客户的资料，如果发现今天是客户的生日，就给他发个短信祝福</p>]]></content>
     
     <summary type="html">
     
@@ -151,11 +151,11 @@
       <category term="Celery" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Redis/Celery/"/>
     
     
+      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
+    
       <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
     
       <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
-    
-      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
     
       <category term="Redis" scheme="https://www.tinydolphin.cn/tags/Redis/"/>
     
@@ -186,11 +186,11 @@
       <category term="Celery" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Rabbitmq/Celery/"/>
     
     
+      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
+    
       <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
     
       <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
-    
-      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
     
       <category term="Rabbitmq" scheme="https://www.tinydolphin.cn/tags/Rabbitmq/"/>
     

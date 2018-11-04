@@ -130,10 +130,12 @@
 <meta property="og:site_name" content="TinyDolphin&#39;s Blog">
 <meta property="og:description" content="Celery 框架及其使用场景celery 是一款基于 python 开发的、专注于实时处理和任务调度的分布式任务队列。 Celery 架构以及组成部分 可以看到，Celery 主要包含以下几个模块： 任务模板 Task异步任务：通常在业务逻辑中被触发并发往任务队列。定时任务：由 Celery Beat 进程周期性地将任务发往任务队列。 消息中间件 Broker即为任务调度队列，接收任务生产者发来">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-04T06:48:49.379Z">
+<meta property="og:image" content="https://www.tinydolphin.cn/images/celery.jpg">
+<meta property="og:updated_time" content="2018-11-04T07:11:46.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Celery 框架及其使用场景">
 <meta name="twitter:description" content="Celery 框架及其使用场景celery 是一款基于 python 开发的、专注于实时处理和任务调度的分布式任务队列。 Celery 架构以及组成部分 可以看到，Celery 主要包含以下几个模块： 任务模板 Task异步任务：通常在业务逻辑中被触发并发往任务队列。定时任务：由 Celery Beat 进程周期性地将任务发往任务队列。 消息中间件 Broker即为任务调度队列，接收任务生产者发来">
+<meta name="twitter:image" content="https://www.tinydolphin.cn/images/celery.jpg">
 
 
 
@@ -427,7 +429,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-04 14:48:49" itemprop="dateModified" datetime="2018-11-04T14:48:49+08:00">2018-11-04</time>
+                <time title="修改时间：2018-11-04 15:11:46" itemprop="dateModified" datetime="2018-11-04T15:11:46+08:00">2018-11-04</time>
               
             
           </span>
@@ -507,7 +509,7 @@
 
       
         <h1 id="Celery-框架及其使用场景"><a href="#Celery-框架及其使用场景" class="headerlink" title="Celery 框架及其使用场景"></a>Celery 框架及其使用场景</h1><p>celery 是一款基于 python 开发的、专注于<strong>实时处理</strong>和<strong>任务调度</strong>的<strong>分布式任务队列</strong>。</p>
-<h2 id="Celery-架构以及组成部分"><a href="#Celery-架构以及组成部分" class="headerlink" title="Celery 架构以及组成部分"></a>Celery 架构以及组成部分</h2>
+<h2 id="Celery-架构以及组成部分"><a href="#Celery-架构以及组成部分" class="headerlink" title="Celery 架构以及组成部分"></a>Celery 架构以及组成部分</h2><p><img src="/images/celery.jpg" alt="Celery 框架图"></p>
 <p>可以看到，Celery 主要包含以下几个模块：</p>
 <h3 id="任务模板-Task"><a href="#任务模板-Task" class="headerlink" title="任务模板 Task"></a>任务模板 Task</h3><p><strong>异步任务：</strong>通常在业务逻辑中<strong>被触发</strong>并发往任务队列。<br><br><strong>定时任务：</strong>由 <strong>Celery Beat</strong> 进程<strong>周期性</strong>地将任务发往任务队列。</p>
 <h3 id="消息中间件-Broker"><a href="#消息中间件-Broker" class="headerlink" title="消息中间件 Broker"></a>消息中间件 Broker</h3><p>即为<strong>任务调度队列</strong>，<strong>接收任务生产者发来的消息（即任务），将任务存入队列，再按序分发给任务消费者</strong>。Celery 本身不提供队列服务，官方推荐使用 RabbitMQ 和 Redis 等。</p>
