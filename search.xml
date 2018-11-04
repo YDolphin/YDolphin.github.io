@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Celery signature]]></title>
+    <url>%2F2018%2F11%2F04%2FCelery%2FCelery%20signature%2F</url>
+    <content type="text"><![CDATA[Celery signature[toc] 什么是 signature？前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够将任务调用的签名传递给另一个进程或者作为另一个函数的签名时，现有的方法就不够用了。 在 Celery 中，任务签名包含了一次任务调用的参数、关键字参数以及执行选项信息，它可以传递给其他函数，甚至序列化后通过网络传输。 如何创建 signature？通过任务的 signature 方法，创建任务签名对象12&gt;&gt;&gt; add.signature((2, 2), countdown=10)tasks.add(2, 2) 通过快捷方法，创建任务签名对象：12&gt;&gt;&gt; add.s(2, 2)tasks.add(2, 2) 如何执行 signature？直接执行签名在当前进程中执行 12&gt;&gt;&gt; s_add = add.signature((2, 2), countdown=10)&gt;&gt;&gt; s_add() Worker 执行签名在 Worker 任务进程中执行 12&gt;&gt;&gt; s_add = add.s(2, 2)&gt;&gt;&gt; s_add.delay() 跟一般的任务函数对比，区别在于签名可能已经指定了参数签名。 该add任务有两个参数，因此指定两个参数的签名将构成一个完整的签名：1234&gt;&gt;&gt; s1 = add.s(2, 2)&gt;&gt;&gt; res = s1.delay()&gt;&gt;&gt; res.get()4 但是，您也可以创建不完整的签名来创建的我们称之为 partials12# incomplete partial: add(?, 2)&gt;&gt;&gt; s2 = add.s(2) s2 现在是一个部分签名，需要另一个参数完成，这可以在调用签名时解决：1234# resolves the partial: add(8, 2)&gt;&gt;&gt; res = s2.delay(8)&gt;&gt;&gt; res.get()10 在这里，你添加参数8，形成了完整的签名。add(8, 2) 关键字参数也可以在以后添加，覆盖掉任何现有的关键字参数12&gt;&gt;&gt; s3 = add.s(2, 2, debug=True)&gt;&gt;&gt; s3.delay(debug=False) # debug is now False.]]></content>
+      <categories>
+        <category>Python</category>
+        <category>Celery</category>
+      </categories>
+      <tags>
+        <tag>Celery</tag>
+        <tag>Python</tag>
+        <tag>分布式任务队列</tag>
+        <tag>签名</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Celery 定时任务]]></title>
     <url>%2F2018%2F11%2F04%2FCelery%2FCelery%20%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%2F</url>
     <content type="text"><![CDATA[Celery 定时任务Celery 除了可以执行异步任务，也支持执行周期性任务（Periodic Tasks），或者说定时任务。Celery Beat 进程通过读取配置文件的内容，周期性地将定时任务发往任务队列。 让我们看看例子，项目结构如下： 123456celery_demo # 项目根目录 ├── celery_app # 存放 celery 相关文件 ├── __init__.py ├── celeryconfig.py # 配置文件 ├── task1.py # 任务文件 └── task2.py # 任务文件 __init__.py 代码如下： 1234567#!/usr/bin/env python# -*- coding: utf-8 -*-from celery import Celeryapp = Celery('demo') # 创建 Celery 实例app.config_from_object('celery_app.celeryconfig') # 通过 Celery 实例加载配置模块 celeryconfig.py 代码如下： 123456789101112131415161718192021222324252627282930313233#!/usr/bin/env python# -*- coding: utf-8 -*-from datetime import timedeltafrom celery.schedules import crontab# Broker and BackendBROKER_URL = 'redis://127.0.0.1:6379'CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'# TimezoneCELERY_TIMEZONE='Asia/Shanghai' # 指定时区，不指定默认为 'UTC'# CELERY_TIMEZONE='UTC'# importCELERY_IMPORTS = ( 'celery_app.task1', 'celery_app.task2')# schedulesCELERYBEAT_SCHEDULE = &#123; 'add-every-30-seconds': &#123; 'task': 'celery_app.task1.add', 'schedule': timedelta(seconds=30), # 每 30 秒执行一次 'args': (5, 8) # 任务函数参数 &#125;, 'multiply-at-some-time': &#123; 'task': 'celery_app.task2.multiply', 'schedule': crontab(hour=9, minute=50), # 每天早上 9 点 50 分执行一次 'args': (3, 7) # 任务函数参数 &#125;&#125; task1.py 代码如下：12345678910#!/usr/bin/env python# -*- coding: utf-8 -*-import timefrom celery_app import app@app.taskdef add(x, y): time.sleep(2) return x + y task2.py 代码如下：12345678910#!/usr/bin/env python# -*- coding: utf-8 -*-import timefrom celery_app import app@app.taskdef multiply(x, y): time.sleep(2) return x * y 现在，让我们启动 Celery Worker 进程，在项目的根目录下执行下面命令： 1TinyDolphin:celery_demo zhouyonglong01$ celery -A celery_app worker --loglevel=info 接着，启动 Celery Beat 进程，定时将任务发送到 Broker，在项目根目录下执行下面命令：1TinyDolphin:celery_demo zhouyonglong01$ celery beat -A celery_app 启动成功，看到如下日志：12345678910celery beat v4.2.1 (windowlicker) is starting.__ - ... __ - _LocalTime -&gt; 2018-11-04 16:55:42Configuration -&gt; . broker -&gt; amqp://guest:**@localhost:5672// . loader -&gt; celery.loaders.app.AppLoader . scheduler -&gt; celery.beat.PersistentScheduler . db -&gt; celerybeat-schedule . logfile -&gt; [stderr]@%WARNING . maxinterval -&gt; 5.00 minutes (300s) 之后，在 Worker 窗口我们可以看到，任务 task1 每 30 秒执行一次，而 task2 每天早上 9 点 50 分执行一次。123456[2018-11-04 16:56:13,233: INFO/MainProcess] Received task: celery_app.task1.add[3e9324d4-a27b-44a1-b530-d7dcb2c4f27a][2018-11-04 16:56:15,254: INFO/ForkPoolWorker-2] Task celery_app.task1.add[3e9324d4-a27b-44a1-b530-d7dcb2c4f27a] succeeded in 2.01500433599s: 13[2018-11-04 16:56:43,082: INFO/MainProcess] Received task: celery_app.task1.add[e7e1d632-23d9-4c26-9292-d6d56fef70c4][2018-11-04 16:56:45,098: INFO/ForkPoolWorker-3] Task celery_app.task1.add[e7e1d632-23d9-4c26-9292-d6d56fef70c4] succeeded in 2.01342217601s: 13[2018-11-04 16:57:13,082: INFO/MainProcess] Received task: celery_app.task1.add[88467637-a0a7-4357-a17a-b9e564d65d05][2018-11-04 16:57:15,085: INFO/ForkPoolWorker-2] Task celery_app.task1.add[88467637-a0a7-4357-a17a-b9e564d65d05] succeeded in 2.00195308999s: 13 PS：在上面，我们用两个命令启动了 Worker 进程和 Beat 进程，我们也可以将它们放在一个命令中：1TinyDolphin:celery_demo zhouyonglong01$ celery -B -A celery_app worker --loglevel=info Celery 周期性任务也有多个配置项，可参考官方文档。]]></content>
@@ -43,21 +58,6 @@
         <tag>Python</tag>
         <tag>分布式任务队列</tag>
         <tag>配置文件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Celery signature]]></title>
-    <url>%2F2018%2F11%2F04%2FCelery%2FCelery%20signature%2F</url>
-    <content type="text"><![CDATA[Celery signature[toc] 什么是 signature？前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够将任务调用的签名传递给另一个进程或者作为另一个函数的签名时，现有的方法就不够用了。 在 Celery 中，任务签名包含了一次任务调用的参数、关键字参数以及执行选项信息，它可以传递给其他函数，甚至序列化后通过网络传输。 如何创建 signature？通过任务的 signature 方法，创建任务签名对象12&gt;&gt;&gt; add.signature((2, 2), countdown=10)tasks.add(2, 2) 通过快捷方法，创建任务签名对象：12&gt;&gt;&gt; add.s(2, 2)tasks.add(2, 2) 如何执行 signature？直接执行签名在当前进程中执行 12&gt;&gt;&gt; s_add = add.signature((2, 2), countdown=10)&gt;&gt;&gt; s_add() Worker 执行签名在 Worker 任务进程中执行 12&gt;&gt;&gt; s_add = add.s(2, 2)&gt;&gt;&gt; s_add.delay() 跟一般的任务函数对比，区别在于签名可能已经指定了参数签名。 该add任务有两个参数，因此指定两个参数的签名将构成一个完整的签名：1234&gt;&gt;&gt; s1 = add.s(2, 2)&gt;&gt;&gt; res = s1.delay()&gt;&gt;&gt; res.get()4 但是，您也可以创建不完整的签名来创建的我们称之为 partials12# incomplete partial: add(?, 2)&gt;&gt;&gt; s2 = add.s(2) s2 现在是一个部分签名，需要另一个参数完成，这可以在调用签名时解决：1234# resolves the partial: add(8, 2)&gt;&gt;&gt; res = s2.delay(8)&gt;&gt;&gt; res.get()10 在这里，你添加参数8，形成了完整的签名。add(8, 2) 关键字参数也可以在以后添加，覆盖掉任何现有的关键字参数12&gt;&gt;&gt; s3 = add.s(2, 2, debug=True)&gt;&gt;&gt; s3.delay(debug=False) # debug is now False.]]></content>
-      <categories>
-        <category>Python</category>
-        <category>Celery</category>
-      </categories>
-      <tags>
-        <tag>Celery</tag>
-        <tag>Python</tag>
-        <tag>分布式任务队列</tag>
-        <tag>签名</tag>
       </tags>
   </entry>
   <entry>
@@ -115,22 +115,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Mac 安装 Rabbitmq]]></title>
-    <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20Rabbitmq%2F</url>
-    <content type="text"><![CDATA[Mac 安装 RabbitmqNO.1 Mac 下安装 Rabbitmq1234/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # 安装 brew（Homebrew：Mac OS平台下的软件包管理工具）brew install rabbitmqsudo vim ~/.bash_profilePATH=$PATH:/usr/local/sbin # 最后一行加上 NO.2 启动 &amp; 停止 Rabbitmq12345678# 启动服务brew services start rabbitmq# 停止服务brew services stop rabbitmq# 启用插件rabbitmq-plugins enable rabbitmq_management# 禁用插件rabbitmq-plugins disable rabbitmq_management NO.3 进入控制台http://localhost:15672/ 默认用户名和密码：guest , guest]]></content>
-      <categories>
-        <category>工具</category>
-        <category>Rabbitmq</category>
-        <category>Celery</category>
-      </categories>
-      <tags>
-        <tag>Celery</tag>
-        <tag>工具</tag>
-        <tag>Mac</tag>
-        <tag>Rabbitmq</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Mac 安装 Redis]]></title>
     <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20Redis%2F</url>
     <content type="text"><![CDATA[Mac 安装 RedisNO.1 Mac 下安装 Redis1brew install redis NO.2 启动 &amp; 停止 Rabbitmq12345678# 启动Redis服务brew services start redis# 关闭Redis服务brew services stop redis# 重启Redis服务brew services restart redis# 打开图形化界面redis-cli NO.3 redise的配置文件所在路径/usr/local/etc/redis.conf]]></content>
@@ -144,6 +128,22 @@
         <tag>工具</tag>
         <tag>Mac</tag>
         <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac 安装 Rabbitmq]]></title>
+    <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20Rabbitmq%2F</url>
+    <content type="text"><![CDATA[Mac 安装 RabbitmqNO.1 Mac 下安装 Rabbitmq1234/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # 安装 brew（Homebrew：Mac OS平台下的软件包管理工具）brew install rabbitmqsudo vim ~/.bash_profilePATH=$PATH:/usr/local/sbin # 最后一行加上 NO.2 启动 &amp; 停止 Rabbitmq12345678# 启动服务brew services start rabbitmq# 停止服务brew services stop rabbitmq# 启用插件rabbitmq-plugins enable rabbitmq_management# 禁用插件rabbitmq-plugins disable rabbitmq_management NO.3 进入控制台http://localhost:15672/ 默认用户名和密码：guest , guest]]></content>
+      <categories>
+        <category>工具</category>
+        <category>Rabbitmq</category>
+        <category>Celery</category>
+      </categories>
+      <tags>
+        <tag>Celery</tag>
+        <tag>工具</tag>
+        <tag>Mac</tag>
+        <tag>Rabbitmq</tag>
       </tags>
   </entry>
   <entry>

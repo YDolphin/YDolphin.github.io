@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.tinydolphin.cn/"/>
-  <updated>2018-11-04T09:18:44.456Z</updated>
+  <updated>2018-11-04T14:12:30.210Z</updated>
   <id>https://www.tinydolphin.cn/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Celery signature</title>
+    <link href="https://www.tinydolphin.cn/2018/11/04/Celery/Celery%20signature/"/>
+    <id>https://www.tinydolphin.cn/2018/11/04/Celery/Celery signature/</id>
+    <published>2018-11-04T12:04:21.000Z</published>
+    <updated>2018-11-04T14:12:30.210Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Celery-signature"><a href="#Celery-signature" class="headerlink" title="Celery signature"></a>Celery signature</h1><p>[toc]</p><h2 id="什么是-signature？"><a href="#什么是-signature？" class="headerlink" title="什么是 signature？"></a>什么是 signature？</h2><p>前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够<strong>将任务调用的签名传递给另一个进程或者作为另一个函数的签名时</strong>，现有的方法就不够用了。</p><p>在 Celery 中，任务签名包含了<strong>一次任务调用的参数</strong>、<strong>关键字参数</strong>以及<strong>执行选项信息</strong>，它可以传递给其他函数，甚至序列化后通过网络传输。</p><h2 id="如何创建-signature？"><a href="#如何创建-signature？" class="headerlink" title="如何创建 signature？"></a>如何创建 signature？</h2><h3 id="通过任务的-signature-方法，创建任务签名对象"><a href="#通过任务的-signature-方法，创建任务签名对象" class="headerlink" title="通过任务的 signature 方法，创建任务签名对象"></a>通过任务的 <strong>signature 方法</strong>，创建任务签名对象</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.signature((<span class="number">2</span>, <span class="number">2</span>), countdown=<span class="number">10</span>)</span><br><span class="line">tasks.add(<span class="number">2</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure><h3 id="通过快捷方法，创建任务签名对象："><a href="#通过快捷方法，创建任务签名对象：" class="headerlink" title="通过快捷方法，创建任务签名对象："></a>通过快捷方法，创建任务签名对象：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.s(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">tasks.add(<span class="number">2</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure><h2 id="如何执行-signature？"><a href="#如何执行-signature？" class="headerlink" title="如何执行 signature？"></a>如何执行 signature？</h2><h3 id="直接执行"><a href="#直接执行" class="headerlink" title="直接执行"></a>直接执行</h3><p>签名在当前进程中执行</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add = add.signature((<span class="number">2</span>, <span class="number">2</span>), countdown=<span class="number">10</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add()</span><br></pre></td></tr></table></figure><h3 id="Worker-执行"><a href="#Worker-执行" class="headerlink" title="Worker 执行"></a>Worker 执行</h3><p>签名在 Worker 任务进程中执行</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add = add.s(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add.delay()</span><br></pre></td></tr></table></figure><p>跟一般的任务函数对比，区别在于<strong>签名可能已经指定了参数签名</strong>。</p><p>该add任务有两个参数，因此指定两个参数的签名将构成<strong>一个完整的签名</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = add.s(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res = s1.delay()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res.get()</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></p><p>但是，您也可以<strong>创建不完整的签名</strong>来创建的我们称之为 partials<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># incomplete partial: add(?, 2)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s2 = add.s(<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p><p>s2 现在是一个部分签名，需要另一个参数完成，这可以在调用签名时解决：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># resolves the partial: add(8, 2)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res = s2.delay(<span class="number">8</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res.get()</span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure></p><p>在这里，你添加参数8，形成了完整的签名。add(8, 2)</p><p><strong>关键字参数</strong>也可以在以后添加，<strong>覆盖掉</strong>任何现有的关键字参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s3 = add.s(2, 2, debug=True)</span><br><span class="line">&gt;&gt;&gt; s3.delay(debug=False)   # debug is now False.</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="https://www.tinydolphin.cn/categories/Python/"/>
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/categories/Python/Celery/"/>
+    
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
+    
+      <category term="Python" scheme="https://www.tinydolphin.cn/tags/Python/"/>
+    
+      <category term="分布式任务队列" scheme="https://www.tinydolphin.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97/"/>
+    
+      <category term="签名" scheme="https://www.tinydolphin.cn/tags/%E7%AD%BE%E5%90%8D/"/>
+    
+  </entry>
   
   <entry>
     <title>Celery 定时任务</title>
@@ -112,39 +145,6 @@
       <category term="分布式任务队列" scheme="https://www.tinydolphin.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97/"/>
     
       <category term="配置文件" scheme="https://www.tinydolphin.cn/tags/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Celery signature</title>
-    <link href="https://www.tinydolphin.cn/2018/11/04/Celery/Celery%20signature/"/>
-    <id>https://www.tinydolphin.cn/2018/11/04/Celery/Celery signature/</id>
-    <published>2018-11-04T08:04:21.000Z</published>
-    <updated>2018-11-04T14:10:56.215Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Celery-signature"><a href="#Celery-signature" class="headerlink" title="Celery signature"></a>Celery signature</h1><p>[toc]</p><h2 id="什么是-signature？"><a href="#什么是-signature？" class="headerlink" title="什么是 signature？"></a>什么是 signature？</h2><p>前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够<strong>将任务调用的签名传递给另一个进程或者作为另一个函数的签名时</strong>，现有的方法就不够用了。</p><p>在 Celery 中，任务签名包含了<strong>一次任务调用的参数</strong>、<strong>关键字参数</strong>以及<strong>执行选项信息</strong>，它可以传递给其他函数，甚至序列化后通过网络传输。</p><h2 id="如何创建-signature？"><a href="#如何创建-signature？" class="headerlink" title="如何创建 signature？"></a>如何创建 signature？</h2><h3 id="通过任务的-signature-方法，创建任务签名对象"><a href="#通过任务的-signature-方法，创建任务签名对象" class="headerlink" title="通过任务的 signature 方法，创建任务签名对象"></a>通过任务的 <strong>signature 方法</strong>，创建任务签名对象</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.signature((<span class="number">2</span>, <span class="number">2</span>), countdown=<span class="number">10</span>)</span><br><span class="line">tasks.add(<span class="number">2</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure><h3 id="通过快捷方法，创建任务签名对象："><a href="#通过快捷方法，创建任务签名对象：" class="headerlink" title="通过快捷方法，创建任务签名对象："></a>通过快捷方法，创建任务签名对象：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.s(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">tasks.add(<span class="number">2</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure><h2 id="如何执行-signature？"><a href="#如何执行-signature？" class="headerlink" title="如何执行 signature？"></a>如何执行 signature？</h2><h3 id="直接执行"><a href="#直接执行" class="headerlink" title="直接执行"></a>直接执行</h3><p>签名在当前进程中执行</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add = add.signature((<span class="number">2</span>, <span class="number">2</span>), countdown=<span class="number">10</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add()</span><br></pre></td></tr></table></figure><h3 id="Worker-执行"><a href="#Worker-执行" class="headerlink" title="Worker 执行"></a>Worker 执行</h3><p>签名在 Worker 任务进程中执行</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add = add.s(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add.delay()</span><br></pre></td></tr></table></figure><p>跟一般的任务函数对比，区别在于<strong>签名可能已经指定了参数签名</strong>。</p><p>该add任务有两个参数，因此指定两个参数的签名将构成<strong>一个完整的签名</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = add.s(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res = s1.delay()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res.get()</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></p><p>但是，您也可以<strong>创建不完整的签名</strong>来创建的我们称之为 partials<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># incomplete partial: add(?, 2)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s2 = add.s(<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p><p>s2 现在是一个部分签名，需要另一个参数完成，这可以在调用签名时解决：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># resolves the partial: add(8, 2)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res = s2.delay(<span class="number">8</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res.get()</span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure></p><p>在这里，你添加参数8，形成了完整的签名。add(8, 2)</p><p><strong>关键字参数</strong>也可以在以后添加，<strong>覆盖掉</strong>任何现有的关键字参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s3 = add.s(2, 2, debug=True)</span><br><span class="line">&gt;&gt;&gt; s3.delay(debug=False)   # debug is now False.</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="Python" scheme="https://www.tinydolphin.cn/categories/Python/"/>
-    
-      <category term="Celery" scheme="https://www.tinydolphin.cn/categories/Python/Celery/"/>
-    
-    
-      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
-    
-      <category term="Python" scheme="https://www.tinydolphin.cn/tags/Python/"/>
-    
-      <category term="分布式任务队列" scheme="https://www.tinydolphin.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97/"/>
-    
-      <category term="签名" scheme="https://www.tinydolphin.cn/tags/%E7%AD%BE%E5%90%8D/"/>
     
   </entry>
   
@@ -269,41 +269,6 @@
   </entry>
   
   <entry>
-    <title>Mac 安装 Rabbitmq</title>
-    <link href="https://www.tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Rabbitmq/"/>
-    <id>https://www.tinydolphin.cn/2018/09/17/工具/Mac 安装 Rabbitmq/</id>
-    <published>2018-09-17T15:22:54.000Z</published>
-    <updated>2018-10-28T13:49:59.500Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac-安装-Rabbitmq"><a href="#Mac-安装-Rabbitmq" class="headerlink" title="Mac 安装 Rabbitmq"></a>Mac 安装 Rabbitmq</h1><h3 id="NO-1-Mac-下安装-Rabbitmq"><a href="#NO-1-Mac-下安装-Rabbitmq" class="headerlink" title="NO.1 Mac 下安装 Rabbitmq"></a>NO.1 Mac 下安装 Rabbitmq</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # 安装 brew（Homebrew：Mac OS平台下的软件包管理工具）</span><br><span class="line">brew install rabbitmq</span><br><span class="line">sudo vim ~/.bash_profile</span><br><span class="line">PATH=$PATH:/usr/local/sbin # 最后一行加上</span><br></pre></td></tr></table></figure><h3 id="NO-2-启动-amp-停止-Rabbitmq"><a href="#NO-2-启动-amp-停止-Rabbitmq" class="headerlink" title="NO.2 启动 &amp; 停止 Rabbitmq"></a>NO.2 启动 &amp; 停止 Rabbitmq</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动服务</span><br><span class="line">brew services start rabbitmq</span><br><span class="line"><span class="meta">#</span> 停止服务</span><br><span class="line">brew services stop rabbitmq</span><br><span class="line"><span class="meta">#</span> 启用插件</span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line"><span class="meta">#</span> 禁用插件</span><br><span class="line">rabbitmq-plugins disable rabbitmq_management</span><br></pre></td></tr></table></figure><h3 id="NO-3-进入控制台"><a href="#NO-3-进入控制台" class="headerlink" title="NO.3 进入控制台"></a>NO.3 进入控制台</h3><p><a href="http://localhost:15672/" target="_blank" rel="noopener">http://localhost:15672/</a></p><p>默认用户名和密码：guest , guest</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="Rabbitmq" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Rabbitmq/"/>
-    
-      <category term="Celery" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Rabbitmq/Celery/"/>
-    
-    
-      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
-    
-      <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
-    
-      <category term="Rabbitmq" scheme="https://www.tinydolphin.cn/tags/Rabbitmq/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Mac 安装 Redis</title>
     <link href="https://www.tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Redis/"/>
     <id>https://www.tinydolphin.cn/2018/09/17/工具/Mac 安装 Redis/</id>
@@ -335,6 +300,41 @@
       <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
     
       <category term="Redis" scheme="https://www.tinydolphin.cn/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac 安装 Rabbitmq</title>
+    <link href="https://www.tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Rabbitmq/"/>
+    <id>https://www.tinydolphin.cn/2018/09/17/工具/Mac 安装 Rabbitmq/</id>
+    <published>2018-09-17T15:22:54.000Z</published>
+    <updated>2018-10-28T13:49:59.500Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac-安装-Rabbitmq"><a href="#Mac-安装-Rabbitmq" class="headerlink" title="Mac 安装 Rabbitmq"></a>Mac 安装 Rabbitmq</h1><h3 id="NO-1-Mac-下安装-Rabbitmq"><a href="#NO-1-Mac-下安装-Rabbitmq" class="headerlink" title="NO.1 Mac 下安装 Rabbitmq"></a>NO.1 Mac 下安装 Rabbitmq</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # 安装 brew（Homebrew：Mac OS平台下的软件包管理工具）</span><br><span class="line">brew install rabbitmq</span><br><span class="line">sudo vim ~/.bash_profile</span><br><span class="line">PATH=$PATH:/usr/local/sbin # 最后一行加上</span><br></pre></td></tr></table></figure><h3 id="NO-2-启动-amp-停止-Rabbitmq"><a href="#NO-2-启动-amp-停止-Rabbitmq" class="headerlink" title="NO.2 启动 &amp; 停止 Rabbitmq"></a>NO.2 启动 &amp; 停止 Rabbitmq</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动服务</span><br><span class="line">brew services start rabbitmq</span><br><span class="line"><span class="meta">#</span> 停止服务</span><br><span class="line">brew services stop rabbitmq</span><br><span class="line"><span class="meta">#</span> 启用插件</span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line"><span class="meta">#</span> 禁用插件</span><br><span class="line">rabbitmq-plugins disable rabbitmq_management</span><br></pre></td></tr></table></figure><h3 id="NO-3-进入控制台"><a href="#NO-3-进入控制台" class="headerlink" title="NO.3 进入控制台"></a>NO.3 进入控制台</h3><p><a href="http://localhost:15672/" target="_blank" rel="noopener">http://localhost:15672/</a></p><p>默认用户名和密码：guest , guest</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="Rabbitmq" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Rabbitmq/"/>
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Rabbitmq/Celery/"/>
+    
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
+    
+      <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
+    
+      <category term="Rabbitmq" scheme="https://www.tinydolphin.cn/tags/Rabbitmq/"/>
     
   </entry>
   
