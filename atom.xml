@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.tinydolphin.cn/"/>
-  <updated>2018-10-28T13:51:56.296Z</updated>
+  <updated>2018-11-04T08:30:18.647Z</updated>
   <id>https://www.tinydolphin.cn/</id>
   
   <author>
@@ -15,6 +15,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Celery 异步任务</title>
+    <link href="https://www.tinydolphin.cn/2018/11/04/Celery/Celery%20%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/"/>
+    <id>https://www.tinydolphin.cn/2018/11/04/Celery/Celery 异步任务/</id>
+    <published>2018-11-04T07:44:31.000Z</published>
+    <updated>2018-11-04T08:30:18.647Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Celery-异步任务"><a href="#Celery-异步任务" class="headerlink" title="Celery 异步任务"></a>Celery 异步任务</h1><p>使用 Celery 实现异步任务主要有三个步骤：</p><ol><li>创建一个 Celery 实例；</li><li>启动 Celery worker；</li><li>应用程序调用异步任务。</li></ol><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="选择-broker-amp-backend"><a href="#选择-broker-amp-backend" class="headerlink" title="选择 broker &amp; backend"></a>选择 broker &amp; backend</h3><ol><li><strong>RabbitMQ</strong>功能齐全，稳定，耐用且易于安装。它是生产环境的绝佳选择。（官网推荐使用）</li><li><strong>Redis</strong>功能齐全，但在突然终止或电源故障时更容易丢失数据</li></ol><p>如果选择以上两种 broker，则需要分别安装，可参考<a href="http://tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Redis/" target="_blank" rel="noopener">Mac 安装 Redis</a> &amp; <a href="http://tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Rabbitmq/" target="_blank" rel="noopener">Mac 安装 Rabbitmq</a> 。</p><h3 id="安装-Celery"><a href="#安装-Celery" class="headerlink" title="安装 Celery"></a>安装 Celery</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install celery</span><br></pre></td></tr></table></figure><h2 id="创建-Celery-任务"><a href="#创建-Celery-任务" class="headerlink" title="创建 Celery 任务"></a>创建 Celery 任务</h2><p>将下面的代码保存为文件 tasks.py：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">broker = <span class="string">'amqp://guest@localhost:5672//'</span></span><br><span class="line">backend = <span class="string">'redis://127.0.0.1:6379'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 Celery 实例</span></span><br><span class="line"><span class="comment"># 第一个参数：当前模板的名称。只有在 __main__ 模板中定义任务时才能自动生成名称。</span></span><br><span class="line"><span class="comment"># 第二个参数：指定使用的消息中间件的 URL</span></span><br><span class="line"><span class="comment"># 第三个参数：指定任务结果存储的 URL</span></span><br><span class="line">app = Celery(<span class="string">'tasks'</span>, broker=broker, backend=backend)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个名为 add 的单个任务：返回两个数的总和</span></span><br><span class="line"><span class="comment"># 创建了一个 Celery 任务 add，当函数被 @app.task 装饰后，就成为可被 Celery 调度的任务</span></span><br><span class="line"><span class="meta">@app.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">5</span>)   <span class="comment"># 模拟耗时操作</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure><h2 id="启动-Celery-worker"><a href="#启动-Celery-worker" class="headerlink" title="启动 Celery worker"></a>启动 Celery worker</h2><p>在当前目录下，使用以下指令启动 Celery worker：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">celery worker -A tasks --loglevel=info</span><br></pre></td></tr></table></figure></p><p>其中，</p><ul><li>参数 -A 指定了 Celery 实例的位置，本例是在 tasks.py 中，Celery 会自动在该文件中寻找 Celery 对象实例，当然，我们也可以自己指定，在本例，使用 -A tasks.app。</li><li>参数 –loglevel 指定了日志级别，默认为 warning，也可以使用 -l info 来表示；</li></ul><p>启动成功后，控制台会显示如下输出：</p><p><img src="/images/celery启动成功.jpg" alt="celery启动成功.jpg"></p><h2 id="调度任务"><a href="#调度任务" class="headerlink" title="调度任务"></a>调度任务</h2><p>现在，我们可以在应用程序中使用 <strong>delay()</strong> 或 <strong>apply_async()</strong> 方法来调用任务。</p><p>在当前目录打开 Python 控制台，输入以下代码：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> tasks <span class="keyword">import</span> add</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.delay(<span class="number">1</span>, <span class="number">20</span>)</span><br><span class="line">&lt;AsyncResult: d91cb44d-e4b5<span class="number">-489</span>b<span class="number">-9</span>dbf<span class="number">-982</span>ae2b39e0d&gt;</span><br></pre></td></tr></table></figure><p>在上面，我们从 tasks.py 文件中<strong>导入了 add 任务对象，然后使用 delay() 方法将任务发送到消息中间件（Broker），Celery Worker 进程监控到该任务后，就会进行执行</strong>。我们将窗口切换到 Worker 的启动窗口，会看到多了两条日志：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[2018-11-04 15:43:25,351: INFO/MainProcess] Received task: tasks.add[d91cb44d-e4b5-489b-9dbf-982ae2b39e0d]</span><br><span class="line">[2018-11-04 15:43:25,386: INFO/ForkPoolWorker-2] Task tasks.add[d91cb44d-e4b5-489b-9dbf-982ae2b39e0d] succeeded in 0.0192078250111s: 21</span><br></pre></td></tr></table></figure><p>这说明任务已经被调度并执行成功。</p><p>PS：我们如果想获取执行后的结果，可以这样做：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>result = add.delay(<span class="number">10</span>, <span class="number">42</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result.ready()  <span class="comment"># 使用 ready() 判断任务是否执行完毕</span></span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result.ready()</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result.ready()</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result.get()    <span class="comment"># 使用 get() 获取任务结果</span></span><br><span class="line"><span class="number">52</span></span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure><p>注意：虽然执行 add 方法 5s 之后才会返回结果，但是这是一个异步任务，不会阻塞主程序的，因此主程序并不会等待，而是会继续向下执行。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="https://www.tinydolphin.cn/categories/Python/"/>
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/categories/Python/Celery/"/>
+    
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
+    
+      <category term="Python" scheme="https://www.tinydolphin.cn/tags/Python/"/>
+    
+      <category term="分布式任务队列" scheme="https://www.tinydolphin.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Celery 框架及其使用场景</title>
+    <link href="https://www.tinydolphin.cn/2018/11/04/Celery/Celery%20%E6%A1%86%E6%9E%B6%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/"/>
+    <id>https://www.tinydolphin.cn/2018/11/04/Celery/Celery 框架及其使用场景/</id>
+    <published>2018-11-04T06:28:22.000Z</published>
+    <updated>2018-11-04T08:29:58.957Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Celery-框架及其使用场景"><a href="#Celery-框架及其使用场景" class="headerlink" title="Celery 框架及其使用场景"></a>Celery 框架及其使用场景</h1><p>celery 是一款基于 python 开发的、专注于<strong>实时处理</strong>和<strong>任务调度</strong>的<strong>分布式任务队列</strong>。</p><h2 id="Celery-架构以及组成部分"><a href="#Celery-架构以及组成部分" class="headerlink" title="Celery 架构以及组成部分"></a>Celery 架构以及组成部分</h2><p><img src="/images/celery.jpg" alt="Celery 框架图"></p><p>可以看到，Celery 主要包含以下几个模块：</p><h3 id="任务模板-Task"><a href="#任务模板-Task" class="headerlink" title="任务模板 Task"></a>任务模板 Task</h3><p><strong>异步任务：</strong>通常在业务逻辑中<strong>被触发</strong>并发往任务队列。<br><br><strong>定时任务：</strong>由 <strong>Celery Beat</strong> 进程<strong>周期性</strong>地将任务发往任务队列。</p><h3 id="消息中间件-Broker"><a href="#消息中间件-Broker" class="headerlink" title="消息中间件 Broker"></a>消息中间件 Broker</h3><p>即为<strong>任务调度队列</strong>，<strong>接收任务生产者发来的消息（即任务），将任务存入队列，再按序分发给任务消费者</strong>。Celery 本身不提供队列服务，官方推荐使用 RabbitMQ 和 Redis 等。</p><h3 id="任务执行单元-Worker"><a href="#任务执行单元-Worker" class="headerlink" title="任务执行单元 Worker"></a>任务执行单元 Worker</h3><p>Worker 是执行任务的处理单元，它<strong>实时监控消息队列，获取队列中调度的任务，并执行它</strong>。</p><h3 id="任务结果存储-Backend"><a href="#任务结果存储-Backend" class="headerlink" title="任务结果存储 Backend"></a>任务结果存储 Backend</h3><p>Backend 用于<strong>存储任务的执行结果，以供查询</strong>。同消息中间件一样，存储也可使用 RabbitMQ, Redis 和 MongoDB 等。</p><h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p><strong>例子一：在程序的运行过程中，经常会碰到一些耗时耗资源的操作，为了避免它们阻塞主程序的运行，我们经常会采用多线程或异步任务。</strong></p><p>比如：在 web 开发中，对新用户的注册，我们通常会给他发一封激活邮件，而发邮件就是 IO阻塞式任务，如果它们直接放到应用当中，就需要等到邮件发出去之后，才能进行下一步操作，此时用户只有一直等待。</p><p>celery 解决方案：在业务逻辑中<strong>触发一个发邮件的异步任务</strong>，而主程序可以继续往下运行。</p><p><strong>例子二：在程序运行的过程中，有一个要运行很久的任务，但是我们又不想阻塞主程序</strong>。</p><ol><li>解决方案：使用多线程。但是当<strong>并发量过大</strong>时，多线程也会扛不住</li><li>继续解决：使用线程池来限制并发数。<ul><li>多线程对于<strong>共享资源</strong>的使用也是比较麻烦的一件事。</li><li>对于<strong>协程</strong>，它还是在同一个线程中执行的，如果一个任务本身的执行时间很长，而不是因为等待 IO 被挂起的，那么也同样会阻塞其他的协程。</li></ul></li><li>最终方案：基于以上的问题，我们可以使用一个强大的分布式任务队列 Celery 来<strong>让任务的执行和主程序完全的脱离</strong>，甚至不在同一个主机内。通过<strong>队列</strong>来调度任务，所以不用担心并发量高时导致系统负载过大。</li></ol><p><strong>例子三：执行和主程序脱离</strong></p><p>你想对100台机器执行一条批量命令，可能会花很长时间 ，但你不想让你的程序等着结果返回，而是给你返回一个任务ID,你过一段时间只需要拿着这个任务id就可以拿到任务执行结果，这样的话，在任务执行进行时，你可以继续做其它的事情。</p><p><strong>例子四：做一个定时任务</strong></p><p>比如每天定时检测一下你们所有客户的资料，如果发现今天是客户的生日，就给他发个短信祝福</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="https://www.tinydolphin.cn/categories/Python/"/>
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/categories/Python/Celery/"/>
+    
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
+    
+      <category term="Python" scheme="https://www.tinydolphin.cn/tags/Python/"/>
+    
+      <category term="分布式任务队列" scheme="https://www.tinydolphin.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97/"/>
+    
+  </entry>
   
   <entry>
     <title>复杂度分析（下）：浅析最好、最坏、平均、均摊时间复杂度</title>
@@ -44,35 +106,6 @@
   </entry>
   
   <entry>
-    <title>Celery 框架及其使用场景</title>
-    <link href="https://www.tinydolphin.cn/2018/10/28/Celery/Celery%20%E6%A1%86%E6%9E%B6%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/"/>
-    <id>https://www.tinydolphin.cn/2018/10/28/Celery/Celery 框架及其使用场景/</id>
-    <published>2018-10-28T12:25:35.000Z</published>
-    <updated>2018-11-04T07:11:46.632Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Celery-框架及其使用场景"><a href="#Celery-框架及其使用场景" class="headerlink" title="Celery 框架及其使用场景"></a>Celery 框架及其使用场景</h1><p>celery 是一款基于 python 开发的、专注于<strong>实时处理</strong>和<strong>任务调度</strong>的<strong>分布式任务队列</strong>。</p><h2 id="Celery-架构以及组成部分"><a href="#Celery-架构以及组成部分" class="headerlink" title="Celery 架构以及组成部分"></a>Celery 架构以及组成部分</h2><p><img src="/images/celery.jpg" alt="Celery 框架图"></p><p>可以看到，Celery 主要包含以下几个模块：</p><h3 id="任务模板-Task"><a href="#任务模板-Task" class="headerlink" title="任务模板 Task"></a>任务模板 Task</h3><p><strong>异步任务：</strong>通常在业务逻辑中<strong>被触发</strong>并发往任务队列。<br><br><strong>定时任务：</strong>由 <strong>Celery Beat</strong> 进程<strong>周期性</strong>地将任务发往任务队列。</p><h3 id="消息中间件-Broker"><a href="#消息中间件-Broker" class="headerlink" title="消息中间件 Broker"></a>消息中间件 Broker</h3><p>即为<strong>任务调度队列</strong>，<strong>接收任务生产者发来的消息（即任务），将任务存入队列，再按序分发给任务消费者</strong>。Celery 本身不提供队列服务，官方推荐使用 RabbitMQ 和 Redis 等。</p><h3 id="任务执行单元-Worker"><a href="#任务执行单元-Worker" class="headerlink" title="任务执行单元 Worker"></a>任务执行单元 Worker</h3><p>Worker 是执行任务的处理单元，它<strong>实时监控消息队列，获取队列中调度的任务，并执行它</strong>。</p><h3 id="任务结果存储-Backend"><a href="#任务结果存储-Backend" class="headerlink" title="任务结果存储 Backend"></a>任务结果存储 Backend</h3><p>Backend 用于<strong>存储任务的执行结果，以供查询</strong>。同消息中间件一样，存储也可使用 RabbitMQ, Redis 和 MongoDB 等。</p><h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p><strong>例子一：在程序的运行过程中，经常会碰到一些耗时耗资源的操作，为了避免它们阻塞主程序的运行，我们经常会采用多线程或异步任务。</strong></p><p>比如：在 web 开发中，对新用户的注册，我们通常会给他发一封激活邮件，而发邮件就是 IO阻塞式任务，如果它们直接放到应用当中，就需要等到邮件发出去之后，才能进行下一步操作，此时用户只有一直等待。</p><p>celery 解决方案：在业务逻辑中<strong>触发一个发邮件的异步任务</strong>，而主程序可以继续往下运行。</p><p><strong>例子二：在程序运行的过程中，有一个要运行很久的任务，但是我们又不想阻塞主程序</strong>。</p><ol><li>解决方案：使用多线程。但是当<strong>并发量过大</strong>时，多线程也会扛不住</li><li>继续解决：使用线程池来限制并发数。<ul><li>多线程对于<strong>共享资源</strong>的使用也是比较麻烦的一件事。</li><li>对于<strong>协程</strong>，它还是在同一个线程中执行的，如果一个任务本身的执行时间很长，而不是因为等待 IO 被挂起的，那么也同样会阻塞其他的协程。</li></ul></li><li>最终方案：基于以上的问题，我们可以使用一个强大的分布式任务队列 Celery 来<strong>让任务的执行和主程序完全的脱离</strong>，甚至不在同一个主机内。通过<strong>队列</strong>来调度任务，所以不用担心并发量高时导致系统负载过大。</li></ol><p><strong>例子三：执行和主程序脱离</strong></p><p>你想对100台机器执行一条批量命令，可能会花很长时间 ，但你不想让你的程序等着结果返回，而是给你返回一个任务ID,你过一段时间只需要拿着这个任务id就可以拿到任务执行结果，这样的话，在任务执行进行时，你可以继续做其它的事情。</p><p><strong>例子四：做一个定时任务</strong></p><p>比如每天定时检测一下你们所有客户的资料，如果发现今天是客户的生日，就给他发个短信祝福</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="Python" scheme="https://www.tinydolphin.cn/categories/Python/"/>
-    
-    
-      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
-    
-      <category term="Python" scheme="https://www.tinydolphin.cn/tags/Python/"/>
-    
-      <category term="分布式任务队列" scheme="https://www.tinydolphin.cn/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E9%98%9F%E5%88%97/"/>
-    
-  </entry>
-  
-  <entry>
     <title>复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？</title>
     <link href="https://www.tinydolphin.cn/2018/10/28/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E6%9E%90%E3%80%81%E7%BB%9F%E8%AE%A1%E7%AE%97%E6%B3%95%E7%9A%84%E6%89%A7%E8%A1%8C%E6%95%88%E7%8E%87%E5%92%8C%E8%B5%84%E6%BA%90%E6%B6%88%E8%80%97%EF%BC%9F/"/>
     <id>https://www.tinydolphin.cn/2018/10/28/数据结构与算法/复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？/</id>
@@ -96,68 +129,6 @@
       <category term="数据结构" scheme="https://www.tinydolphin.cn/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="算法" scheme="https://www.tinydolphin.cn/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac 安装 Redis</title>
-    <link href="https://www.tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Redis/"/>
-    <id>https://www.tinydolphin.cn/2018/09/17/工具/Mac 安装 Redis/</id>
-    <published>2018-09-17T15:22:54.000Z</published>
-    <updated>2018-10-30T02:58:50.739Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac-安装-Redis"><a href="#Mac-安装-Redis" class="headerlink" title="Mac 安装 Redis"></a>Mac 安装 Redis</h1><h3 id="NO-1-Mac-下安装-Redis"><a href="#NO-1-Mac-下安装-Redis" class="headerlink" title="NO.1 Mac 下安装 Redis"></a>NO.1 Mac 下安装 Redis</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install redis</span><br></pre></td></tr></table></figure><h3 id="NO-2-启动-amp-停止-Rabbitmq"><a href="#NO-2-启动-amp-停止-Rabbitmq" class="headerlink" title="NO.2 启动 &amp; 停止 Rabbitmq"></a>NO.2 启动 &amp; 停止 Rabbitmq</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动Redis服务</span><br><span class="line">brew services start redis</span><br><span class="line"><span class="meta">#</span> 关闭Redis服务</span><br><span class="line">brew services stop redis</span><br><span class="line"><span class="meta">#</span> 重启Redis服务</span><br><span class="line">brew services restart redis</span><br><span class="line"><span class="meta">#</span> 打开图形化界面</span><br><span class="line">redis-cli</span><br></pre></td></tr></table></figure><h3 id="NO-3-redise的配置文件所在路径"><a href="#NO-3-redise的配置文件所在路径" class="headerlink" title="NO.3 redise的配置文件所在路径"></a>NO.3 redise的配置文件所在路径</h3><p>/usr/local/etc/redis.conf</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="Redis" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Redis/"/>
-    
-      <category term="Celery" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Redis/Celery/"/>
-    
-    
-      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
-    
-      <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
-    
-      <category term="Redis" scheme="https://www.tinydolphin.cn/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac 安装 brew 以及部分使用指令</title>
-    <link href="https://www.tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20%20brew%20%E4%BB%A5%E5%8F%8A%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8%E6%8C%87%E4%BB%A4/"/>
-    <id>https://www.tinydolphin.cn/2018/09/17/工具/Mac 安装  brew 以及部分使用指令/</id>
-    <published>2018-09-17T15:22:54.000Z</published>
-    <updated>2018-10-28T13:49:54.138Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac-安装-brew-以及部分使用指令"><a href="#Mac-安装-brew-以及部分使用指令" class="headerlink" title="Mac 安装 brew 以及部分使用指令"></a>Mac 安装 brew 以及部分使用指令</h1><h3 id="NO-1-官网获取下载指令"><a href="#NO-1-官网获取下载指令" class="headerlink" title="NO.1 官网获取下载指令"></a>NO.1 官网获取下载指令</h3><p><a href="http://brew.sh/" target="_blank" rel="noopener">http://brew.sh/</a></p><p>Homebrew安装成功后，会自动创建目录 /usr/local/Cellar 来存放Homebrew安装的程序</p><h3 id="NO-2-使用-brew"><a href="#NO-2-使用-brew" class="headerlink" title="NO.2 使用 brew"></a>NO.2 使用 brew</h3><ul><li>安装软件：brew install 软件名，例：brew install wget</li><li>搜索软件：brew search 软件名，例：brew search wget</li><li>卸载软件：brew uninstall 软件名，例：brew uninstall wget</li><li>更新所有软件：brew update</li><li>更新具体软件：brew upgrade 软件名 ，例：brew upgrade git</li><li>显示已安装软件：brew list</li><li>查看软件信息：brew info／home 软件名 ，例：brew info git ／ brew home git<br>PS：brew home指令是用浏览器打开官方网页查看软件信息</li><li>查看哪些已安装的程序需要更新： brew outdated</li><li>显示包依赖：brew reps</li><li>显示帮助：brew help</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
     
   </entry>
   
@@ -193,6 +164,68 @@
       <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
     
       <category term="Rabbitmq" scheme="https://www.tinydolphin.cn/tags/Rabbitmq/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac 安装 brew 以及部分使用指令</title>
+    <link href="https://www.tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20%20brew%20%E4%BB%A5%E5%8F%8A%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8%E6%8C%87%E4%BB%A4/"/>
+    <id>https://www.tinydolphin.cn/2018/09/17/工具/Mac 安装  brew 以及部分使用指令/</id>
+    <published>2018-09-17T15:22:54.000Z</published>
+    <updated>2018-10-28T13:49:54.138Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac-安装-brew-以及部分使用指令"><a href="#Mac-安装-brew-以及部分使用指令" class="headerlink" title="Mac 安装 brew 以及部分使用指令"></a>Mac 安装 brew 以及部分使用指令</h1><h3 id="NO-1-官网获取下载指令"><a href="#NO-1-官网获取下载指令" class="headerlink" title="NO.1 官网获取下载指令"></a>NO.1 官网获取下载指令</h3><p><a href="http://brew.sh/" target="_blank" rel="noopener">http://brew.sh/</a></p><p>Homebrew安装成功后，会自动创建目录 /usr/local/Cellar 来存放Homebrew安装的程序</p><h3 id="NO-2-使用-brew"><a href="#NO-2-使用-brew" class="headerlink" title="NO.2 使用 brew"></a>NO.2 使用 brew</h3><ul><li>安装软件：brew install 软件名，例：brew install wget</li><li>搜索软件：brew search 软件名，例：brew search wget</li><li>卸载软件：brew uninstall 软件名，例：brew uninstall wget</li><li>更新所有软件：brew update</li><li>更新具体软件：brew upgrade 软件名 ，例：brew upgrade git</li><li>显示已安装软件：brew list</li><li>查看软件信息：brew info／home 软件名 ，例：brew info git ／ brew home git<br>PS：brew home指令是用浏览器打开官方网页查看软件信息</li><li>查看哪些已安装的程序需要更新： brew outdated</li><li>显示包依赖：brew reps</li><li>显示帮助：brew help</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac 安装 Redis</title>
+    <link href="https://www.tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Redis/"/>
+    <id>https://www.tinydolphin.cn/2018/09/17/工具/Mac 安装 Redis/</id>
+    <published>2018-09-17T15:22:54.000Z</published>
+    <updated>2018-10-30T02:58:50.739Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac-安装-Redis"><a href="#Mac-安装-Redis" class="headerlink" title="Mac 安装 Redis"></a>Mac 安装 Redis</h1><h3 id="NO-1-Mac-下安装-Redis"><a href="#NO-1-Mac-下安装-Redis" class="headerlink" title="NO.1 Mac 下安装 Redis"></a>NO.1 Mac 下安装 Redis</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install redis</span><br></pre></td></tr></table></figure><h3 id="NO-2-启动-amp-停止-Rabbitmq"><a href="#NO-2-启动-amp-停止-Rabbitmq" class="headerlink" title="NO.2 启动 &amp; 停止 Rabbitmq"></a>NO.2 启动 &amp; 停止 Rabbitmq</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动Redis服务</span><br><span class="line">brew services start redis</span><br><span class="line"><span class="meta">#</span> 关闭Redis服务</span><br><span class="line">brew services stop redis</span><br><span class="line"><span class="meta">#</span> 重启Redis服务</span><br><span class="line">brew services restart redis</span><br><span class="line"><span class="meta">#</span> 打开图形化界面</span><br><span class="line">redis-cli</span><br></pre></td></tr></table></figure><h3 id="NO-3-redise的配置文件所在路径"><a href="#NO-3-redise的配置文件所在路径" class="headerlink" title="NO.3 redise的配置文件所在路径"></a>NO.3 redise的配置文件所在路径</h3><p>/usr/local/etc/redis.conf</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="Redis" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Redis/"/>
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Redis/Celery/"/>
+    
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
+    
+      <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
+    
+      <category term="Redis" scheme="https://www.tinydolphin.cn/tags/Redis/"/>
     
   </entry>
   

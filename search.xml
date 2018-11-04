@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Celery 异步任务]]></title>
+    <url>%2F2018%2F11%2F04%2FCelery%2FCelery%20%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%2F</url>
+    <content type="text"><![CDATA[Celery 异步任务使用 Celery 实现异步任务主要有三个步骤： 创建一个 Celery 实例； 启动 Celery worker； 应用程序调用异步任务。 准备工作选择 broker &amp; backend RabbitMQ功能齐全，稳定，耐用且易于安装。它是生产环境的绝佳选择。（官网推荐使用） Redis功能齐全，但在突然终止或电源故障时更容易丢失数据 如果选择以上两种 broker，则需要分别安装，可参考Mac 安装 Redis &amp; Mac 安装 Rabbitmq 。 安装 Celery1pip install celery 创建 Celery 任务将下面的代码保存为文件 tasks.py： 123456789101112131415161718192021#!/usr/bin/env python# -*- coding: utf-8 -*-from celery import Celeryimport timebroker = 'amqp://guest@localhost:5672//'backend = 'redis://127.0.0.1:6379'# 创建 Celery 实例# 第一个参数：当前模板的名称。只有在 __main__ 模板中定义任务时才能自动生成名称。# 第二个参数：指定使用的消息中间件的 URL# 第三个参数：指定任务结果存储的 URLapp = Celery('tasks', broker=broker, backend=backend)# 定义一个名为 add 的单个任务：返回两个数的总和# 创建了一个 Celery 任务 add，当函数被 @app.task 装饰后，就成为可被 Celery 调度的任务@app.taskdef add(x, y): time.sleep(5) # 模拟耗时操作 return x + y 启动 Celery worker在当前目录下，使用以下指令启动 Celery worker：1celery worker -A tasks --loglevel=info 其中， 参数 -A 指定了 Celery 实例的位置，本例是在 tasks.py 中，Celery 会自动在该文件中寻找 Celery 对象实例，当然，我们也可以自己指定，在本例，使用 -A tasks.app。 参数 –loglevel 指定了日志级别，默认为 warning，也可以使用 -l info 来表示； 启动成功后，控制台会显示如下输出： 调度任务现在，我们可以在应用程序中使用 delay() 或 apply_async() 方法来调用任务。 在当前目录打开 Python 控制台，输入以下代码： 123&gt;&gt;&gt; from tasks import add&gt;&gt;&gt; add.delay(1, 20)&lt;AsyncResult: d91cb44d-e4b5-489b-9dbf-982ae2b39e0d&gt; 在上面，我们从 tasks.py 文件中导入了 add 任务对象，然后使用 delay() 方法将任务发送到消息中间件（Broker），Celery Worker 进程监控到该任务后，就会进行执行。我们将窗口切换到 Worker 的启动窗口，会看到多了两条日志： 12[2018-11-04 15:43:25,351: INFO/MainProcess] Received task: tasks.add[d91cb44d-e4b5-489b-9dbf-982ae2b39e0d][2018-11-04 15:43:25,386: INFO/ForkPoolWorker-2] Task tasks.add[d91cb44d-e4b5-489b-9dbf-982ae2b39e0d] succeeded in 0.0192078250111s: 21 这说明任务已经被调度并执行成功。 PS：我们如果想获取执行后的结果，可以这样做： 12345678910&gt;&gt;&gt; result = add.delay(10, 42)&gt;&gt;&gt; result.ready() # 使用 ready() 判断任务是否执行完毕False&gt;&gt;&gt; result.ready()False&gt;&gt;&gt; result.ready()True&gt;&gt;&gt; result.get() # 使用 get() 获取任务结果52&gt;&gt;&gt; 注意：虽然执行 add 方法 5s 之后才会返回结果，但是这是一个异步任务，不会阻塞主程序的，因此主程序并不会等待，而是会继续向下执行。]]></content>
+      <categories>
+        <category>Python</category>
+        <category>Celery</category>
+      </categories>
+      <tags>
+        <tag>Celery</tag>
+        <tag>Python</tag>
+        <tag>分布式任务队列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Celery 框架及其使用场景]]></title>
+    <url>%2F2018%2F11%2F04%2FCelery%2FCelery%20%E6%A1%86%E6%9E%B6%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%2F</url>
+    <content type="text"><![CDATA[Celery 框架及其使用场景celery 是一款基于 python 开发的、专注于实时处理和任务调度的分布式任务队列。 Celery 架构以及组成部分 可以看到，Celery 主要包含以下几个模块： 任务模板 Task异步任务：通常在业务逻辑中被触发并发往任务队列。定时任务：由 Celery Beat 进程周期性地将任务发往任务队列。 消息中间件 Broker即为任务调度队列，接收任务生产者发来的消息（即任务），将任务存入队列，再按序分发给任务消费者。Celery 本身不提供队列服务，官方推荐使用 RabbitMQ 和 Redis 等。 任务执行单元 WorkerWorker 是执行任务的处理单元，它实时监控消息队列，获取队列中调度的任务，并执行它。 任务结果存储 BackendBackend 用于存储任务的执行结果，以供查询。同消息中间件一样，存储也可使用 RabbitMQ, Redis 和 MongoDB 等。 使用场景例子一：在程序的运行过程中，经常会碰到一些耗时耗资源的操作，为了避免它们阻塞主程序的运行，我们经常会采用多线程或异步任务。 比如：在 web 开发中，对新用户的注册，我们通常会给他发一封激活邮件，而发邮件就是 IO阻塞式任务，如果它们直接放到应用当中，就需要等到邮件发出去之后，才能进行下一步操作，此时用户只有一直等待。 celery 解决方案：在业务逻辑中触发一个发邮件的异步任务，而主程序可以继续往下运行。 例子二：在程序运行的过程中，有一个要运行很久的任务，但是我们又不想阻塞主程序。 解决方案：使用多线程。但是当并发量过大时，多线程也会扛不住 继续解决：使用线程池来限制并发数。 多线程对于共享资源的使用也是比较麻烦的一件事。 对于协程，它还是在同一个线程中执行的，如果一个任务本身的执行时间很长，而不是因为等待 IO 被挂起的，那么也同样会阻塞其他的协程。 最终方案：基于以上的问题，我们可以使用一个强大的分布式任务队列 Celery 来让任务的执行和主程序完全的脱离，甚至不在同一个主机内。通过队列来调度任务，所以不用担心并发量高时导致系统负载过大。 例子三：执行和主程序脱离 你想对100台机器执行一条批量命令，可能会花很长时间 ，但你不想让你的程序等着结果返回，而是给你返回一个任务ID,你过一段时间只需要拿着这个任务id就可以拿到任务执行结果，这样的话，在任务执行进行时，你可以继续做其它的事情。 例子四：做一个定时任务 比如每天定时检测一下你们所有客户的资料，如果发现今天是客户的生日，就给他发个短信祝福]]></content>
+      <categories>
+        <category>Python</category>
+        <category>Celery</category>
+      </categories>
+      <tags>
+        <tag>Celery</tag>
+        <tag>Python</tag>
+        <tag>分布式任务队列</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[复杂度分析（下）：浅析最好、最坏、平均、均摊时间复杂度]]></title>
     <url>%2F2018%2F10%2F28%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%2F%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E6%B5%85%E6%9E%90%E6%9C%80%E5%A5%BD%E3%80%81%E6%9C%80%E5%9D%8F%E3%80%81%E5%B9%B3%E5%9D%87%E3%80%81%E5%9D%87%E6%91%8A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%2F</url>
     <content type="text"><![CDATA[复杂度分析（下）：浅析最好、最坏、平均、均摊时间复杂度主要四个复杂度分析方面的知识点：最好情况时间复杂度、最坏情况时间复杂度、平均情况时间复杂度、均摊时间复杂度 最好、最坏情况时间复杂度123456789101112// n 表示数组 array 的长度int find(int[] array, int n, int x) &#123; int i = 0; int pos = -1; for (; i &lt; n; ++i) &#123; if (array[i] == x) &#123; pos = i; break; &#125; &#125; return pos;&#125; 很显然，我们上一节简单的分析方法，解决不了这个问题。 第一种情况：如果数组中第一个元素正好是要查找的变量 x ，那么就不需要继续遍历剩下的 n - 1 个数据了，那么时间复杂度：O(1) 第二种情况：如果数组中不存在要查找的变量 x ，那就需要把整个数组都遍历一遍，时间复杂度就成了：O(n) 所以：不同的情况下，这段代码的复杂度不一样。 ①、最好情况时间复杂度就是，在最理想的情况下，执行这段代码的时间复杂度。 ②、最坏情况时间复杂度就是，在最糟糕的情况下，执行这段代码的时间复杂度。 平均情况时间复杂度不考虑变量 x 在数组中出现的概率问题（结论正确，但是分析过程有点问题）拿上面的代码来分析，要查找变量 x 在数组中的位置，有 n + 1 种情况：在数组 0 ~ n -1 位置中和不在数组中。这样的话，我们把每种情况下，查找需要遍历的元素个数累加起来，然后再除以 n + 1 ，就可以得到需要遍历的元素个数的平均值了，即：(1 + 2 + 3 …… + n + n ) / (n+1) = n(n+3) / 2(n+1) 。 但是在时间复杂度大 O 标记法中，可以省略掉系数、低阶、常量，所以简化之后，得到的平均时间复杂度就是 O(n)。 考虑变量 x 在数组中出现的概率问题为了方便理解，我们假设在数组中和不在数组中的概率都为 1/2 。要查找的数据出现在 0 ~ n-1 这 n 个位置的概率也是一样的，为 1/n 。所以，根据概率乘法法则，要查找的元素出现在 0 ~ n-1 中任意位置的概率为 1/(2n)。 那么考虑概率的话，计算过程：1 1/(2n) + 2 1/(2n) + 3 1/(2n) + …… + n 1/(2n) + n * 1/2 = (1+3n)/4 ，用大 O 表示法来表示，这段代码的加权平均时间复杂度仍然是 O(n) 。 这个值就是概率论中的加权平均值，也叫做期望值，所以平均时间复杂度的全称应该叫加权平均时间复杂度或者期望时间复杂度。 均摊时间复杂度123456789101112131415161718// 实现的功能：往数组中插入数据。当数组满了之后，我们用 for 循环遍历数组求和，并清空数组，将求和之后的 sum 值放到数组的第一个位置，再将新的数据插入。// array 表示一个长度为 n 的数组// 代码中的 array.length 就等于 nint[] array = new int[n];int count = 0;void insert(int val) &#123; if (count == array.length) &#123; int sum = 0; for (int i = 0; i &lt; array.length; ++i) &#123; sum = sum + array[i]; &#125; array[0] = sum; count = 1; &#125; array[count] = val; ++count;&#125; 利用之前的方式去分析时间复杂度最理想的情况下，数组中有空闲空间，我们只需要将数据插入到数组下标为 count 的位置即可，所以最好情况时间复杂度为 O(1)。 最坏的情况下，数组中没有空闲空间，我们需要做一次数组遍历求和，然后再将数据插入，所以最坏的情况为 O(n) 平均时间复杂度下，根据数据插入的位置不同，我们可以分为 n 种情况，每种情况的时间复杂度为 O(1) 。除此之外，还有一种”额外”的情况，就是在数组没有空闲空间的插入一个数据时，时间复杂度为 O(n)，而且这 n + 1 种情况发生的概率一样，都是 1/(n+1) 。所以，根据加权平均的计算方法，我们可以得到平均时间复杂度：1 1/(n+1) + 1 1/(n+1) + 1 1/(n+1) …… 1 1/(n+1) + n * 1/(n+1) = 2n/(n+1) —&gt; O(1) 利用摊还分析法去分析时间复杂度①、首先来看看 insert() 与 find() 的区别： find() 函数在极端的情况下，复杂度才为 O(1) ，但 insert() 在大多数情况下，时间复杂度都为 O(1)，只有个别情况下，复杂度才为 O (n) ； 对于 insert() 函数来说，O(1) 时间复杂度的插入和O(n) 时间复杂度的插入，出现的频率非常的有规律，而且有一定的前后时序关系，一般都是一个 O(n) 插入之后，紧跟 n-1 个O(1) 的插入操作，循环往复。 基于以上两种不同，我们可以引入一种更加简单的分析方法：摊还分析法。通过这种方法得到的时间复杂度，就叫做：均摊时间复杂度。 ②、如何使用摊还分析法来分析算法的均摊时间复杂度 大致思路：每一次 O(n) 的插入操作，都会跟着 n-1 次 O(1) 的插入操作，所以把耗时多的那次操作均摊到接下来的 n-1 次耗时小的操作上，均摊下来，这一组的连续的操作的均摊时间复杂度就是 O(1) 。 均摊时间复杂度和摊还分析应用场景比较特殊，所以我们并不会经常用到。其实均摊时间复杂度就是一种特殊的平均时间复杂度 应用场景对一个数据结构进行一组连续的操作中，大部分情况下时间复杂度都很低，只有个别情况下时间复杂度比较高，而且这些操作存在前后连贯的时序关系，这个时候，我们就可以将这一组操作放在一块分析，看是否能够将较高时间复杂度那次操作的耗时，平摊到其他那些时间复杂度比较低的操作上。而且这种情况下，一般均摊时间复杂度就等于最好情况时间复杂度。]]></content>
@@ -13,19 +41,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Celery 框架及其使用场景]]></title>
-    <url>%2F2018%2F10%2F28%2FCelery%2FCelery%20%E6%A1%86%E6%9E%B6%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%2F</url>
-    <content type="text"><![CDATA[Celery 框架及其使用场景celery 是一款基于 python 开发的、专注于实时处理和任务调度的分布式任务队列。 Celery 架构以及组成部分 可以看到，Celery 主要包含以下几个模块： 任务模板 Task异步任务：通常在业务逻辑中被触发并发往任务队列。定时任务：由 Celery Beat 进程周期性地将任务发往任务队列。 消息中间件 Broker即为任务调度队列，接收任务生产者发来的消息（即任务），将任务存入队列，再按序分发给任务消费者。Celery 本身不提供队列服务，官方推荐使用 RabbitMQ 和 Redis 等。 任务执行单元 WorkerWorker 是执行任务的处理单元，它实时监控消息队列，获取队列中调度的任务，并执行它。 任务结果存储 BackendBackend 用于存储任务的执行结果，以供查询。同消息中间件一样，存储也可使用 RabbitMQ, Redis 和 MongoDB 等。 使用场景例子一：在程序的运行过程中，经常会碰到一些耗时耗资源的操作，为了避免它们阻塞主程序的运行，我们经常会采用多线程或异步任务。 比如：在 web 开发中，对新用户的注册，我们通常会给他发一封激活邮件，而发邮件就是 IO阻塞式任务，如果它们直接放到应用当中，就需要等到邮件发出去之后，才能进行下一步操作，此时用户只有一直等待。 celery 解决方案：在业务逻辑中触发一个发邮件的异步任务，而主程序可以继续往下运行。 例子二：在程序运行的过程中，有一个要运行很久的任务，但是我们又不想阻塞主程序。 解决方案：使用多线程。但是当并发量过大时，多线程也会扛不住 继续解决：使用线程池来限制并发数。 多线程对于共享资源的使用也是比较麻烦的一件事。 对于协程，它还是在同一个线程中执行的，如果一个任务本身的执行时间很长，而不是因为等待 IO 被挂起的，那么也同样会阻塞其他的协程。 最终方案：基于以上的问题，我们可以使用一个强大的分布式任务队列 Celery 来让任务的执行和主程序完全的脱离，甚至不在同一个主机内。通过队列来调度任务，所以不用担心并发量高时导致系统负载过大。 例子三：执行和主程序脱离 你想对100台机器执行一条批量命令，可能会花很长时间 ，但你不想让你的程序等着结果返回，而是给你返回一个任务ID,你过一段时间只需要拿着这个任务id就可以拿到任务执行结果，这样的话，在任务执行进行时，你可以继续做其它的事情。 例子四：做一个定时任务 比如每天定时检测一下你们所有客户的资料，如果发现今天是客户的生日，就给他发个短信祝福]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>Celery</tag>
-        <tag>Python</tag>
-        <tag>分布式任务队列</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？]]></title>
     <url>%2F2018%2F10%2F28%2F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%2F%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E6%9E%90%E3%80%81%E7%BB%9F%E8%AE%A1%E7%AE%97%E6%B3%95%E7%9A%84%E6%89%A7%E8%A1%8C%E6%95%88%E7%8E%87%E5%92%8C%E8%B5%84%E6%BA%90%E6%B6%88%E8%80%97%EF%BC%9F%2F</url>
     <content type="text"><![CDATA[复杂度分析（上）：如何分析、统计算法的执行效率和资源消耗？复杂度分析是整个算法学习的精髓，只要掌握了它，数据结构和算法的内容基本上就掌握了一半 Q：为什么需要复杂度分析？ A：首页对于这个问题有所疑惑：明明可以把代码跑一遍，通过统计、监控，就能得到算法执行的时间和占用的内存大小（某些书中的”事后统计法”）。为什么还需要复杂度分析呢？ 因为这种方法存在很大的局限性： ①、测试结果非常的依赖测试环境 不同的测试环境，得到的结果可能完全不同。 ②、测试结果受数据规模的影响很大 比如：排序算法中，对于不一样的待排序数据有序度，排序的执行时间就有很大的差别。（对于小规模的数据排序，插入排序可能反倒会比快速排序要快！） 所以，我们需要一个不用具体的测试数据来测试，就可以粗略地估算出算法的执行效率的方法——时间、空间复杂度分析。 大 O 复杂度表示法我们假设每一段代码的执行时间为 t 12345678int cal(int n) &#123; int sum = 0; // 一个 t 的执行时间 int i = 1; // t for (; i &lt;= n; ++i) &#123; // n * t sum = sum + i; // n * t &#125; return sum;&#125; 所以这段代码的总的执行时间 T(n) = (2n+2)*t 。可以看出：总的代码执行时间 T(n) 与每行代码的执行次数成正比。 所以，这段代码的大 O 时间复杂度表示法： T(n) = O(f(n)) 其中：T(n)：代码总的执行时间、n：数据规模的大小、f(n) 每行代码执行的次数总和、O ：代码的执行时间 T(n) 与 f(n) 表达式成正比 大 O 时间复杂度表示法：并不具体表示代码的真正执行时间，而是表示代码执行时间随着数据规模增长的变化趋势。也叫 渐进时间复杂度，简称时间复杂度 时间复杂度分析1、只关注循环执行次数最大的一段代码既然说大 O 复杂度是一种变化趋势，那么我们通常会忽略掉公式中的常量、低阶、系数，只需要记录一个最大阶的量级就可以了。 12345678int cal(int n) &#123; int sum = 0; // 常量级别的执行时间，与 n 无关，可以忽略 int i = 1; // 同上 for (; i &lt;= n; ++i) &#123; // n sum = sum + i; // n &#125; return sum;&#125; 所以以上代码，总的时间复杂度：O(n) 2、加法规则：总复杂度等于量级最大的那段代码的复杂度1234567891011121314151617181920212223242526int cal(int n) &#123;true// 常量级别 int sum_1 = 0; int p = 1; for (; p &lt; 100; ++p) &#123; sum_1 = sum_1 + p; &#125;true// O(n) 级别 int sum_2 = 0; int q = 1; for (; q &lt; n; ++q) &#123; sum_2 = sum_2 + q; &#125; // O(n²) 级别 int sum_3 = 0; int i = 1; int j = 1; for (; i &lt;= n; ++i) &#123; j = 1; for (; j &lt;= n; ++j) &#123; sum_3 = sum_3 + i * j; &#125; &#125; return sum_1 + sum_2 + sum_3; &#125; 所以以上代码，总的时间复杂度：T(n) = T1(n) + T2(n) + T3(n) = O(1) + O(n) + O(n²) = O(n²) 如果 T1(n) = O(f(n))、T2(n) = O(g(n))；那么T(n) = T1(n) + T2(n) = Max(O(f(n), g(n))) 3、乘法规则：嵌套代码的复杂度等于嵌套内外代码复杂度的乘积123456789101112131415161718int cal(int n) &#123;true// O(n) 级别 int ret = 0; int i = 1; for (; i &lt; n; ++i) &#123; ret = ret + f(i); &#125; &#125; // O(n) 级别 int f(int n) &#123; int sum = 0; int i = 1; for (; i &lt; n; ++i) &#123; sum = sum + i; &#125; return sum; &#125; 所以以上代码，总的时间复杂度：T = T1(n) T2(n) = O(n n) = O(n²) 如果 T1(n) = O(f(n))、T2(n) = O(g(n))；那么T(n) = T1(n) T2(n) = O(f(n) g(n)) 几种常见的时间复杂度实例分析1、多项式时间复杂度常量阶 O(1)、对数阶 O(logn)、线性阶 O(n)、线性对数阶 O(nlogn)、平方阶 O(n²)、立方阶 O(n³) …… K方阶 O(n^k) ①、O(1)一般情况下，只要算法中不存在循环语句，递归语句，就算有成千上万行代码，其时间复杂度依然是 O(1) ②、O(logn、nlogn)1234i=1;while (i &lt;= n) &#123; i = i * 2;&#125; 假设第三行代码的执行次数为 x ，则可以得到 2^x = n，进而得到 x = log2(n) 。所以这段代码的时间复杂度为 O(log2(n))。 由于前面我们说过，在使用大O标记复杂度的时候，可以忽略系数。所以，在对数阶时间复杂度的时候，我们忽略对数的底，统一表示为 O(logn) ③、O(n+m)、O(n*m)123456789101112131415int cal(int m, int n) &#123; int sum_1 = 0; int i = 1; for (; i &lt; m; ++i) &#123; sum_1 = sum_1 + i; &#125; int sum_2 = 0; int j = 1; for (; j &lt; n; ++j) &#123; sum_2 = sum_2 + j; &#125; return sum_1 + sum_2;&#125; 以上代码，出现两个无法预知 n、m 的数据规模量级大小，所以不能简单的利用加法法则，省略掉其中一个。所以以上代码的时间复杂度：T1(n) + T1(m) = O(f(n) + g(m)) = O(n+m)。 虽然此时加法法则无效，但是乘法法则依然有效：T1(n) T2(m) = O(f(n) g(m)) = O(n * m) 2、非多项式时间复杂度（非常低效的方法，直接略）指数阶 O(2^n)、阶乘阶 O(n!) 。 对于这个时间复杂度，会随着数据规模的增长，算法的执行时间会急剧增加。所以非常的低效。 空间复杂度分析前面讲过，时间复杂度的全称是渐进时间复杂度，表示算法的执行时间与数据规模之间的增长关系。那么类比一下，空间复杂度就是渐进空间复杂度，表示算法的存储空间与数据规模之间的增长关系。12345678910void print(int n) &#123; int i = 0; // 常量阶，申请了一个空间存储变量 i int[] a = new int[n]; // 一个大小为 n 的 int 型数组 for (i; i &lt;n; ++i) &#123; a[i] = i * i; &#125; for (i = n-1; i &gt;= 0; --i) &#123; print out a[i] &#125;&#125; 所以，以上的空间复杂度：O(n) 常见的空间复杂度：O(1)、O(n)、O(n²)，像 O(logn)、O(nlogn)这样的对数阶复杂度平时都用不到。 思考有人说，我们项目之前都会进行性能测试，再做代码的时间复杂度、空间复杂度分析，是不是多此一举呢？而且，每段代码都要分析一下时间复杂度、空间复杂度是不是很浪费时间呢？你怎么看待这个问题呢？]]></content>
@@ -35,34 +50,6 @@
       <tags>
         <tag>数据结构</tag>
         <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Mac 安装 Redis]]></title>
-    <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20Redis%2F</url>
-    <content type="text"><![CDATA[Mac 安装 RedisNO.1 Mac 下安装 Redis1brew install redis NO.2 启动 &amp; 停止 Rabbitmq12345678# 启动Redis服务brew services start redis# 关闭Redis服务brew services stop redis# 重启Redis服务brew services restart redis# 打开图形化界面redis-cli NO.3 redise的配置文件所在路径/usr/local/etc/redis.conf]]></content>
-      <categories>
-        <category>工具</category>
-        <category>Redis</category>
-        <category>Celery</category>
-      </categories>
-      <tags>
-        <tag>Celery</tag>
-        <tag>工具</tag>
-        <tag>Mac</tag>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Mac 安装 brew 以及部分使用指令]]></title>
-    <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20%20brew%20%E4%BB%A5%E5%8F%8A%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8%E6%8C%87%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[Mac 安装 brew 以及部分使用指令NO.1 官网获取下载指令http://brew.sh/ Homebrew安装成功后，会自动创建目录 /usr/local/Cellar 来存放Homebrew安装的程序 NO.2 使用 brew 安装软件：brew install 软件名，例：brew install wget 搜索软件：brew search 软件名，例：brew search wget 卸载软件：brew uninstall 软件名，例：brew uninstall wget 更新所有软件：brew update 更新具体软件：brew upgrade 软件名 ，例：brew upgrade git 显示已安装软件：brew list 查看软件信息：brew info／home 软件名 ，例：brew info git ／ brew home gitPS：brew home指令是用浏览器打开官方网页查看软件信息 查看哪些已安装的程序需要更新： brew outdated 显示包依赖：brew reps 显示帮助：brew help]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>工具</tag>
-        <tag>Mac</tag>
       </tags>
   </entry>
   <entry>
@@ -79,6 +66,34 @@
         <tag>工具</tag>
         <tag>Mac</tag>
         <tag>Rabbitmq</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac 安装 brew 以及部分使用指令]]></title>
+    <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20%20brew%20%E4%BB%A5%E5%8F%8A%E9%83%A8%E5%88%86%E4%BD%BF%E7%94%A8%E6%8C%87%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[Mac 安装 brew 以及部分使用指令NO.1 官网获取下载指令http://brew.sh/ Homebrew安装成功后，会自动创建目录 /usr/local/Cellar 来存放Homebrew安装的程序 NO.2 使用 brew 安装软件：brew install 软件名，例：brew install wget 搜索软件：brew search 软件名，例：brew search wget 卸载软件：brew uninstall 软件名，例：brew uninstall wget 更新所有软件：brew update 更新具体软件：brew upgrade 软件名 ，例：brew upgrade git 显示已安装软件：brew list 查看软件信息：brew info／home 软件名 ，例：brew info git ／ brew home gitPS：brew home指令是用浏览器打开官方网页查看软件信息 查看哪些已安装的程序需要更新： brew outdated 显示包依赖：brew reps 显示帮助：brew help]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>工具</tag>
+        <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac 安装 Redis]]></title>
+    <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20Redis%2F</url>
+    <content type="text"><![CDATA[Mac 安装 RedisNO.1 Mac 下安装 Redis1brew install redis NO.2 启动 &amp; 停止 Rabbitmq12345678# 启动Redis服务brew services start redis# 关闭Redis服务brew services stop redis# 重启Redis服务brew services restart redis# 打开图形化界面redis-cli NO.3 redise的配置文件所在路径/usr/local/etc/redis.conf]]></content>
+      <categories>
+        <category>工具</category>
+        <category>Redis</category>
+        <category>Celery</category>
+      </categories>
+      <tags>
+        <tag>Celery</tag>
+        <tag>工具</tag>
+        <tag>Mac</tag>
+        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
