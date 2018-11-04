@@ -122,18 +122,18 @@
 
 
 
-  <meta name="description" content="Celery 使用配置在较大的项目中，采用独立配置模块（中心化保存配置）更为有效，通常我们把文件命名为 celeryconfig.py。Celery 的配置比较多，可以在官方文档查询每个配置项的含义。 下面，我们再看一个例子。项目结构如下：1234567celery_demo                    # 项目根目录    ├── celery_app             # 存放">
-<meta name="keywords" content="Celery,Python,分布式任务队列">
+  <meta name="description" content="Celery 定时任务Celery 除了可以执行异步任务，也支持执行周期性任务（Periodic Tasks），或者说定时任务。Celery Beat 进程通过读取配置文件的内容，周期性地将定时任务发往任务队列。 让我们看看例子，项目结构如下： 123456celery_demo                    # 项目根目录    ├── celery_app             #">
+<meta name="keywords" content="Celery,Python,分布式任务队列,定时任务">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Celery 使用配置">
+<meta property="og:title" content="Celery 定时任务">
 <meta property="og:url" content="https://www.tinydolphin.cn/2018/11/04/Celery/Celery 定时任务/index.html">
 <meta property="og:site_name" content="TinyDolphin&#39;s Blog">
-<meta property="og:description" content="Celery 使用配置在较大的项目中，采用独立配置模块（中心化保存配置）更为有效，通常我们把文件命名为 celeryconfig.py。Celery 的配置比较多，可以在官方文档查询每个配置项的含义。 下面，我们再看一个例子。项目结构如下：1234567celery_demo                    # 项目根目录    ├── celery_app             # 存放">
+<meta property="og:description" content="Celery 定时任务Celery 除了可以执行异步任务，也支持执行周期性任务（Periodic Tasks），或者说定时任务。Celery Beat 进程通过读取配置文件的内容，周期性地将定时任务发往任务队列。 让我们看看例子，项目结构如下： 123456celery_demo                    # 项目根目录    ├── celery_app             #">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-04T09:02:35.328Z">
+<meta property="og:updated_time" content="2018-11-04T09:18:44.456Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Celery 使用配置">
-<meta name="twitter:description" content="Celery 使用配置在较大的项目中，采用独立配置模块（中心化保存配置）更为有效，通常我们把文件命名为 celeryconfig.py。Celery 的配置比较多，可以在官方文档查询每个配置项的含义。 下面，我们再看一个例子。项目结构如下：1234567celery_demo                    # 项目根目录    ├── celery_app             # 存放">
+<meta name="twitter:title" content="Celery 定时任务">
+<meta name="twitter:description" content="Celery 定时任务Celery 除了可以执行异步任务，也支持执行周期性任务（Periodic Tasks），或者说定时任务。Celery Beat 进程通过读取配置文件的内容，周期性地将定时任务发往任务队列。 让我们看看例子，项目结构如下： 123456celery_demo                    # 项目根目录    ├── celery_app             #">
 
 
 
@@ -152,7 +152,7 @@
   };
 </script>
 
-  <title>Celery 使用配置 | TinyDolphin's Blog</title>
+  <title>Celery 定时任务 | TinyDolphin's Blog</title>
   
 
 
@@ -385,7 +385,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Celery 使用配置
+          <h2 class="post-title" itemprop="name headline">Celery 定时任务
               
             
           </h2>
@@ -410,7 +410,7 @@
                 
               
 
-              <time title="创建时间：2018-11-04 16:04:21 / 修改时间：17:02:35" itemprop="dateCreated datePublished" datetime="2018-11-04T16:04:21+08:00">2018-11-04</time>
+              <time title="创建时间：2018-11-04 16:40:22 / 修改时间：17:18:44" itemprop="dateCreated datePublished" datetime="2018-11-04T16:40:22+08:00">2018-11-04</time>
             
 
             
@@ -467,7 +467,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.5k</span>
+                <span title="本文字数">3.5k</span>
               
 
               
@@ -481,7 +481,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -501,20 +501,23 @@
       
 
       
-        <h1 id="Celery-使用配置"><a href="#Celery-使用配置" class="headerlink" title="Celery 使用配置"></a>Celery 使用配置</h1><p>在较大的项目中，采用独立配置模块（中心化保存配置）更为有效，通常我们把文件命名为 celeryconfig.py。Celery 的配置比较多，可以在<a href="http://docs.celeryproject.org/en/latest/userguide/configuration.html" target="_blank" rel="noopener">官方文档</a>查询每个配置项的含义。</p>
-<p>下面，我们再看一个例子。项目结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">celery_demo                    # 项目根目录</span><br><span class="line">    ├── celery_app             # 存放 celery 相关文件</span><br><span class="line">    │   ├── __init__.py</span><br><span class="line">    │   ├── celeryconfig.py    # 配置文件</span><br><span class="line">    │   ├── task1.py           # 任务文件 1</span><br><span class="line">    │   └── task2.py           # 任务文件 2</span><br><span class="line">    └── client.py              # 应用程序</span><br></pre></td></tr></table></figure></p>
+        <h1 id="Celery-定时任务"><a href="#Celery-定时任务" class="headerlink" title="Celery 定时任务"></a>Celery 定时任务</h1><p>Celery 除了可以执行<strong>异步任务</strong>，也支持执行<strong>周期性任务（Periodic Tasks）</strong>，或者说<strong>定时任务</strong>。<br><br><strong>Celery Beat 进程</strong>通过<strong>读取配置文件的内容，周期性地将定时任务发往任务队列</strong>。</p>
+<p>让我们看看例子，项目结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">celery_demo                    # 项目根目录</span><br><span class="line">    ├── celery_app             # 存放 celery 相关文件</span><br><span class="line">        ├── __init__.py</span><br><span class="line">        ├── celeryconfig.py    # 配置文件</span><br><span class="line">        ├── task1.py           # 任务文件</span><br><span class="line">        └── task2.py           # 任务文件</span><br></pre></td></tr></table></figure>
 <p>__init__.py 代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</span><br><span class="line"></span><br><span class="line">app = Celery(<span class="string">'demo'</span>)                                <span class="comment"># 创建 Celery 实例</span></span><br><span class="line">app.config_from_object(<span class="string">'celery_app.celeryconfig'</span>)   <span class="comment"># 通过 Celery 实例加载配置模块</span></span><br></pre></td></tr></table></figure>
 <p>celeryconfig.py 代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">BROKER_URL = <span class="string">'amqp://guest@localhost:5672//'</span>        <span class="comment"># 指定 Broker</span></span><br><span class="line"></span><br><span class="line">CELERY_RESULT_BACKEND = <span class="string">'redis://127.0.0.1:6379'</span>    <span class="comment"># 指定 Backend</span></span><br><span class="line"></span><br><span class="line">CELERY_TIMEZONE=<span class="string">'Asia/Shanghai'</span>                     <span class="comment"># 指定时区，默认是 UTC</span></span><br><span class="line"><span class="comment"># CELERY_TIMEZONE='UTC'                             </span></span><br><span class="line"></span><br><span class="line">CELERY_IMPORTS = (                                  <span class="comment"># 指定导入的任务模块</span></span><br><span class="line">    <span class="string">'celery_app.task1'</span>,</span><br><span class="line">    <span class="string">'celery_app.task2'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> timedelta</span><br><span class="line"><span class="keyword">from</span> celery.schedules <span class="keyword">import</span> crontab</span><br><span class="line"></span><br><span class="line"><span class="comment"># Broker and Backend</span></span><br><span class="line">BROKER_URL = <span class="string">'redis://127.0.0.1:6379'</span></span><br><span class="line">CELERY_RESULT_BACKEND = <span class="string">'redis://127.0.0.1:6379/0'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Timezone</span></span><br><span class="line">CELERY_TIMEZONE=<span class="string">'Asia/Shanghai'</span>    <span class="comment"># 指定时区，不指定默认为 'UTC'</span></span><br><span class="line"><span class="comment"># CELERY_TIMEZONE='UTC'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># import</span></span><br><span class="line">CELERY_IMPORTS = (</span><br><span class="line">    <span class="string">'celery_app.task1'</span>,</span><br><span class="line">    <span class="string">'celery_app.task2'</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># schedules</span></span><br><span class="line">CELERYBEAT_SCHEDULE = &#123;</span><br><span class="line">    <span class="string">'add-every-30-seconds'</span>: &#123;</span><br><span class="line">         <span class="string">'task'</span>: <span class="string">'celery_app.task1.add'</span>,</span><br><span class="line">         <span class="string">'schedule'</span>: timedelta(seconds=<span class="number">30</span>),       <span class="comment"># 每 30 秒执行一次</span></span><br><span class="line">         <span class="string">'args'</span>: (<span class="number">5</span>, <span class="number">8</span>)                           <span class="comment"># 任务函数参数</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'multiply-at-some-time'</span>: &#123;</span><br><span class="line">        <span class="string">'task'</span>: <span class="string">'celery_app.task2.multiply'</span>,</span><br><span class="line">        <span class="string">'schedule'</span>: crontab(hour=<span class="number">9</span>, minute=<span class="number">50</span>),   <span class="comment"># 每天早上 9 点 50 分执行一次</span></span><br><span class="line">        <span class="string">'args'</span>: (<span class="number">3</span>, <span class="number">7</span>)                            <span class="comment"># 任务函数参数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>task1.py 代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> celery_app <span class="keyword">import</span> app</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure></p>
 <p>task2.py 代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> celery_app <span class="keyword">import</span> app</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multiply</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    time.sleep(<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> x * y</span><br></pre></td></tr></table></figure></p>
-<p>client.py 代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> celery_app <span class="keyword">import</span> task1</span><br><span class="line"><span class="keyword">from</span> celery_app <span class="keyword">import</span> task2</span><br><span class="line"></span><br><span class="line">task1.add.apply_async(args=[<span class="number">2</span>, <span class="number">8</span>])        <span class="comment"># 也可用 task1.add.delay(2, 8)</span></span><br><span class="line">task2.multiply.apply_async(args=[<span class="number">3</span>, <span class="number">7</span>])   <span class="comment"># 也可用 task2.multiply.delay(3, 7)</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'hello world'</span></span><br></pre></td></tr></table></figure></p>
-<p>现在，让我们启动 Celery Worker 进程，在项目的根目录下执行下面命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TinyDolphin:celery_demo zhouyonglong01$ celery -A celery_app worker --loglevel=info</span><br></pre></td></tr></table></figure></p>
-<p>接着，运行 python client.py，它会发送两个异步任务到 Broker</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TinyDolphin:celery_demo zhouyonglong01$ python client.py</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
-<p>在 Worker 的窗口我们可以看到如下输出：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[2018-11-04 16:15:26,449: INFO/MainProcess] Received task: celery_app.task1.add[44051062-fdf9-41d0-bccb-6a393c1f2eab]</span><br><span class="line">[2018-11-04 16:15:26,450: INFO/MainProcess] Received task: celery_app.task2.multiply[b3183cc3-0565-4359-b21f-d7fb7c2e22a2]</span><br><span class="line">[2018-11-04 16:15:28,466: INFO/ForkPoolWorker-2] Task celery_app.task1.add[44051062-fdf9-41d0-bccb-6a393c1f2eab] succeeded in 2.012861372s: 10</span><br><span class="line">[2018-11-04 16:15:28,466: INFO/ForkPoolWorker-4] Task celery_app.task2.multiply[b3183cc3-0565-4359-b21f-d7fb7c2e22a2] succeeded in 2.01327455899s: 21</span><br></pre></td></tr></table></figure>
+<p>现在，让我们启动 <strong>Celery Worker 进程</strong>，在项目的根目录下执行下面命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TinyDolphin:celery_demo zhouyonglong01$  celery -A celery_app worker --loglevel=info</span><br></pre></td></tr></table></figure>
+<p>接着，启动 <strong>Celery Beat 进程</strong>，定时将任务发送到 Broker，在项目根目录下执行下面命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TinyDolphin:celery_demo zhouyonglong01$ celery beat -A celery_app</span><br></pre></td></tr></table></figure></p>
+<p>启动成功，看到如下日志：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">celery beat v4.2.1 (windowlicker) is starting.</span><br><span class="line">__    -    ... __   -        _</span><br><span class="line">LocalTime -&gt; 2018-11-04 16:55:42</span><br><span class="line">Configuration -&gt;</span><br><span class="line">    . broker -&gt; amqp://guest:**@localhost:5672//</span><br><span class="line">    . loader -&gt; celery.loaders.app.AppLoader</span><br><span class="line">    . scheduler -&gt; celery.beat.PersistentScheduler</span><br><span class="line">    . db -&gt; celerybeat-schedule</span><br><span class="line">    . logfile -&gt; [stderr]@%WARNING</span><br><span class="line">    . maxinterval -&gt; 5.00 minutes (300s)</span><br></pre></td></tr></table></figure></p>
+<p>之后，在 Worker 窗口我们可以看到，<strong>任务 task1 每 30 秒执行一次</strong>，而 task2 每天早上 9 点 50 分执行一次。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[2018-11-04 16:56:13,233: INFO/MainProcess] Received task: celery_app.task1.add[3e9324d4-a27b-44a1-b530-d7dcb2c4f27a]</span><br><span class="line">[2018-11-04 16:56:15,254: INFO/ForkPoolWorker-2] Task celery_app.task1.add[3e9324d4-a27b-44a1-b530-d7dcb2c4f27a] succeeded in 2.01500433599s: 13</span><br><span class="line">[2018-11-04 16:56:43,082: INFO/MainProcess] Received task: celery_app.task1.add[e7e1d632-23d9-4c26-9292-d6d56fef70c4]</span><br><span class="line">[2018-11-04 16:56:45,098: INFO/ForkPoolWorker-3] Task celery_app.task1.add[e7e1d632-23d9-4c26-9292-d6d56fef70c4] succeeded in 2.01342217601s: 13</span><br><span class="line">[2018-11-04 16:57:13,082: INFO/MainProcess] Received task: celery_app.task1.add[88467637-a0a7-4357-a17a-b9e564d65d05]</span><br><span class="line">[2018-11-04 16:57:15,085: INFO/ForkPoolWorker-2] Task celery_app.task1.add[88467637-a0a7-4357-a17a-b9e564d65d05] succeeded in 2.00195308999s: 13</span><br></pre></td></tr></table></figure></p>
+<p><strong>PS：在上面，我们用两个命令启动了 Worker 进程和 Beat 进程，我们也可以将它们放在一个命令中：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TinyDolphin:celery_demo zhouyonglong01$ celery -B -A celery_app worker --loglevel=info</span><br></pre></td></tr></table></figure></p>
+<p>Celery 周期性任务也有多个配置项，可参考<a href="http://docs.celeryproject.org/en/latest/userguide/periodic-tasks.html" target="_blank" rel="noopener">官方文档</a>。</p>
+
       
     </div>
 
@@ -535,7 +538,7 @@
     <strong>本文作者： </strong>TinyDolphin</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.tinydolphin.cn/2018/11/04/Celery/Celery 定时任务/" title="Celery 使用配置">https://www.tinydolphin.cn/2018/11/04/Celery/Celery 定时任务/</a>
+    <a href="https://www.tinydolphin.cn/2018/11/04/Celery/Celery 定时任务/" title="Celery 定时任务">https://www.tinydolphin.cn/2018/11/04/Celery/Celery 定时任务/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -554,6 +557,8 @@
         
           <a href="/tags/分布式任务队列/" rel="tag"><i class="fa fa-tag"></i> 分布式任务队列</a>
         
+          <a href="/tags/定时任务/" rel="tag"><i class="fa fa-tag"></i> 定时任务</a>
+        
       </div>
     
 
@@ -565,8 +570,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/04/Celery/Celery 使用配置/" rel="next" title="Celery 使用配置">
-                <i class="fa fa-chevron-left"></i> Celery 使用配置
+              <a href="/2018/11/04/Celery/Celery 调用方法 delay & apply_async 的区别/" rel="next" title="Celery 调用方法 delay & apply_async 的区别">
+                <i class="fa fa-chevron-left"></i> Celery 调用方法 delay & apply_async 的区别
               </a>
             
           </div>
@@ -574,10 +579,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/04/Celery/Celery 调用方法 delay & apply_async 的区别/" rel="prev" title="Celery 调用方法 delay & apply_async 的区别">
-                Celery 调用方法 delay & apply_async 的区别 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -729,7 +730,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -786,7 +789,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Celery-使用配置"><span class="nav-number">1.</span> <span class="nav-text">Celery 使用配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Celery-定时任务"><span class="nav-number">1.</span> <span class="nav-text">Celery 定时任务</span></a></li></ol></div>
             
 
           </div>
@@ -818,7 +821,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">18k</span>
+    <span title="站点总字数">20k</span>
   
 
   
@@ -827,7 +830,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">16 分钟</span>
+    <span title="站点阅读时长">18 分钟</span>
   
 </div>
 
@@ -845,7 +848,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共7.1k字</span>
+  <span class="post-count">博客全站共7.5k字</span>
 </div>
 
         
