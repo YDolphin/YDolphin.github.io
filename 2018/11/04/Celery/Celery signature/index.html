@@ -122,18 +122,18 @@
 
 
 
-  <meta name="description" content="NO.1 将“0.0.0.0 account.jetbrains.com”添加到 hosts 文件末尾处 hosts 文件所在目录：  Windows：C:\Windows\System32\drivers\etc\hosts  Mac：/etc/hosts   NO.2 进入 http://idea.lanyus.com/ ，获得注册码即可。">
-<meta name="keywords" content="工具">
+  <meta name="description" content="Celery signature[toc] 什么是 signature？前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够将任务调用的签名传递给另一个进程或者作为另一个函数的签名时，现有的方法就不够用了。 在 Celery 中，任务签名包含了一次任务调用的参数、关键字参数以及执行选项信息，它可以传递给其他函数，甚至序列化后通过">
+<meta name="keywords" content="Celery,Python,分布式任务队列,签名">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JetBrains系开发工具激活">
-<meta property="og:url" content="https://www.tinydolphin.cn/2018/09/11/工具/JetBrains系开发工具激活/index.html">
+<meta property="og:title" content="Celery signature">
+<meta property="og:url" content="https://www.tinydolphin.cn/2018/11/04/Celery/Celery signature/index.html">
 <meta property="og:site_name" content="TinyDolphin&#39;s Blog">
-<meta property="og:description" content="NO.1 将“0.0.0.0 account.jetbrains.com”添加到 hosts 文件末尾处 hosts 文件所在目录：  Windows：C:\Windows\System32\drivers\etc\hosts  Mac：/etc/hosts   NO.2 进入 http://idea.lanyus.com/ ，获得注册码即可。">
+<meta property="og:description" content="Celery signature[toc] 什么是 signature？前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够将任务调用的签名传递给另一个进程或者作为另一个函数的签名时，现有的方法就不够用了。 在 Celery 中，任务签名包含了一次任务调用的参数、关键字参数以及执行选项信息，它可以传递给其他函数，甚至序列化后通过">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-28T13:49:49.426Z">
+<meta property="og:updated_time" content="2018-11-04T14:10:56.215Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JetBrains系开发工具激活">
-<meta name="twitter:description" content="NO.1 将“0.0.0.0 account.jetbrains.com”添加到 hosts 文件末尾处 hosts 文件所在目录：  Windows：C:\Windows\System32\drivers\etc\hosts  Mac：/etc/hosts   NO.2 进入 http://idea.lanyus.com/ ，获得注册码即可。">
+<meta name="twitter:title" content="Celery signature">
+<meta name="twitter:description" content="Celery signature[toc] 什么是 signature？前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够将任务调用的签名传递给另一个进程或者作为另一个函数的签名时，现有的方法就不够用了。 在 Celery 中，任务签名包含了一次任务调用的参数、关键字参数以及执行选项信息，它可以传递给其他函数，甚至序列化后通过">
 
 
 
@@ -142,7 +142,7 @@
 
 
 
-  <link rel="canonical" href="https://www.tinydolphin.cn/2018/09/11/工具/JetBrains系开发工具激活/"/>
+  <link rel="canonical" href="https://www.tinydolphin.cn/2018/11/04/Celery/Celery signature/"/>
 
 
 
@@ -152,7 +152,7 @@
   };
 </script>
 
-  <title>JetBrains系开发工具激活 | TinyDolphin's Blog</title>
+  <title>Celery signature | TinyDolphin's Blog</title>
   
 
 
@@ -368,7 +368,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.tinydolphin.cn/2018/09/11/工具/JetBrains系开发工具激活/">
+    <link itemprop="mainEntityOfPage" href="https://www.tinydolphin.cn/2018/11/04/Celery/Celery signature/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TinyDolphin">
@@ -385,7 +385,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">JetBrains系开发工具激活
+          <h2 class="post-title" itemprop="name headline">Celery signature
               
             
           </h2>
@@ -410,24 +410,12 @@
                 
               
 
-              <time title="创建时间：2018-09-11 09:06:23" itemprop="dateCreated datePublished" datetime="2018-09-11T09:06:23+08:00">2018-09-11</time>
+              <time title="创建时间：2018-11-04 16:04:21 / 修改时间：22:10:56" itemprop="dateCreated datePublished" datetime="2018-11-04T16:04:21+08:00">2018-11-04</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-10-28 21:49:49" itemprop="dateModified" datetime="2018-10-28T21:49:49+08:00">2018-10-28</time>
               
             
           </span>
@@ -444,7 +432,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工具/" itemprop="url" rel="index"><span itemprop="name">工具</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python/Celery/" itemprop="url" rel="index"><span itemprop="name">Celery</span></a></span>
 
                 
                 
@@ -472,7 +467,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">174</span>
+                <span title="本文字数">1.1k</span>
               
 
               
@@ -506,17 +501,21 @@
       
 
       
-        <p><strong>NO.1</strong></p>
-<p>将“0.0.0.0 account.jetbrains.com”添加到 <strong>hosts 文件末尾处</strong></p>
-<p>hosts 文件所在目录：</p>
-<ul>
-<li><p>Windows：C:\Windows\System32\drivers\etc\hosts</p>
-</li>
-<li><p>Mac：/etc/hosts</p>
-</li>
-</ul>
-<p><strong>NO.2</strong></p>
-<p>进入 <a href="http://idea.lanyus.com/" target="_blank" rel="noopener">http://idea.lanyus.com/</a> ，获得注册码即可。</p>
+        <h1 id="Celery-signature"><a href="#Celery-signature" class="headerlink" title="Celery signature"></a>Celery signature</h1><p>[toc]</p>
+<h2 id="什么是-signature？"><a href="#什么是-signature？" class="headerlink" title="什么是 signature？"></a>什么是 signature？</h2><p>前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够<strong>将任务调用的签名传递给另一个进程或者作为另一个函数的签名时</strong>，现有的方法就不够用了。</p>
+<p>在 Celery 中，任务签名包含了<strong>一次任务调用的参数</strong>、<strong>关键字参数</strong>以及<strong>执行选项信息</strong>，它可以传递给其他函数，甚至序列化后通过网络传输。</p>
+<h2 id="如何创建-signature？"><a href="#如何创建-signature？" class="headerlink" title="如何创建 signature？"></a>如何创建 signature？</h2><h3 id="通过任务的-signature-方法，创建任务签名对象"><a href="#通过任务的-signature-方法，创建任务签名对象" class="headerlink" title="通过任务的 signature 方法，创建任务签名对象"></a>通过任务的 <strong>signature 方法</strong>，创建任务签名对象</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.signature((<span class="number">2</span>, <span class="number">2</span>), countdown=<span class="number">10</span>)</span><br><span class="line">tasks.add(<span class="number">2</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="通过快捷方法，创建任务签名对象："><a href="#通过快捷方法，创建任务签名对象：" class="headerlink" title="通过快捷方法，创建任务签名对象："></a>通过快捷方法，创建任务签名对象：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.s(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">tasks.add(<span class="number">2</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="如何执行-signature？"><a href="#如何执行-signature？" class="headerlink" title="如何执行 signature？"></a>如何执行 signature？</h2><h3 id="直接执行"><a href="#直接执行" class="headerlink" title="直接执行"></a>直接执行</h3><p>签名在当前进程中执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add = add.signature((<span class="number">2</span>, <span class="number">2</span>), countdown=<span class="number">10</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add()</span><br></pre></td></tr></table></figure>
+<h3 id="Worker-执行"><a href="#Worker-执行" class="headerlink" title="Worker 执行"></a>Worker 执行</h3><p>签名在 Worker 任务进程中执行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add = add.s(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s_add.delay()</span><br></pre></td></tr></table></figure>
+<p>跟一般的任务函数对比，区别在于<strong>签名可能已经指定了参数签名</strong>。</p>
+<p>该add任务有两个参数，因此指定两个参数的签名将构成<strong>一个完整的签名</strong>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = add.s(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res = s1.delay()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res.get()</span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure></p>
+<p>但是，您也可以<strong>创建不完整的签名</strong>来创建的我们称之为 partials<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># incomplete partial: add(?, 2)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>s2 = add.s(<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<p>s2 现在是一个部分签名，需要另一个参数完成，这可以在调用签名时解决：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># resolves the partial: add(8, 2)</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res = s2.delay(<span class="number">8</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>res.get()</span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure></p>
+<p>在这里，你添加参数8，形成了完整的签名。add(8, 2)</p>
+<p><strong>关键字参数</strong>也可以在以后添加，<strong>覆盖掉</strong>任何现有的关键字参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s3 = add.s(2, 2, debug=True)</span><br><span class="line">&gt;&gt;&gt; s3.delay(debug=False)   # debug is now False.</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -538,7 +537,7 @@
     <strong>本文作者： </strong>TinyDolphin</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.tinydolphin.cn/2018/09/11/工具/JetBrains系开发工具激活/" title="JetBrains系开发工具激活">https://www.tinydolphin.cn/2018/09/11/工具/JetBrains系开发工具激活/</a>
+    <a href="https://www.tinydolphin.cn/2018/11/04/Celery/Celery signature/" title="Celery signature">https://www.tinydolphin.cn/2018/11/04/Celery/Celery signature/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -551,7 +550,13 @@
         
       <div class="post-tags">
         
-          <a href="/tags/工具/" rel="tag"><i class="fa fa-tag"></i> 工具</a>
+          <a href="/tags/Celery/" rel="tag"><i class="fa fa-tag"></i> Celery</a>
+        
+          <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+        
+          <a href="/tags/分布式任务队列/" rel="tag"><i class="fa fa-tag"></i> 分布式任务队列</a>
+        
+          <a href="/tags/签名/" rel="tag"><i class="fa fa-tag"></i> 签名</a>
         
       </div>
     
@@ -564,8 +569,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/10/工具/Mac终端添加ll、la、l命令/" rel="next" title="Mac终端添加ll、la、l命令">
-                <i class="fa fa-chevron-left"></i> Mac终端添加ll、la、l命令
+              <a href="/2018/11/04/Celery/Celery 异步任务/" rel="next" title="Celery 异步任务">
+                <i class="fa fa-chevron-left"></i> Celery 异步任务
               </a>
             
           </div>
@@ -574,8 +579,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/15/ACM/POJ/1852/" rel="prev" title="POJ 1852 Ants">
-                POJ 1852 Ants <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/04/Celery/Celery 使用配置/" rel="prev" title="Celery 使用配置">
+                Celery 使用配置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -623,8 +628,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -770,6 +784,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Celery-signature"><span class="nav-number">1.</span> <span class="nav-text">Celery signature</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-signature？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是 signature？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何创建-signature？"><span class="nav-number">1.2.</span> <span class="nav-text">如何创建 signature？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过任务的-signature-方法，创建任务签名对象"><span class="nav-number">1.2.1.</span> <span class="nav-text">通过任务的 signature 方法，创建任务签名对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过快捷方法，创建任务签名对象："><span class="nav-number">1.2.2.</span> <span class="nav-text">通过快捷方法，创建任务签名对象：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何执行-signature？"><span class="nav-number">1.3.</span> <span class="nav-text">如何执行 signature？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#直接执行"><span class="nav-number">1.3.1.</span> <span class="nav-text">直接执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Worker-执行"><span class="nav-number">1.3.2.</span> <span class="nav-text">Worker 执行</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

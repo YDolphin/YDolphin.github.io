@@ -131,7 +131,7 @@
 <meta property="og:description" content="Celery 异步任务使用 Celery 实现异步任务主要有三个步骤：  创建一个 Celery 实例； 启动 Celery worker； 应用程序调用异步任务。  准备工作选择 broker &amp;amp; backend RabbitMQ功能齐全，稳定，耐用且易于安装。它是生产环境的绝佳选择。（官网推荐使用） Redis功能齐全，但在突然终止或电源故障时更容易丢失数据  如果选择以上两种 bro">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.tinydolphin.cn/images/celery启动成功.jpg">
-<meta property="og:updated_time" content="2018-11-04T10:13:13.282Z">
+<meta property="og:updated_time" content="2018-11-04T10:26:38.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Celery 异步任务">
 <meta name="twitter:description" content="Celery 异步任务使用 Celery 实现异步任务主要有三个步骤：  创建一个 Celery 实例； 启动 Celery worker； 应用程序调用异步任务。  准备工作选择 broker &amp;amp; backend RabbitMQ功能齐全，稳定，耐用且易于安装。它是生产环境的绝佳选择。（官网推荐使用） Redis功能齐全，但在突然终止或电源故障时更容易丢失数据  如果选择以上两种 bro">
@@ -412,7 +412,7 @@
                 
               
 
-              <time title="创建时间：2018-11-04 15:44:31 / 修改时间：18:13:13" itemprop="dateCreated datePublished" datetime="2018-11-04T15:44:31+08:00">2018-11-04</time>
+              <time title="创建时间：2018-11-04 15:44:31 / 修改时间：18:26:38" itemprop="dateCreated datePublished" datetime="2018-11-04T15:44:31+08:00">2018-11-04</time>
             
 
             
@@ -469,7 +469,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.7k</span>
+                <span title="本文字数">2.8k</span>
               
 
               
@@ -483,7 +483,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -534,7 +534,7 @@
 <p>PS：我们如果想获取执行后的结果，可以这样做：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>result = add.delay(<span class="number">10</span>, <span class="number">42</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result.ready()  <span class="comment"># 使用 ready() 判断任务是否执行完毕</span></span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result.ready()</span><br><span class="line"><span class="keyword">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result.ready()</span><br><span class="line"><span class="keyword">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>result.get()    <span class="comment"># 使用 get() 获取任务结果</span></span><br><span class="line"><span class="number">52</span></span><br></pre></td></tr></table></figure>
 <p>注意：虽然执行 add 方法 5s 之后才会返回结果，但是这是一个异步任务，不会阻塞主程序的，因此主程序并不会等待，而是会继续向下执行。</p>
-<h2 id="后台启动-Celery-worker"><a href="#后台启动-Celery-worker" class="headerlink" title="后台启动 Celery worker"></a>后台启动 Celery worker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">celery multi start worker -A tasks -l info</span><br><span class="line">celery multi restart worker -A tasks -l info</span><br><span class="line"># 不等待worker关闭</span><br><span class="line">celery multi stop worker -A tasks -l info</span><br><span class="line"># 等待worker关闭</span><br><span class="line">celery multi stopwait worker -A tasks -l info</span><br></pre></td></tr></table></figure>
+<h2 id="后台启动-Celery-worker"><a href="#后台启动-Celery-worker" class="headerlink" title="后台启动 Celery worker"></a>后台启动 Celery worker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">celery multi start worker -A tasks -l info</span><br><span class="line">celery multi restart worker -A tasks -l info</span><br><span class="line"># 不等待worker关闭</span><br><span class="line">celery multi stop worker -A tasks -l info</span><br><span class="line"># 等待worker关闭</span><br><span class="line">celery multi stopwait worker -A tasks -l info</span><br><span class="line"></span><br><span class="line">celery multi start w1 -A project -l info</span><br><span class="line">celery multi start w2 -A project -l info</span><br><span class="line">celery multi start w3 -A project -l info</span><br><span class="line"># 立即停止w1,w2</span><br><span class="line">celery multi stop w1 w2</span><br></pre></td></tr></table></figure>
 <p>注意：celery multi 不会存储有关 worker 的信息，因此在<strong>重启时，需要使用相同的命令行参数</strong>。<strong>停止时，只能使用相同的 pidfile 和 logfile 参数</strong>。</p>
 <p>默认情况下，它会<strong>在当前目录中创建pid和日志文件，以防止多个工作人员在彼此之上启动</strong>，但是推荐你将这些文件放在专用目录下。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /var/run/celery</span><br><span class="line">mkdir -p /var/log/celery</span><br><span class="line">celery multi start w1 -A proj -l info --pidfile=/var/run/celery/%n.pid --logfile=/var/log/celery/%n%I.log</span><br></pre></td></tr></table></figure>
@@ -603,8 +603,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/04/Celery/Celery 使用配置/" rel="prev" title="Celery 使用配置">
-                Celery 使用配置 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/04/Celery/Celery signature/" rel="prev" title="Celery signature">
+                Celery signature <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -681,7 +681,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -759,7 +759,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">17</span>
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -848,7 +850,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">20k</span>
+    <span title="站点总字数">21k</span>
   
 
   
@@ -857,7 +859,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">18 分钟</span>
+    <span title="站点阅读时长">19 分钟</span>
   
 </div>
 
@@ -875,7 +877,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共7.5k字</span>
+  <span class="post-count">博客全站共8.1k字</span>
 </div>
 
         
