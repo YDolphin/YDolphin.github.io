@@ -122,16 +122,18 @@
 
 
 
-  <meta name="description" content="不忘初心, 方得始终">
-<meta property="og:type" content="website">
-<meta property="og:title" content="TinyDolphin&#39;s Blog">
-<meta property="og:url" content="https://www.tinydolphin.cn/tags/POJ/index.html">
+  <meta name="description" content="初次使用 Celery 选择并安装一个消息传输者（broker） 安装 Celery 并创建第一个task 启动 worker 并调用task 在任务转换到不同状态时跟踪任务，并检查返回值  NO.1 选择一个 Broker①、RabbitMQ功能齐全，稳定，耐用且易于安装。它是生产环境的绝佳选择。（官网推荐使用） ②、Redis功能齐全，但在突然终止或电源故障时更容易丢失数据 NO.2 安装 C">
+<meta name="keywords" content="Celery,python,分布式任务队列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初次使用 Celery">
+<meta property="og:url" content="https://www.tinydolphin.cn/2018/11/04/Celery/初次使用 Celery/index.html">
 <meta property="og:site_name" content="TinyDolphin&#39;s Blog">
-<meta property="og:description" content="不忘初心, 方得始终">
+<meta property="og:description" content="初次使用 Celery 选择并安装一个消息传输者（broker） 安装 Celery 并创建第一个task 启动 worker 并调用task 在任务转换到不同状态时跟踪任务，并检查返回值  NO.1 选择一个 Broker①、RabbitMQ功能齐全，稳定，耐用且易于安装。它是生产环境的绝佳选择。（官网推荐使用） ②、Redis功能齐全，但在突然终止或电源故障时更容易丢失数据 NO.2 安装 C">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-04T03:29:02.004Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TinyDolphin&#39;s Blog">
-<meta name="twitter:description" content="不忘初心, 方得始终">
+<meta name="twitter:title" content="初次使用 Celery">
+<meta name="twitter:description" content="初次使用 Celery 选择并安装一个消息传输者（broker） 安装 Celery 并创建第一个task 启动 worker 并调用task 在任务转换到不同状态时跟踪任务，并检查返回值  NO.1 选择一个 Broker①、RabbitMQ功能齐全，稳定，耐用且易于安装。它是生产环境的绝佳选择。（官网推荐使用） ②、Redis功能齐全，但在突然终止或电源故障时更容易丢失数据 NO.2 安装 C">
 
 
 
@@ -140,7 +142,7 @@
 
 
 
-  <link rel="canonical" href="https://www.tinydolphin.cn/tags/POJ/"/>
+  <link rel="canonical" href="https://www.tinydolphin.cn/2018/11/04/Celery/初次使用 Celery/"/>
 
 
 
@@ -150,7 +152,7 @@
   };
 </script>
 
-  <title>标签: POJ | TinyDolphin's Blog</title>
+  <title>初次使用 Celery | TinyDolphin's Blog</title>
   
 
 
@@ -206,7 +208,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -263,7 +265,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
   </li>
@@ -291,25 +293,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -369,58 +352,256 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>POJ<small>标签</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.tinydolphin.cn/2018/11/04/Celery/初次使用 Celery/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="TinyDolphin">
+      <meta itemprop="description" content="不忘初心, 方得始终">
+      <meta itemprop="image" content="/images/favicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="TinyDolphin's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/09/15/ACM/POJ/1852/" itemprop="url">
-              
-                <span itemprop="name">POJ 1852 Ants</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">初次使用 Celery
+              
+            
+          </h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-15T22:45:33+08:00"
-              content="2018-09-15" >
-          09-15
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
 
-    </header>
-  </article>
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-04 11:18:25 / 修改时间：11:29:02" itemprop="dateCreated datePublished" datetime="2018-11-04T11:18:25+08:00">2018-11-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Celery/" itemprop="url" rel="index"><span itemprop="name">Celery</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="初次使用-Celery"><a href="#初次使用-Celery" class="headerlink" title="初次使用 Celery"></a>初次使用 Celery</h1><ul>
+<li>选择并安装一个消息传输者（broker）</li>
+<li>安装 Celery 并创建第一个task</li>
+<li>启动 worker 并调用task</li>
+<li>在任务转换到不同状态时跟踪任务，并检查返回值</li>
+</ul>
+<h3 id="NO-1-选择一个-Broker"><a href="#NO-1-选择一个-Broker" class="headerlink" title="NO.1 选择一个 Broker"></a>NO.1 选择一个 Broker</h3><p>①、RabbitMQ功能齐全，稳定，耐用且易于安装。它是生产环境的绝佳选择。（官网推荐使用）</p>
+<p>②、Redis功能齐全，但在突然终止或电源故障时更容易丢失数据</p>
+<h3 id="NO-2-安装-Celery"><a href="#NO-2-安装-Celery" class="headerlink" title="NO.2 安装 Celery"></a>NO.2 安装 Celery</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install celery</span><br></pre></td></tr></table></figure>
+<h3 id="NO-3-应用"><a href="#NO-3-应用" class="headerlink" title="NO.3 应用"></a>NO.3 应用</h3><p>首先，需要一个 <strong>Celery 实例</strong>（称为 Celery application 或者 <em>app</em>），其作用：在 Celery 中执行的所有操作（创建任务 / 管理工作程序）的<strong>入口点</strong>。因此其他模板必须导入它。</p>
+<p>①、创建 Celery 实例（app）<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> celery <span class="keyword">import</span> Celery</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建 Celery 实例</span></span><br><span class="line"><span class="comment"># 第一个参数：当前模板的名称。只有在 __main__ 模板中定义任务时才能自动生成名称。</span></span><br><span class="line"><span class="comment"># 第二个参数：指定使用的消息代理的 URL</span></span><br><span class="line">app = Celery(<span class="string">'tasks'</span>, broker=<span class="string">'pyamqp://guest@localhost//'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义一个名为 add 的单个任务：返回两个数的总和</span></span><br><span class="line"><span class="meta">@app.task</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x + y</span><br></pre></td></tr></table></figure></p>
+<p>②、运行 celery worker server<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动 worker</span><br><span class="line">celery -A tasks worker --loglevel=info</span><br><span class="line"><span class="meta">#</span> 帮助指令</span><br><span class="line">celery worker --help</span><br><span class="line">celery help</span><br></pre></td></tr></table></figure></p>
+<p>③、调用 task<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 开始编写 python 代码</span><br><span class="line">from tasks import add</span><br><span class="line"><span class="meta">#</span> 可以使用 delay() 方法来调用我们的任务，由我们的 celery worker 执行</span><br><span class="line">add.delay(4, 4) </span><br><span class="line"><span class="meta">#</span> 返回 AsyncResult 实例，可用于检查任务的状态，等待任务完成或获取返回值（如果任务失败，则为异常和回溯）</span><br></pre></td></tr></table></figure></p>
+<p>④、保存结果</p>
+<p>默认情况下，不保存结果。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 redis 作为结果后端</span></span><br><span class="line">app = Celery(<span class="string">'tasks'</span>,brackend=<span class="string">'redis://localhost'</span>, broker=<span class="string">'pyamqp://'</span>)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">result = add.delay(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line"><span class="comment"># 查看任务是否完成处理</span></span><br><span class="line">result.ready()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以等待任务完成，但这很少使用，因为它把异步调用变成了同步调用</span></span><br><span class="line">result.get(timeout=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 倘若任务抛出了一个异常， get() 会重新抛出异常， 但你可以指定 propagate 参数来覆盖这一行为:</span></span><br><span class="line">result.get(propagate=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果任务抛出了一个异常，你也可以获取原始的回溯信息</span></span><br><span class="line">result.traceback</span><br></pre></td></tr></table></figure>
+<p>⑤、配置</p>
+<p>在较大的项目中，采用独立配置模块（<strong>中心化保存配置</strong>）更为有效。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 让 Celery 实例加载配置模板</span></span><br><span class="line">app.config_from_object(<span class="string">'celeryconfig'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>celeryconfig.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BROKER_URL = <span class="string">'amqp://'</span></span><br><span class="line">CELERY_RESULT_BACKEND = <span class="string">'amqp://'</span></span><br><span class="line">CELERY_TASK_SERIALIZER = <span class="string">'json'</span></span><br><span class="line">CELERY_RESULT_SERIALIZER = <span class="string">'json'</span></span><br><span class="line">CELERY_ACCEPT_CONTENT=[<span class="string">'json'</span>]</span><br><span class="line">CELERY_TIMEZONE = <span class="string">'Europe/Oslo'</span></span><br><span class="line">CELERY_ENABLE_UTC = <span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p>验证你的配置文件可以正确工作，且不包含语法错误<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m celeryconfig # 不报错，即通过</span><br></pre></td></tr></table></figure></p>
+<p>要证明配置文件的强大，我们可以把<strong>不同的任务路由到专用的队列</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CELERY_ROUTES = &#123;</span><br><span class="line">    <span class="string">'tasks.add'</span>: <span class="string">'low-priority'</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或者，你可以<strong>限制任务的速率</strong>，这样每分钟只允许处理 10 个该类型的任务：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CELERY_ANNOTATIONS = &#123;</span><br><span class="line">    <span class="string">'tasks.add'</span>: &#123;<span class="string">'rate_limit'</span>: <span class="string">'10/m'</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果你使用 RabbitMQ 或 Redis 作为中间人，那么你也可以在运行时直接在<strong>职程上设置速率限制</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">celery control rate_limit tasks.add 10/m</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>TinyDolphin</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.tinydolphin.cn/2018/11/04/Celery/初次使用 Celery/" title="初次使用 Celery">https://www.tinydolphin.cn/2018/11/04/Celery/初次使用 Celery/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+        
+      <div class="post-tags">
+        
+          <a href="/tags/Celery/" rel="tag"><i class="fa fa-tag"></i> Celery</a>
+        
+          <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+        
+          <a href="/tags/分布式任务队列/" rel="tag"><i class="fa fa-tag"></i> 分布式任务队列</a>
+        
+      </div>
+    
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/04/Celery/Introduction to Celery/" rel="next" title="Introduction to Celery">
+                <i class="fa fa-chevron-left"></i> Introduction to Celery
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -443,8 +624,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -576,6 +766,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初次使用-Celery"><span class="nav-number">1.</span> <span class="nav-text">初次使用 Celery</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NO-1-选择一个-Broker"><span class="nav-number">1.0.1.</span> <span class="nav-text">NO.1 选择一个 Broker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NO-2-安装-Celery"><span class="nav-number">1.0.2.</span> <span class="nav-text">NO.2 安装 Celery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NO-3-应用"><span class="nav-number">1.0.3.</span> <span class="nav-text">NO.3 应用</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -762,6 +968,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
 
   
 
@@ -1169,7 +1379,7 @@
   <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-bookmark@latest/bookmark.min.js"></script>
   <script type="text/javascript">
   
-    bookmark.loadBookmark();
+    bookmark.scrollToMark('auto', "#更多");
   
   </script>
 
