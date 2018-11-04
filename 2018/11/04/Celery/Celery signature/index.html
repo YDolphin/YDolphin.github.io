@@ -122,18 +122,18 @@
 
 
 
-  <meta name="description" content="Celery signature[toc] 什么是 signature？前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够将任务调用的签名传递给另一个进程或者作为另一个函数的签名时，现有的方法就不够用了。 在 Celery 中，任务签名包含了一次任务调用的参数、关键字参数以及执行选项信息，它可以传递给其他函数，甚至序列化后通过">
+  <meta name="description" content="Celery signature什么是 signature？前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够将任务调用的签名传递给另一个进程或者作为另一个函数的签名时，现有的方法就不够用了。 在 Celery 中，任务签名包含了一次任务调用的参数、关键字参数以及执行选项信息，它可以传递给其他函数，甚至序列化后通过网络传输。">
 <meta name="keywords" content="Celery,Python,分布式任务队列,签名">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Celery signature">
 <meta property="og:url" content="https://www.tinydolphin.cn/2018/11/04/Celery/Celery signature/index.html">
 <meta property="og:site_name" content="TinyDolphin&#39;s Blog">
-<meta property="og:description" content="Celery signature[toc] 什么是 signature？前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够将任务调用的签名传递给另一个进程或者作为另一个函数的签名时，现有的方法就不够用了。 在 Celery 中，任务签名包含了一次任务调用的参数、关键字参数以及执行选项信息，它可以传递给其他函数，甚至序列化后通过">
+<meta property="og:description" content="Celery signature什么是 signature？前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够将任务调用的签名传递给另一个进程或者作为另一个函数的签名时，现有的方法就不够用了。 在 Celery 中，任务签名包含了一次任务调用的参数、关键字参数以及执行选项信息，它可以传递给其他函数，甚至序列化后通过网络传输。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-04T14:12:30.210Z">
+<meta property="og:updated_time" content="2018-11-04T14:13:40.438Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Celery signature">
-<meta name="twitter:description" content="Celery signature[toc] 什么是 signature？前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够将任务调用的签名传递给另一个进程或者作为另一个函数的签名时，现有的方法就不够用了。 在 Celery 中，任务签名包含了一次任务调用的参数、关键字参数以及执行选项信息，它可以传递给其他函数，甚至序列化后通过">
+<meta name="twitter:description" content="Celery signature什么是 signature？前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够将任务调用的签名传递给另一个进程或者作为另一个函数的签名时，现有的方法就不够用了。 在 Celery 中，任务签名包含了一次任务调用的参数、关键字参数以及执行选项信息，它可以传递给其他函数，甚至序列化后通过网络传输。">
 
 
 
@@ -410,7 +410,7 @@
                 
               
 
-              <time title="创建时间：2018-11-04 20:04:21 / 修改时间：22:12:30" itemprop="dateCreated datePublished" datetime="2018-11-04T20:04:21+08:00">2018-11-04</time>
+              <time title="创建时间：2018-11-04 20:04:21 / 修改时间：22:13:40" itemprop="dateCreated datePublished" datetime="2018-11-04T20:04:21+08:00">2018-11-04</time>
             
 
             
@@ -501,8 +501,7 @@
       
 
       
-        <h1 id="Celery-signature"><a href="#Celery-signature" class="headerlink" title="Celery signature"></a>Celery signature</h1><p>[toc]</p>
-<h2 id="什么是-signature？"><a href="#什么是-signature？" class="headerlink" title="什么是 signature？"></a>什么是 signature？</h2><p>前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够<strong>将任务调用的签名传递给另一个进程或者作为另一个函数的签名时</strong>，现有的方法就不够用了。</p>
+        <h1 id="Celery-signature"><a href="#Celery-signature" class="headerlink" title="Celery signature"></a>Celery signature</h1><h2 id="什么是-signature？"><a href="#什么是-signature？" class="headerlink" title="什么是 signature？"></a>什么是 signature？</h2><p>前面介绍了可以通过 delay 和 apply_async 来执行一个任务，多数情况下这已经足够使用，但是有时候你希望能够<strong>将任务调用的签名传递给另一个进程或者作为另一个函数的签名时</strong>，现有的方法就不够用了。</p>
 <p>在 Celery 中，任务签名包含了<strong>一次任务调用的参数</strong>、<strong>关键字参数</strong>以及<strong>执行选项信息</strong>，它可以传递给其他函数，甚至序列化后通过网络传输。</p>
 <h2 id="如何创建-signature？"><a href="#如何创建-signature？" class="headerlink" title="如何创建 signature？"></a>如何创建 signature？</h2><h3 id="通过任务的-signature-方法，创建任务签名对象"><a href="#通过任务的-signature-方法，创建任务签名对象" class="headerlink" title="通过任务的 signature 方法，创建任务签名对象"></a>通过任务的 <strong>signature 方法</strong>，创建任务签名对象</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.signature((<span class="number">2</span>, <span class="number">2</span>), countdown=<span class="number">10</span>)</span><br><span class="line">tasks.add(<span class="number">2</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="通过快捷方法，创建任务签名对象："><a href="#通过快捷方法，创建任务签名对象：" class="headerlink" title="通过快捷方法，创建任务签名对象："></a>通过快捷方法，创建任务签名对象：</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>add.s(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">tasks.add(<span class="number">2</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
