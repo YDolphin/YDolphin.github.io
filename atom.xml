@@ -296,41 +296,6 @@
   </entry>
   
   <entry>
-    <title>Mac 安装 Redis</title>
-    <link href="https://www.tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Redis/"/>
-    <id>https://www.tinydolphin.cn/2018/09/17/工具/Mac 安装 Redis/</id>
-    <published>2018-09-17T15:22:54.000Z</published>
-    <updated>2018-10-30T02:58:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac-安装-Redis"><a href="#Mac-安装-Redis" class="headerlink" title="Mac 安装 Redis"></a>Mac 安装 Redis</h1><h3 id="NO-1-Mac-下安装-Redis"><a href="#NO-1-Mac-下安装-Redis" class="headerlink" title="NO.1 Mac 下安装 Redis"></a>NO.1 Mac 下安装 Redis</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install redis</span><br></pre></td></tr></table></figure><h3 id="NO-2-启动-amp-停止-Rabbitmq"><a href="#NO-2-启动-amp-停止-Rabbitmq" class="headerlink" title="NO.2 启动 &amp; 停止 Rabbitmq"></a>NO.2 启动 &amp; 停止 Rabbitmq</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动Redis服务</span><br><span class="line">brew services start redis</span><br><span class="line"><span class="meta">#</span> 关闭Redis服务</span><br><span class="line">brew services stop redis</span><br><span class="line"><span class="meta">#</span> 重启Redis服务</span><br><span class="line">brew services restart redis</span><br><span class="line"><span class="meta">#</span> 打开图形化界面</span><br><span class="line">redis-cli</span><br></pre></td></tr></table></figure><h3 id="NO-3-redise的配置文件所在路径"><a href="#NO-3-redise的配置文件所在路径" class="headerlink" title="NO.3 redise的配置文件所在路径"></a>NO.3 redise的配置文件所在路径</h3><p>/usr/local/etc/redis.conf</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="Redis" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Redis/"/>
-    
-      <category term="Celery" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Redis/Celery/"/>
-    
-    
-      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
-    
-      <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
-    
-      <category term="Redis" scheme="https://www.tinydolphin.cn/tags/Redis/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Mac 安装 Rabbitmq</title>
     <link href="https://www.tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Rabbitmq/"/>
     <id>https://www.tinydolphin.cn/2018/09/17/工具/Mac 安装 Rabbitmq/</id>
@@ -362,6 +327,41 @@
       <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
     
       <category term="Rabbitmq" scheme="https://www.tinydolphin.cn/tags/Rabbitmq/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac 安装 Redis</title>
+    <link href="https://www.tinydolphin.cn/2018/09/17/%E5%B7%A5%E5%85%B7/Mac%20%E5%AE%89%E8%A3%85%20Redis/"/>
+    <id>https://www.tinydolphin.cn/2018/09/17/工具/Mac 安装 Redis/</id>
+    <published>2018-09-17T15:22:54.000Z</published>
+    <updated>2018-10-30T02:58:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac-安装-Redis"><a href="#Mac-安装-Redis" class="headerlink" title="Mac 安装 Redis"></a>Mac 安装 Redis</h1><h3 id="NO-1-Mac-下安装-Redis"><a href="#NO-1-Mac-下安装-Redis" class="headerlink" title="NO.1 Mac 下安装 Redis"></a>NO.1 Mac 下安装 Redis</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install redis</span><br></pre></td></tr></table></figure><h3 id="NO-2-启动-amp-停止-Rabbitmq"><a href="#NO-2-启动-amp-停止-Rabbitmq" class="headerlink" title="NO.2 启动 &amp; 停止 Rabbitmq"></a>NO.2 启动 &amp; 停止 Rabbitmq</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 启动Redis服务</span><br><span class="line">brew services start redis</span><br><span class="line"><span class="meta">#</span> 关闭Redis服务</span><br><span class="line">brew services stop redis</span><br><span class="line"><span class="meta">#</span> 重启Redis服务</span><br><span class="line">brew services restart redis</span><br><span class="line"><span class="meta">#</span> 打开图形化界面</span><br><span class="line">redis-cli</span><br></pre></td></tr></table></figure><h3 id="NO-3-redise的配置文件所在路径"><a href="#NO-3-redise的配置文件所在路径" class="headerlink" title="NO.3 redise的配置文件所在路径"></a>NO.3 redise的配置文件所在路径</h3><p>/usr/local/etc/redis.conf</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="Redis" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Redis/"/>
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/Redis/Celery/"/>
+    
+    
+      <category term="Celery" scheme="https://www.tinydolphin.cn/tags/Celery/"/>
+    
+      <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
+    
+      <category term="Redis" scheme="https://www.tinydolphin.cn/tags/Redis/"/>
     
   </entry>
   

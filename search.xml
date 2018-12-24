@@ -127,22 +127,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Mac 安装 Redis]]></title>
-    <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20Redis%2F</url>
-    <content type="text"><![CDATA[Mac 安装 RedisNO.1 Mac 下安装 Redis1brew install redis NO.2 启动 &amp; 停止 Rabbitmq12345678# 启动Redis服务brew services start redis# 关闭Redis服务brew services stop redis# 重启Redis服务brew services restart redis# 打开图形化界面redis-cli NO.3 redise的配置文件所在路径/usr/local/etc/redis.conf]]></content>
-      <categories>
-        <category>工具</category>
-        <category>Redis</category>
-        <category>Celery</category>
-      </categories>
-      <tags>
-        <tag>Celery</tag>
-        <tag>工具</tag>
-        <tag>Mac</tag>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Mac 安装 Rabbitmq]]></title>
     <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20Rabbitmq%2F</url>
     <content type="text"><![CDATA[Mac 安装 RabbitmqNO.1 Mac 下安装 Rabbitmq1234/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" # 安装 brew（Homebrew：Mac OS平台下的软件包管理工具）brew install rabbitmqsudo vim ~/.bash_profilePATH=$PATH:/usr/local/sbin # 最后一行加上 NO.2 启动 &amp; 停止 Rabbitmq12345678# 启动服务brew services start rabbitmq# 停止服务brew services stop rabbitmq# 启用插件rabbitmq-plugins enable rabbitmq_management# 禁用插件rabbitmq-plugins disable rabbitmq_management NO.3 进入控制台http://localhost:15672/ 默认用户名和密码：guest , guest]]></content>
@@ -156,6 +140,22 @@
         <tag>工具</tag>
         <tag>Mac</tag>
         <tag>Rabbitmq</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Mac 安装 Redis]]></title>
+    <url>%2F2018%2F09%2F17%2F%E5%B7%A5%E5%85%B7%2FMac%20%E5%AE%89%E8%A3%85%20Redis%2F</url>
+    <content type="text"><![CDATA[Mac 安装 RedisNO.1 Mac 下安装 Redis1brew install redis NO.2 启动 &amp; 停止 Rabbitmq12345678# 启动Redis服务brew services start redis# 关闭Redis服务brew services stop redis# 重启Redis服务brew services restart redis# 打开图形化界面redis-cli NO.3 redise的配置文件所在路径/usr/local/etc/redis.conf]]></content>
+      <categories>
+        <category>工具</category>
+        <category>Redis</category>
+        <category>Celery</category>
+      </categories>
+      <tags>
+        <tag>Celery</tag>
+        <tag>工具</tag>
+        <tag>Mac</tag>
+        <tag>Redis</tag>
       </tags>
   </entry>
   <entry>
