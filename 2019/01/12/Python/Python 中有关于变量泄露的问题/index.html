@@ -126,11 +126,11 @@
 <meta name="keywords" content="Python,变量泄露,列表推导中,生成器表达式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python 中有关于变量泄露的问题">
-<meta property="og:url" content="https://www.tinydolphin.cn/2019/01/12/Python/Python 列表推导 & 生成器表达式.1/index.html">
+<meta property="og:url" content="https://www.tinydolphin.cn/2019/01/12/Python/Python 中有关于变量泄露的问题/index.html">
 <meta property="og:site_name" content="TinyDolphin&#39;s Blog">
 <meta property="og:description" content="Python 中有关于变量泄露的问题环境：Python 2.x语法：列表推导中 | 生成器表达式 | 集合推导 | 字典推导操作：for 关键词之后的赋值操作影响：上下文中的同名变量 123456789Python 2.7.10 (default, Aug 17 2018, 19:45:58)[GCC 4.2.1 Compatible Apple LLVM 10.0.0 (clang-1000.0">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-12T14:10:02.214Z">
+<meta property="og:updated_time" content="2019-01-12T14:12:50.188Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 中有关于变量泄露的问题">
 <meta name="twitter:description" content="Python 中有关于变量泄露的问题环境：Python 2.x语法：列表推导中 | 生成器表达式 | 集合推导 | 字典推导操作：for 关键词之后的赋值操作影响：上下文中的同名变量 123456789Python 2.7.10 (default, Aug 17 2018, 19:45:58)[GCC 4.2.1 Compatible Apple LLVM 10.0.0 (clang-1000.0">
@@ -142,7 +142,7 @@
 
 
 
-  <link rel="canonical" href="https://www.tinydolphin.cn/2019/01/12/Python/Python 列表推导 & 生成器表达式.1/"/>
+  <link rel="canonical" href="https://www.tinydolphin.cn/2019/01/12/Python/Python 中有关于变量泄露的问题/"/>
 
 
 
@@ -368,7 +368,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.tinydolphin.cn/2019/01/12/Python/Python 列表推导 & 生成器表达式.1/">
+    <link itemprop="mainEntityOfPage" href="https://www.tinydolphin.cn/2019/01/12/Python/Python 中有关于变量泄露的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="TinyDolphin">
@@ -410,7 +410,7 @@
                 
               
 
-              <time title="创建时间：2019-01-12 22:04:24 / 修改时间：22:10:02" itemprop="dateCreated datePublished" datetime="2019-01-12T22:04:24+08:00">2019-01-12</time>
+              <time title="创建时间：2019-01-12 22:04:24 / 修改时间：22:12:50" itemprop="dateCreated datePublished" datetime="2019-01-12T22:04:24+08:00">2019-01-12</time>
             
 
             
@@ -496,7 +496,7 @@
       
         <h1 id="Python-中有关于变量泄露的问题"><a href="#Python-中有关于变量泄露的问题" class="headerlink" title="Python 中有关于变量泄露的问题"></a>Python 中有关于变量泄露的问题</h1><p>环境：Python 2.x<br>语法：<strong>列表推导中 | 生成器表达式 | 集合推导 | 字典推导</strong><br>操作：for 关键词之后的赋值操作<br>影响：上下文中的同名变量</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Python <span class="number">2.7</span><span class="number">.10</span> (default, Aug <span class="number">17</span> <span class="number">2018</span>, <span class="number">19</span>:<span class="number">45</span>:<span class="number">58</span>)</span><br><span class="line">[GCC <span class="number">4.2</span><span class="number">.1</span> Compatible Apple LLVM <span class="number">10.0</span><span class="number">.0</span> (clang<span class="number">-1000.0</span><span class="number">.42</span>)] on darwin</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="string">'abc'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = [x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="string">'123'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x</span><br><span class="line"><span class="string">'3'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y</span><br><span class="line">[<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>]</span><br></pre></td></tr></table></figure>
-<p>同样的情况，在 <strong>Python 3.x</strong> 的环境下，不会发生。<br><br>WHY：Python3 中这些语法都有自己的<strong>局部作用域</strong>，就像函数似的。</p>
+<p>同样的情况，在 <strong>Python 3.x</strong> 的环境下，不会发生。<br>WHY：Python3 中这些语法都有自己的<strong>局部作用域</strong>，就像函数似的。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Python <span class="number">3.7</span><span class="number">.0</span> (default, Sep <span class="number">18</span> <span class="number">2018</span>, <span class="number">18</span>:<span class="number">47</span>:<span class="number">22</span>)</span><br><span class="line">[Clang <span class="number">9.1</span><span class="number">.0</span> (clang<span class="number">-902.0</span><span class="number">.39</span><span class="number">.2</span>)] on darwin</span><br><span class="line">Type <span class="string">"help"</span>, <span class="string">"copyright"</span>, <span class="string">"credits"</span> <span class="keyword">or</span> <span class="string">"license"</span> <span class="keyword">for</span> more information.</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="string">'abc'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = [x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="string">'123'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x <span class="comment"># x 的值被保留了</span></span><br><span class="line"><span class="string">'abc'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y <span class="comment"># 列表推导也创建了正确的列表</span></span><br><span class="line">[<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>]</span><br></pre></td></tr></table></figure>
 <p>PS：<strong>列表推导</strong>：构建<strong>列表</strong>的快捷方式；<strong>生成器表达式</strong>：创建<strong>其他任何类型的序列</strong>。</p>
 <p>PSS：列表推导 &amp; 生成器表达式 ”<strong>更具可读性</strong>”《fluent python》中推荐使用，使用的原则：<strong>只用列表推导来创建新的列表，并且尽量保持简短，最好不超过两行</strong>。</p>
@@ -521,7 +521,7 @@
     <strong>本文作者： </strong>TinyDolphin</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.tinydolphin.cn/2019/01/12/Python/Python 列表推导 & 生成器表达式.1/" title="Python 中有关于变量泄露的问题">https://www.tinydolphin.cn/2019/01/12/Python/Python 列表推导 & 生成器表达式.1/</a>
+    <a href="https://www.tinydolphin.cn/2019/01/12/Python/Python 中有关于变量泄露的问题/" title="Python 中有关于变量泄露的问题">https://www.tinydolphin.cn/2019/01/12/Python/Python 中有关于变量泄露的问题/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
