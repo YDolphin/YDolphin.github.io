@@ -4,12 +4,12 @@
 
     
   <url>
-    <loc>https://www.tinydolphin.cn/2019/01/12/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF/Centos%207%20%E9%83%A8%E7%BD%B2%20selenium%20+%20chrome%20+%20chromedriver/</loc>
-    <lastmod>2019-01-12T07:15:15.037Z</lastmod>
+    <loc>https://www.tinydolphin.cn/2018/12/24/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF/Centos%207%20%E9%83%A8%E7%BD%B2%20selenium%20+%20chrome%20+%20chromedriver/</loc>
+    <lastmod>2019-01-12T07:28:51.845Z</lastmod>
     <data>
         <display>
         <title>Centos 7 部署 selenium + chrome + chromedriver</title>
-        <pubTime>2019-01-12T06:13:44.000Z</pubTime>
+        <pubTime>2018-12-24T03:06:23.000Z</pubTime>
         
         <tag>工具</tag>
          
@@ -17,12 +17,32 @@
          
         <tag>selenium</tag>
          
-        <tag>Centos7</tag>
+         
+           
+             
+              <breadCrumb title="工具" url="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.tinydolphin.cn/2018/09/10/%E5%B7%A5%E5%85%B7/Mac%E7%BB%88%E7%AB%AF%E6%B7%BB%E5%8A%A0ll%E3%80%81la%E3%80%81l%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2019-01-12T07:26:23.712Z</lastmod>
+    <data>
+        <display>
+        <title>Mac终端添加ll、la、l命令</title>
+        <pubTime>2018-09-10T15:40:23.000Z</pubTime>
+        
+        <tag>工具</tag>
+         
+        <tag>Mac</tag>
          
          
            
              
-              <breadCrumb title="Python网络爬虫技术" url="https://www.tinydolphin.cn/categories/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF/"/>
+              <breadCrumb title="工具" url="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
@@ -77,30 +97,6 @@
            
              
               <breadCrumb title="Python网络爬虫技术" url="https://www.tinydolphin.cn/categories/Python%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E6%8A%80%E6%9C%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.tinydolphin.cn/2018/12/24/%E5%B7%A5%E5%85%B7/Centos%207%20%E9%83%A8%E7%BD%B2%20selenium%20+%20chrome%20+%20chromedriver/</loc>
-    <lastmod>2018-12-24T06:00:07.212Z</lastmod>
-    <data>
-        <display>
-        <title>Centos 7 部署 selenium + chrome + chromedriver</title>
-        <pubTime>2018-12-24T03:06:23.000Z</pubTime>
-        
-        <tag>工具</tag>
-         
-        <tag>chrome</tag>
-         
-        <tag>selenium</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
@@ -375,28 +371,6 @@
            
              
               <breadCrumb title="ACM" url="https://www.tinydolphin.cn/categories/ACM/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.tinydolphin.cn/2018/09/10/%E5%B7%A5%E5%85%B7/Mac%E7%BB%88%E7%AB%AF%E6%B7%BB%E5%8A%A0ll%E3%80%81la%E3%80%81l%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2018-10-28T13:50:09.000Z</lastmod>
-    <data>
-        <display>
-        <title>Mac终端添加ll、la、l命令</title>
-        <pubTime>2018-09-10T15:40:23.000Z</pubTime>
-        
-        <tag>工具</tag>
-         
-        <tag>Mac</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
