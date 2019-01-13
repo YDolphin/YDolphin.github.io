@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.tinydolphin.cn/"/>
-  <updated>2019-01-12T14:12:50.188Z</updated>
+  <updated>2019-01-13T07:50:52.203Z</updated>
   <id>https://www.tinydolphin.cn/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python 作用域</title>
+    <link href="https://www.tinydolphin.cn/2019/01/13/Python/Python%20%E4%BD%9C%E7%94%A8%E5%9F%9F/"/>
+    <id>https://www.tinydolphin.cn/2019/01/13/Python/Python 作用域/</id>
+    <published>2019-01-13T07:50:34.000Z</published>
+    <updated>2019-01-13T07:50:52.203Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Python-作用域"><a href="#Python-作用域" class="headerlink" title="Python 作用域"></a>Python 作用域</h1><p>Python中没有块级作用，一共4个作用：LEGB</p><ul><li>L（Local）：局部作用域（函数中定义的变量）</li><li>E（Enclosing）：嵌套作用域（enclosing 作用域，外层非全局作用域）</li><li>G（Global）：全局作用域（模块级别定义的变量）</li><li>B（built-in）：内建作用域，系统固定模块里面的变量（比如int，bytearray等）</li></ul><p>以 L -&gt; E -&gt; G -&gt; B 的顺序去找作用域（优先找 L ， 其次找 E … ），下面我们依次来区分一下各个作用域。</p><hr><h2 id="局部作用域-Local-amp-全局作用域-Global"><a href="#局部作用域-Local-amp-全局作用域-Global" class="headerlink" title="局部作用域 Local &amp; 全局作用域 Global"></a>局部作用域 Local &amp; 全局作用域 Global</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">()</span>:</span></span><br><span class="line">trueb = <span class="number">2</span></span><br><span class="line">trueprint(b) <span class="comment"># 局部变量</span></span><br><span class="line">trueprint(a) <span class="comment"># 虽然局部没有变量 a，但是会输出全局变量 a。如果不注释下一条赋值语句，则报错。</span></span><br><span class="line">true<span class="comment"># a = a + 1 # 报错：UnboundLocalError: local variable 'a' referenced before assignment 1️⃣</span></span><br><span class="line">print(a) <span class="comment"># 输出全局变量</span></span><br></pre></td></tr></table></figure><p>1️⃣ 注意：Python ::编译函数::的定义体时，它判断 a 是局部变量，因为在函数中给 a ::赋值::了，所以函数中所有的变量 a 都属于局部变量</p><hr><h2 id="嵌套的父级函数的局部作用域（Enclosing）"><a href="#嵌套的父级函数的局部作用域（Enclosing）" class="headerlink" title="嵌套的父级函数的局部作用域（Enclosing）"></a>嵌套的父级函数的局部作用域（Enclosing）</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">truea = <span class="number">1</span></span><br><span class="line">trueprint(a)</span><br><span class="line">true<span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">truetrueprint(a) <span class="comment"># 输出 1 2️⃣</span></span><br><span class="line">truetrue<span class="comment"># a = a + 1 #  报错：UnboundLocalError: local variable 'a' referenced before assignment</span></span><br><span class="line">trueinner()</span><br><span class="line">trueprint(a)</span><br></pre></td></tr></table></figure><p>2️⃣ 注意：不同作用域变量是不可见的，但是下级作用域可以对上级作用域的变量::只读可见::</p><hr><h2 id="global-amp-nonlocal-关键字"><a href="#global-amp-nonlocal-关键字" class="headerlink" title="global &amp; nonlocal 关键字"></a>global &amp; nonlocal 关键字</h2><h3 id="global"><a href="#global" class="headerlink" title="global"></a>global</h3><p>作用：指定当前变量使用外部的全局变量</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">total = <span class="number">0</span>                        <span class="comment"># total是一个全局变量</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plus</span><span class="params">(arg1, arg2)</span>:</span></span><br><span class="line">true  <span class="comment"># global total# 使用 global 关键字声明此处的 total 引用外部全局的 total</span></span><br><span class="line">    total = arg1 + arg2          <span class="comment"># total在这里是局部变量.</span></span><br><span class="line">    print(<span class="string">"函数内局部变量total=  "</span>, total)</span><br><span class="line">    print(<span class="string">"函数内的total的内存地址是: "</span>, id(total))</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"></span><br><span class="line">plus(<span class="number">10</span>, <span class="number">20</span>)</span><br><span class="line">print(<span class="string">"函数外部全局变量total= "</span>, total)</span><br><span class="line">print(<span class="string">"函数外的total的内存地址是: "</span>, id(total))</span><br></pre></td></tr></table></figure><h3 id="nonlocal"><a href="#nonlocal" class="headerlink" title="nonlocal"></a>nonlocal</h3><p>作用：修改嵌套作用域（enclosing 作用域，外层非全局作用域）中的变量</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line">print(<span class="string">"函数outer调用之前全局变量a的内存地址： "</span>, id(a))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></span><br><span class="line">    a = <span class="number">2</span></span><br><span class="line">    print(<span class="string">"函数outer调用之时闭包外部的变量a的内存地址： "</span>, id(a))</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="comment"># nonlocal a   # 注意这行，引用了 outer 函数的 a 变量。</span></span><br><span class="line">        a = <span class="number">3</span></span><br><span class="line">        print(<span class="string">"函数inner调用之后闭包内部变量a的内存地址： "</span>, id(a))</span><br><span class="line">    inner()</span><br><span class="line">    print(<span class="string">"函数inner调用之后，闭包外部的变量a的内存地址： "</span>, id(a))</span><br><span class="line">outer()</span><br><span class="line">print(<span class="string">"函数outer执行完毕，全局变量a的内存地址： "</span>, id(a))</span><br></pre></td></tr></table></figure><hr><h2 id="Python-函数的作用域：取决于其函数代码块在整体代码中的位置，而不是调用时机的位置"><a href="#Python-函数的作用域：取决于其函数代码块在整体代码中的位置，而不是调用时机的位置" class="headerlink" title="Python 函数的作用域：取决于其函数代码块在整体代码中的位置，而不是调用时机的位置"></a>Python 函数的作用域：取决于其函数代码块在整体代码中的位置，而不是调用时机的位置</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    print(a) <span class="comment"># 取全局变量 a = 1</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">    a = <span class="number">2</span></span><br><span class="line">    f1()</span><br><span class="line"></span><br><span class="line">f2()</span><br></pre></td></tr></table></figure><p>#学习/FluentPython/作用域</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="https://www.tinydolphin.cn/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="https://www.tinydolphin.cn/tags/Python/"/>
+    
+      <category term="作用域" scheme="https://www.tinydolphin.cn/tags/%E4%BD%9C%E7%94%A8%E5%9F%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>Python 中有关于变量泄露的问题</title>
@@ -580,33 +607,6 @@
     <updated>2019-01-12T07:26:23.712Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac终端添加ll、la、l命令"><a href="#Mac终端添加ll、la、l命令" class="headerlink" title="Mac终端添加ll、la、l命令"></a>Mac终端添加ll、la、l命令</h1><h3 id="NO-1-编辑-bash-profile文件"><a href="#NO-1-编辑-bash-profile文件" class="headerlink" title="NO.1 编辑.bash_profile文件"></a>NO.1 编辑.bash_profile文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br></pre></td></tr></table></figure><h3 id="NO-2-添加别名映射关系"><a href="#NO-2-添加别名映射关系" class="headerlink" title="NO.2 添加别名映射关系"></a>NO.2 添加别名映射关系</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias ll='ls -alF'</span><br><span class="line">alias la='ls -A'</span><br><span class="line">alias l='ls -CF'</span><br></pre></td></tr></table></figure><h3 id="NO-3-source-文件"><a href="#NO-3-source-文件" class="headerlink" title="NO.3 source 文件"></a>NO.3 source 文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;/assets/css/APlayer.min.css&quot;&gt;&lt;script src=&quot;/assets/js/APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="工具" scheme="https://www.tinydolphin.cn/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="工具" scheme="https://www.tinydolphin.cn/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="Mac" scheme="https://www.tinydolphin.cn/tags/Mac/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac如何重置root用户密码</title>
-    <link href="https://www.tinydolphin.cn/2018/09/10/%E5%B7%A5%E5%85%B7/Mac%E5%A6%82%E4%BD%95%E9%87%8D%E7%BD%AEroot%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81/"/>
-    <id>https://www.tinydolphin.cn/2018/09/10/工具/Mac如何重置root用户密码/</id>
-    <published>2018-09-10T15:30:23.000Z</published>
-    <updated>2018-10-28T13:50:05.000Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="Mac如何重置root用户密码？"><a href="#Mac如何重置root用户密码？" class="headerlink" title="Mac如何重置root用户密码？"></a>Mac如何重置root用户密码？</h1><p>1、打开终端，输入：sudo bash，提示输入当前用户密码</p><p>2、成功进入bash命令模式之后，输入 sudo passwd root</p><p>3、输入新的 root 密码即可</p>]]></content>
     
     <summary type="html">
     
